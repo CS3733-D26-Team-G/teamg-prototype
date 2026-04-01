@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    font-size: 35px;
+    margin-left: 5rem
+}
+
+.main-content-form {
+    width: 50vw;
+    background-color: white;
+    margin-bottom: 200px;
+}
+
+h2 {
+    margin: 0;
+    margin-top: 3rem;
+
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 4rem;
+    width: 35vw;
+    margin-left: 5rem
+}
+
+.css-xrjw2f {
+    justify-content: start !important;
+    position: relative !important;
+    -webkit-justify-content: start !important;
+}
