@@ -3,7 +3,7 @@ import morgan from "morgan";
 const app = express();
 
 // You can change this later to process.env.VARIABLE
-const port = 3001;
+const port = process.env.PORT;
 
 // Middleware
 app.use(express.json());
