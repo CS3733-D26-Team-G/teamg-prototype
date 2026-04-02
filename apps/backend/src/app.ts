@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/employee", async (req, res) => {
-  const allEmployeeData= await prisma.employeelibrary.findMany();
+  const allEmployeeData= await prisma.employee.findMany();
   console.log(allEmployeeData);
   res.sendStatus(200)
 });
