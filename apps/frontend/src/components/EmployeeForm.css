@@ -16,7 +16,20 @@ h2 {
     font-size: larger;
     font-family: 'Times New Roman', Times, serif;
     font-weight: lighter
+}
 
+label {
+    justify-self: start;
+    position: relative;
+    font-size: 180%;
+}
+
+.toggler {
+    padding-top: 2rem;
+}
+
+.main {
+    margin-left: 5rem;
 }
 
 form {
@@ -24,8 +37,8 @@ form {
     flex-direction: column;
     gap: 2rem;
     margin-top: 2rem;
+    margin-left: 0;
     width: 35vw;
-    margin-left: 5rem
 }
 
 .css-xrjw2f {
@@ -34,6 +47,3 @@ form {
     -webkit-justify-content: start !important;
 }
 
-.submit-button {
-    width: 30%;
-}

@@ -2,11 +2,15 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
+import Button from '@mui/material/Button'
+// import SendIcon from '@mui/icons-material/Send'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 import { MenuItem } from '@mui/material';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import CalendarInput from './calendarInput';
 import './ContentForm.css'
+
+
 
 export default function ContentForm() {
 
@@ -19,7 +23,7 @@ export default function ContentForm() {
     return (
         <section className="main-content-form">
             <div className="header">
-                <h2>Submit Files Here</h2>
+                <h2>Submit a file</h2>
             </div>
 
             <div className="main">
@@ -71,6 +75,11 @@ export default function ContentForm() {
                             <MenuItem value={30}>Unavailable</MenuItem>
                         </Select>
                     </FormControl>
+                    {/* <div className='submit-container'> */}
+                        <Button variant="contained" className="submit-button">
+                            Submit
+                        </Button>
+                    {/* </div> */}
                 </form>
             </div>
         </section>
