@@ -1,5 +1,7 @@
 import express from "express";
 import morgan from "morgan";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.production" })
 const app = express();
 
 // You can change this later to process.env.VARIABLE
@@ -17,4 +19,5 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
 export default app;
