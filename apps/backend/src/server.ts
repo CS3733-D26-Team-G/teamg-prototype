@@ -1,14 +1,8 @@
-import { prisma } from "./lib/prisma";
+import { prisma } from "./lib/prisma.js";
 
 async function main() {
-  const test = await prisma.test.create(
-    {
-      data: {
-        content: "a",
-      }
-    });
-
-  console.log(test);
+  const allTestData= await prisma.test.findMany();
+  console.log(allTestData);
 }
 
 main().then(async () => {
