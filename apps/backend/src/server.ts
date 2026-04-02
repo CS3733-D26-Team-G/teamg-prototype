@@ -1,8 +1,11 @@
 import { prisma } from "./lib/prisma.js";
 
 async function main() {
-  const allTestData= await prisma.test.findMany();
-  console.log(allTestData);
+  const allEmployee= await prisma.employee.findMany();
+  console.log(allEmployee);
+
+  const allContent = await prisma.content.findMany();
+  console.log(allContent);
 }
 
 main().then(async () => {
