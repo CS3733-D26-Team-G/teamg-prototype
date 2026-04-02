@@ -1,29 +1,53 @@
 generator client {
   provider               = "prisma-client"
   output                 = "../generated/prisma"
-  moduleFormat           = "esm"
   generatedFileExtension = "ts"
   importFileExtension    = "ts"
+  moduleFormat           = "esm"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-model employeelibrary {
-  title         String
-  url           String   @id
-  content_owner String
-  persona       String
-  last_modified DateTime @db.Date
-  expiry        DateTime @db.Date
-  content_type  String
-  status        String
+enum Department {
+  OPERATION_TECHNOLOGY
+  ACCOUNTING
 }
 
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model test {
-  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  content    String?
+model Employee {
+  uuid            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  first_name      String
+  last_name       String
+  date_of_birth   DateTime   @db.Date
+  position        String
+  department      Department
+  start_date      DateTime   @db.Date
+  supervisor      String
+  phone_number    String
+  personal_email  String
+  corporate_email String
+}
+
+enum ContentType {
+  REFERENCE
+  WORKFLOW
+}
+
+enum ContentStatus {
+  AVAILABLE
+  IN_USE
+  UNAVAILABLE
+}
+
+model Content {
+  id                 String        @id(map: "contentlibrary_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title              String
+  url                String
+  content_owner      String
+  for_position       String
+  last_modified_time DateTime      @db.Timestamp(6)
+  expiration_time    DateTime      @db.Timestamp(6)
+  content_type       ContentType
+  status             ContentStatus
 }
