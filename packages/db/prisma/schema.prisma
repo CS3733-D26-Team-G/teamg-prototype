@@ -10,11 +10,6 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Department {
-  OPERATION_TECHNOLOGY
-  ACCOUNTING
-}
-
 model Employee {
   uuid            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   first_name      String
@@ -29,6 +24,23 @@ model Employee {
   corporate_email String
 }
 
+model Content {
+  uuid               String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title              String
+  url                String
+  content_owner      String
+  for_position       String
+  last_modified_time DateTime      @db.Timestamp(6)
+  expiration_time    DateTime      @db.Timestamp(6)
+  content_type       ContentType
+  status             ContentStatus
+}
+
+enum Department {
+  OPERATION_TECHNOLOGY
+  ACCOUNTING
+}
+
 enum ContentType {
   REFERENCE
   WORKFLOW
@@ -38,16 +50,4 @@ enum ContentStatus {
   AVAILABLE
   IN_USE
   UNAVAILABLE
-}
-
-model Content {
-  id                 String        @id(map: "contentlibrary_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title              String
-  url                String
-  content_owner      String
-  for_position       String
-  last_modified_time DateTime      @db.Timestamp(6)
-  expiration_time    DateTime      @db.Timestamp(6)
-  content_type       ContentType
-  status             ContentStatus
 }
