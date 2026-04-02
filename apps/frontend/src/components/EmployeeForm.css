@@ -1,0 +1,49 @@
+.header {
+    display: flex;
+    font-size: 35px;
+    margin-left: 5rem
+}
+
+.main-content-form {
+    width: 50vw;
+    background-color: white;
+    margin-bottom: 200px;
+}
+
+h2 {
+    margin: 0;
+    margin-top: 3rem;
+    font-size: larger;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: lighter
+}
+
+label {
+    justify-self: start;
+    position: relative;
+    font-size: 180%;
+}
+
+.toggler {
+    padding-top: 2rem;
+}
+
+.main {
+    margin-left: 5rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-left: 0;
+    width: 35vw;
+}
+
+.css-xrjw2f {
+    justify-content: start !important;
+    position: relative !important;
+    -webkit-justify-content: start !important;
+}
+
