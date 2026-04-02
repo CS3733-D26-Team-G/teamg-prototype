@@ -1,6 +1,7 @@
 {
   "name": "db",
   "private": true,
+  "type": "module",
   "scripts": {
     "db:generate": "prisma generate",
     "db:push": "prisma db push"
