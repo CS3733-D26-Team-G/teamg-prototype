@@ -15,7 +15,7 @@ model Employee {
   first_name      String
   last_name       String
   date_of_birth   DateTime   @db.Date
-  position        String
+  position        Position
   department      Department
   start_date      DateTime   @db.Date
   supervisor      String
@@ -29,7 +29,7 @@ model Content {
   title              String
   url                String
   content_owner      String
-  for_position       String
+  for_position       Position
   last_modified_time DateTime      @db.Timestamp(6)
   expiration_time    DateTime      @db.Timestamp(6)
   content_type       ContentType
@@ -39,6 +39,11 @@ model Content {
 enum Department {
   OPERATION_TECHNOLOGY
   ACCOUNTING
+}
+
+enum Position {
+  UNDERWRITER
+  BUSINESS_ANALYST
 }
 
 enum ContentType {
