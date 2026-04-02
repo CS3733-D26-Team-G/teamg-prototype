@@ -16,9 +16,17 @@ app.get("/", (req, res) => {
 });
 
 app.get("/employee", async (req, res) => {
-  const allEmployeeData= await prisma.employee.findMany();
-  console.log(allEmployeeData);
-  res.sendStatus(200)
+  const allEmployee= await prisma.employee.findMany();
+  console.log(allEmployee);
+  res.send(allEmployee);
+  // res.sendStatus(200)
+});
+
+app.get("/content", async (req, res) => {
+  const allContent= await prisma.content.findMany();
+  console.log(allContent);
+  res.send(allContent);
+  // res.sendStatus(200)
 });
 
 // Start server
