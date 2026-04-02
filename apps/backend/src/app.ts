@@ -2,7 +2,10 @@ import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { prisma } from "./lib/prisma.js";
-dotenv.config({ path: ".env.production" })
+
+dotenv.config({ path: process.env.DOTENV_FILE ||
+    (process.env.NODE_ENV === "production" ? ".env.production" : ".env") })
+
 const app = express();
 
 const port = process.env.PORT;
