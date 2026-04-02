@@ -7,20 +7,22 @@ export default function HeroSection() {
         <div className='main-hero'>
             {/* <div className='hero-content-container'> */}
                 <div className='mission-statement'>
-                    <h1>With You</h1>
-                    <h1>Every Step</h1>
+                    <h1>Collaboration</h1>
+                    <h1>Accountability</h1>
+                    <h1>Respect</h1>
+                    <h1>Empowerment</h1>
                 </div>
                 <div className='hero-image'>
-                    
+
                 </div>
             {/* </div> */}
             <div className='jills-special-bar'>
-                <ButtonGroup className='button-group' variant="contained" color='white'>
-                    <Button 
-                        className='button' 
-                        sx={{ 
-                        fontFamily: 'Inter', 
-                        fontSize: '1.5rem', 
+                <ButtonGroup className="button-group" variant="contained" color='white'>
+                    <Button
+                        className='button'
+                        sx={{
+                        fontFamily: 'Inter',
+                        fontSize: '2vw',
                         fontWeight: 'bold',
                         transition: '0.3s',
                         '&:hover': {
@@ -31,11 +33,11 @@ export default function HeroSection() {
                         }}
                         >Pay Bills
                     </Button>
-                    <Button 
-                        className='button' 
-                        sx={{ 
-                        fontFamily: 'Inter', 
-                        fontSize: '1.5rem', 
+                    <Button
+                        className='button'
+                        sx={{
+                        fontFamily: 'Inter',
+                        fontSize: '2vw',
                         fontWeight: 'bold',
                         transition: '0.3s',
                         '&:hover': {
@@ -46,11 +48,11 @@ export default function HeroSection() {
                         }}
                         >Make a Claim
                     </Button>
-                    <Button 
-                        className='button' 
-                        sx={{ 
-                        fontFamily: 'Inter', 
-                        fontSize: '1.5rem', 
+                    <Button
+                        className='button'
+                        sx={{
+                        fontFamily: 'Inter',
+                        fontSize: '2vw',
                         fontWeight: 'bold',
                         transition: '0.3s',
                         '&:hover': {

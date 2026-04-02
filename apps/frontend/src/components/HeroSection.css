@@ -14,11 +14,10 @@ body {
 .button-group {
     background-color: white;
     position: absolute;
-    width: 75%;
+    width: 80%;
     left: 50%;
-    bottom: 20%;
+    bottom: 10%;
     transform: translateX(-50%);
-
 }
 
 /* div.hero-content-container {
@@ -31,24 +30,33 @@ body {
     flex-direction: column;
 }
 
-.mission-statement h1 {
-    font-size: 5rem;
+.mission-statement h1:first-letter{
+    font-size: 6vw;
     position: relative;
-    padding-left: 12vw;
+    padding-left: 5vw;
     margin: 0;
     transform: translateY(-25%);
-    
+}
+
+.mission-statement h1{
+    font-size: 4vw;
+    position: relative;
+    padding-left: 5vw;
+    margin: 0;
+    transform: translateY(-25%);
 }
 
 .button {
     width: 100%;
-    height: 4em;
+    height: 6.5vw;
     
 }
 
 .hero-image {
-    background-image: url('../assets/Hanover.png');
-    width: 50rem;
-    height: 34rem;
-    background-size: cover;
+    background-image: url('../assets/HanoverVols.png');
+    width: 80%;
+    height: 80%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
 }
