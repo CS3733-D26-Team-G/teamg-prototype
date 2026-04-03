@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar/>
         <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
