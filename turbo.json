@@ -2,10 +2,10 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "db:generate": {
-      "cache": true
+      "cache": false
     },
     "db:generate-prod": {
-      "cache": true
+      "cache": false
     },
     "dev": {
       "dependsOn": ["^db:generate"],
