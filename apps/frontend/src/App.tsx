@@ -1,19 +1,27 @@
-import { useState } from 'react'
-import ContentForm from './components/ContentForm.tsx'
-import EmployeeForm from './components/EmployeeForm'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
+import Navbar from "./components/Navbar.tsx";
+import { Routes, Route } from "react-router";
+import Dashboard from "./pages/dashboard.tsx";
+import ContentForm from "./pages/content-form.tsx";
+import EmployeesForm from "./pages/employees-form.tsx";
+import UnderWriterPortal from "./pages/underwriter-portal.tsx";
+import AnalystPortal from "./pages/analyst-portal.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div className='form-container'>
-        <EmployeeForm></EmployeeForm>
-      </div>  
+      <div>
+        <Navbar/>
+        <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/content" element={<ContentForm />} />
+            <Route path="/employees" element={<EmployeesForm />} />
+            <Route path="/underwriter" element={<UnderWriterPortal />} />
+            <Route path="/analyst" element={<AnalystPortal />} />
+        </Routes>
+      </div>
     </>
   )
 }
