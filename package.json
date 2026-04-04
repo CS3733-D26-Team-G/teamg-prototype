@@ -9,11 +9,11 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "apps/frontend/**/*.{js,jsx,ts,tsx}": [
+    "apps/frontend/src/**/*.{js,jsx,ts,tsx}": [
       "pnpm --filter frontend exec eslint --fix",
       "pnpm --filter frontend exec prettier --write"
     ],
-    "apps/backend/**/*.{js,jsx,ts,tsx}": [
+    "apps/backend/src/**/*.{js,jsx,ts,tsx}": [
       "pnpm --filter backend exec eslint --fix",
       "pnpm --filter backend exec prettier --write"
     ],

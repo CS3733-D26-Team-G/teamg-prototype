@@ -5,16 +5,24 @@ import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
   {
-    ignores: ["dist/**", "build/**", "coverage/**", "node_modules/**"],
+    ignores: [
+      "dist/**",
+      "build/**",
+      "coverage/**",
+      "node_modules/**",
+      ".turbo/**",
+    ],
   },
+
   js.configs.recommended,
   ...tseslint.configs.recommended,
+
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     languageOptions: {
       globals: {
-        ...globals.browser,
         ...globals.node,
+        ...globals.browser,
       },
     },
     rules: {
@@ -25,5 +33,6 @@ export default [
       ],
     },
   },
+
   eslintConfigPrettier,
 ];
