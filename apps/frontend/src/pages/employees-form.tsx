@@ -1,11 +1,9 @@
-
 function EmployeeForm() {
-
-    return(
-        <>
-            <h1>EmployeeForm</h1>
-        </>
-    );
+  return (
+    <>
+      <h1>EmployeeForm</h1>
+    </>
+  );
 }
 
 export default EmployeeForm;
