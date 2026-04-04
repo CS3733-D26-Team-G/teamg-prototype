@@ -40,7 +40,6 @@ export default function EmployeeForm() {
         <ToggleButtonGroup
           color="primary"
           value={alignment}
-          exclusive
           onChange={handleChange}
           aria-label="Platform"
           className="toggler"

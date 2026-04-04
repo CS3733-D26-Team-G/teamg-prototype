@@ -18,7 +18,7 @@ export default function HeroSection() {
         <ButtonGroup
           className="button-group"
           variant="contained"
-          color="white"
+          color="primary"
         >
           <Button
             className="button"
