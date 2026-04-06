@@ -11,7 +11,7 @@ import { MenuItem } from "@mui/material";
 import CalendarInput from "./CalendarInput.tsx";
 import "./EmployeeForm.css";
 
-export default function EmployeeForm() {
+export default function NewEmployeeForm() {
   const [alignment, setAlignment] = React.useState("web");
 
   const handleChange = (newAlignment: string) => {
@@ -45,8 +45,10 @@ export default function EmployeeForm() {
           className="toggler"
         >
           <ToggleButton value="New Employee">New Employee</ToggleButton>
-          <ToggleButton value="Change Employee">Change Employee</ToggleButton>
+          <ToggleButton value="Change Employee">Manage Employee</ToggleButton>
         </ToggleButtonGroup>
+
+        {/* New Employee Form */}
         <form>
           <label htmlFor="newHire">Personal Information</label>
           <TextField
@@ -109,6 +111,7 @@ export default function EmployeeForm() {
             label="Corporate Email Address"
             variant="outlined"
           ></TextField>
+      
         </form>
       </div>
     </section>
