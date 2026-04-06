@@ -17,4 +17,9 @@ router.get("/business-analyst", async (req, res) => {
   // TODO: pull data from prisma
 });
 
+router.post("/", async (req, res) => {
+  console.log(req.body);
+  res.sendStatus(200);
+});
+
 export default router;
