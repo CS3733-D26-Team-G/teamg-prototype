@@ -10,8 +10,8 @@ import AnalystPortal from "./pages/analyst-portal.tsx";
 function App() {
   return (
     <>
-      <div>
-        <Navbar />
+      <div className='main'>
+        {/* <Navbar /> */}
         <Routes>
           <Route
             path="/"
