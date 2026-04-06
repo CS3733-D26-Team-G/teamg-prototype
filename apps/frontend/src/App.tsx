@@ -8,15 +8,31 @@ import Activity from "./pages/activity.tsx";
 import Settings from "./pages/settings.tsx";
 import Profile from "./pages/profile.tsx";
 //import Navbar from "./components/Navbar.tsx";
+import ContentGrid from "./components/ContentGrid.tsx"
+import { type GridColDef } from '@mui/x-data-grid';
+const columns: GridColDef[] = [
+  { field: 'id', headerName: 'ID', width: 90 },
+  { field: 'firstName', headerName: 'First Name', width: 150 },
+  { field: 'lastName', headerName: 'Last Name', width: 150 },
+];
+const myRows = [
+  { id: 1, firstName: 'Colin' },
+  { id: 2, firstName: 'Isabelle' },
+  { id: 3, firstName: 'Emmy' },
+];
 
 function App() {
+
+  const handleEdit = (row: any) => console.log('Editing', row);
+  const handleDelete = (id: string | number) => console.log('Deleting', id);
   return (
     <>
       <div style={{ display: "flex", minHeight: "100vh" }}>
         <Sidebar />
         <div style={{ flexGrow: 1 }}>
+          <ContentGrid></ContentGrid>
           {/*<Navbar />*/}
-          <Routes>
+          {/* <Routes>
             <Route
               path="/"
               element={<Dashboard />}
@@ -45,7 +61,7 @@ function App() {
               path="/profile"
               element={<Profile />}
             />
-          </Routes>
+          </Routes> */}
         </div>
       </div>
     </>
