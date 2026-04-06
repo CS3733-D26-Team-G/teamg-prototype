@@ -3,12 +3,12 @@ import express from "express";
 const router = express.Router();
 
 router.get("/underwriter", async (req, res) => {
-  res.status(200);
+  res.sendStatus(200);
   // TODO: pull data from prisma
 });
 
 router.get("/business-analyst", async (req, res) => {
-  res.status(200);
+  res.sendStatus(200);
   // TODO: pull data from prisma
 });
 
