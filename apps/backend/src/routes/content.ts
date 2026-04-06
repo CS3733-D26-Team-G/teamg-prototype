@@ -2,6 +2,11 @@ import express from "express";
 
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+  res.sendStatus(200);
+  // TODO: pull data from prism
+});
+
 router.get("/underwriter", async (req, res) => {
   res.sendStatus(200);
   // TODO: pull data from prisma
