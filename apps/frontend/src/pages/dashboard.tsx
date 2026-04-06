@@ -1,9 +1,22 @@
-function Dashboard() {
+import { useState } from "react";
+import DashboardRecentActivity from "./DashboardComponents/DashboardRecentActivity";
+import SearchBar from "./DashboardComponents/SearchBar";
+import "./DashboardComponents/dashboard.css";
+
+export default function Dashboard() {
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
-    <>
-      <h1>Dashboard</h1>
-    </>
+    <div className="dashboard-main">
+      <div className="dashboard-header">
+        <h2>Welcome back to Hanover Management!</h2>
+        <h1>Manage and publish</h1>
+        <h1>content with ease</h1>
+        <SearchBar setSearchQuery={setSearchQuery}></SearchBar>
+      </div>
+      <div className="dashboard-activity">
+        <DashboardRecentActivity />
+      </div>
+    </div>
   );
 }
-
-export default Dashboard;
