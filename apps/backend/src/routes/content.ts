@@ -1,10 +1,10 @@
 import express from "express";
+import { prisma } from "../lib/prisma.ts";
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  res.sendStatus(200);
-  // TODO: pull data from prism
+  res.status(200).send(await prisma.content.findMany());
 });
 
 router.get("/underwriter", async (req, res) => {
