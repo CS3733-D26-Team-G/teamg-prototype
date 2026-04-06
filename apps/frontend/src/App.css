@@ -8,6 +8,11 @@
   justify-self: center;
 } */
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .hero {
   width: 100%;
 }
