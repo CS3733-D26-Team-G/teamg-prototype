@@ -1,43 +1,52 @@
 import "./App.css";
-import Navbar from "./components/Navbar.tsx";
 import { Routes, Route } from "react-router";
 import Dashboard from "./pages/dashboard.tsx";
-import ContentForm from "./pages/content-form.tsx";
-import EmployeesForm from "./pages/employees-form.tsx";
-import UnderWriterPortal from "./pages/underwriter-portal.tsx";
-import AnalystPortal from "./pages/analyst-portal.tsx";
+import Sidebar from "./components/Sidebar.tsx";
+import MyForms from "./pages/my-forms.tsx";
+import Library from "./pages/library.tsx";
+import Activity from "./pages/activity.tsx";
+import Settings from "./pages/settings.tsx";
+import Profile from "./pages/profile.tsx";
+//import Navbar from "./components/Navbar.tsx";
 
 function App() {
   return (
     <>
-      <div className='main'>
-        {/* <Navbar /> */}
-        <Routes>
-          <Route
-            path="/"
-            element={<Dashboard />}
-          />
-          <Route
-            path="/dashboard"
-            element={<Dashboard />}
-          />
-          <Route
-            path="/content"
-            element={<ContentForm />}
-          />
-          <Route
-            path="/employees"
-            element={<EmployeesForm />}
-          />
-          <Route
-            path="/underwriter"
-            element={<UnderWriterPortal />}
-          />
-          <Route
-            path="/analyst"
-            element={<AnalystPortal />}
-          />
-        </Routes>
+      <div style={{ display: "flex", minHeight: "100vh" }}>
+        <Sidebar />
+        <div style={{ flexGrow: 1 }}>
+          {/*<Navbar />*/}
+          <Routes>
+            <Route
+              path="/"
+              element={<Dashboard />}
+            />
+            <Route
+              path="/dashboard"
+              element={<Dashboard />}
+            />
+            <Route
+              path="/my-forms"
+              element={<MyForms />}
+            />
+            <Route
+              path="/library"
+              element={<Library />}
+            />
+            <Route
+              path="/activity"
+              element={<Activity />}
+            />
+            <Route
+              path="/settings"
+              element={<Settings />}
+            />
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+          </Routes>
+        </div>
       </div>
     </>
   );
