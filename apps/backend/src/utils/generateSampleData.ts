@@ -1,7 +1,13 @@
-import { prisma } from "./lib/prisma.js";
+import { prisma } from "../lib/prisma.js";
 
-async function main() {
-  // Content sample data
+async function generateSampleData() {
+  await generateSampleContentData();
+  await generateSampleAccountData();
+  await generateSampleEmployeeData();
+}
+
+async function generateSampleContentData() {
+  //Content sample data
   await prisma.content.createMany({
     data: [
       {
@@ -56,7 +62,9 @@ async function main() {
       },
     ],
   });
+}
 
+async function generateSampleEmployeeData() {
   // Employee sample data
   await prisma.employee.createMany({
     data: [
@@ -71,6 +79,7 @@ async function main() {
         phone_number: "401-555-1234",
         personal_email: "alice.johnson@gmail.com",
         corporate_email: "alice.johnson@company.com",
+        accountUsername: "emp1",
       },
       {
         first_name: "Brian",
@@ -83,6 +92,7 @@ async function main() {
         phone_number: "401-555-2345",
         personal_email: "brian.lee@yahoo.com",
         corporate_email: "brian.lee@company.com",
+        accountUsername: "emp2",
       },
       {
         first_name: "Carla",
@@ -95,6 +105,7 @@ async function main() {
         phone_number: "401-555-3456",
         personal_email: "carla.martinez@gmail.com",
         corporate_email: "carla.martinez@company.com",
+        accountUsername: "emp3",
       },
       {
         first_name: "David",
@@ -107,6 +118,7 @@ async function main() {
         phone_number: "401-555-4567",
         personal_email: "david.nguyen@gmail.com",
         corporate_email: "david.nguyen@company.com",
+        accountUsername: "emp4",
       },
       {
         first_name: "Emily",
@@ -119,12 +131,55 @@ async function main() {
         phone_number: "401-555-5678",
         personal_email: "emily.brown@gmail.com",
         corporate_email: "emily.brown@company.com",
+        accountUsername: "emp5",
       },
     ],
   });
 }
 
-main()
+async function generateSampleAccountData() {
+  await prisma.account.createMany({
+    data: [
+      {
+        employeeUuid: "126d5933-18bb-4bcc-9d9c-49bed335a32c",
+        username: "emp1",
+        password: "emp1",
+        type: "EMPLOYEE",
+      },
+      {
+        employeeUuid: "2b28a2b2-a058-4809-b06a-f7165ae826a2",
+        username: "emp2",
+        password: "emp2",
+        type: "EMPLOYEE",
+      },
+      {
+        employeeUuid: "1b4ab025-3683-4ef1-896e-8fafdf2b6e55",
+        username: "emp3",
+        password: "emp3",
+        type: "EMPLOYEE",
+      },
+      {
+        employeeUuid: "2c66ee14-4b37-40eb-9e0b-34cf90b32fdd",
+        username: "emp4",
+        password: "emp4",
+        type: "EMPLOYEE",
+      },
+      {
+        employeeUuid: "0a0fbd43-fb17-4b8f-85d0-188224a98c7c",
+        username: "emp5",
+        password: "emp5",
+        type: "EMPLOYEE",
+      },
+      {
+        username: "admin",
+        password: "admin",
+        type: "ADMIN",
+      },
+    ],
+  });
+}
+
+generateSampleData()
   .then(async () => {
     await prisma.$disconnect();
   })
