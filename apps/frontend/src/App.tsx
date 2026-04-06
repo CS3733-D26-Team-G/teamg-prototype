@@ -24,8 +24,6 @@ const myRows = [
 function App() {
 
   // Define the missing handlers
-  const handleEdit = (row: any) => console.log('Editing', row);
-  const handleDelete = (id: string | number) => console.log('Deleting', id);
   return (
     <>
       <div>
