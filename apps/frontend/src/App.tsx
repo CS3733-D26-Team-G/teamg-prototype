@@ -1,4 +1,4 @@
-import './App.css'
+import "./App.css";
 import Navbar from "./components/Navbar.tsx";
 import { Routes, Route } from "react-router";
 import Dashboard from "./pages/dashboard.tsx";
@@ -8,22 +8,39 @@ import UnderWriterPortal from "./pages/underwriter-portal.tsx";
 import AnalystPortal from "./pages/analyst-portal.tsx";
 
 function App() {
-
   return (
     <>
       <div className='main'>
         {/* <Navbar /> */}
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/content" element={<ContentForm />} />
-          <Route path="/employees" element={<EmployeesForm />} />
-          <Route path="/underwriter" element={<UnderWriterPortal />} />
-          <Route path="/analyst" element={<AnalystPortal />} />
+          <Route
+            path="/"
+            element={<Dashboard />}
+          />
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
+          />
+          <Route
+            path="/content"
+            element={<ContentForm />}
+          />
+          <Route
+            path="/employees"
+            element={<EmployeesForm />}
+          />
+          <Route
+            path="/underwriter"
+            element={<UnderWriterPortal />}
+          />
+          <Route
+            path="/analyst"
+            element={<AnalystPortal />}
+          />
         </Routes>
       </div>
     </>
-  )
+  );
 }
 
 export default App;

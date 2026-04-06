@@ -22,12 +22,9 @@ Other Roles:
   - Scrum Master - Ronan Heatly
   - Documentation - Isaac Gonzalez
 ---------------------------------
-Currently Implemented Front End:
-
-Currently Implemented Back End: 
-
-Planned Features: 
+Features:
 ---------------------------------
 Installation & Run Instructions:
 
   
+*This is a protoype format meant to be maleable for future READMEs as we continue to itterate the project*
