@@ -8,13 +8,23 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/underwriter", async (req, res) => {
-  res.sendStatus(200);
-  // TODO: pull data from prisma
+  res.status(200).send(
+    await prisma.content.findMany({
+      where: {
+        for_position: "UNDERWRITER",
+      },
+    }),
+  );
 });
 
 router.get("/business-analyst", async (req, res) => {
-  res.sendStatus(200);
-  // TODO: pull data from prisma
+  res.status(200).send(
+    await prisma.content.findMany({
+      where: {
+        for_position: "BUSINESS_ANALYST",
+      },
+    }),
+  );
 });
 
 router.post("/post", async (req, res) => {
