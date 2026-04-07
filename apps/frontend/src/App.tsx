@@ -26,8 +26,9 @@ const myRows = [
 ];
 
 function App() {
-  //const handleEdit = (row: any) => console.log('Editing', row);
-  //const handleDelete = (id: string | number) => console.log('Deleting', id);
+
+  const handleEdit = (row: any) => console.log('Editing', row);
+  const handleDelete = (id: string | number) => console.log('Deleting', id);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -36,7 +37,7 @@ function App() {
         <div style={{ flexGrow: 1 }}>
           <ContentGrid></ContentGrid>
           {/*<Navbar />*/}
-          {/* <Routes>
+          <Routes>
             <Route
               path="/"
               element={<Dashboard />}
@@ -65,7 +66,7 @@ function App() {
               path="/profile"
               element={<Profile />}
             />
-          </Routes> */}
+          </Routes>
         </div>
       </div>
     </ThemeProvider>

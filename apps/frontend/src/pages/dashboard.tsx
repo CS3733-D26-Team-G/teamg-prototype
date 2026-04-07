@@ -10,7 +10,7 @@ const [searchQuery, setSearchQuery] = useState("");
     return (
         <div className='dashboard-main'>
             <div className='dashboard-header'>
-                <h2>Welcome back to Hanover Management!</h2>
+                <h2>Welcome back to iBank!</h2>
                 <h1>Manage and publish</h1>
                 <h1>content with ease</h1>
                 <SearchBar setSearchQuery={setSearchQuery}></SearchBar>
