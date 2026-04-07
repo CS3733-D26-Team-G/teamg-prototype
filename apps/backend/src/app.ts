@@ -3,6 +3,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import { readdirSync } from "node:fs";
 import { join } from "path";
+import cors from "cors";
 
 dotenv.config({
   path:
@@ -16,6 +17,7 @@ const port = process.env.PORT;
 // Middleware
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors());
 // Send HTTP 200 at root
 app.get("/", (req, res) => {
   res.sendStatus(200);
