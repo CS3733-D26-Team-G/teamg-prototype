@@ -5,19 +5,19 @@ import { schema } from "db";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  res.status(200).send(await prisma.content.findMany());
+  res.status(200).json(await prisma.content.findMany());
 });
 
 router.get("/underwriter", async (req, res) => {
   res
     .status(200)
-    .send(
+    .json(
       await prisma.content.findMany({ where: { for_position: "UNDERWRITER" } }),
     );
 });
 
 router.get("/business-analyst", async (req, res) => {
-  res.status(200).send(
+  res.status(200).json(
     await prisma.content.findMany({
       where: { for_position: "BUSINESS_ANALYST" },
     }),
@@ -36,15 +36,17 @@ router.post("/create", async (req, res) => {
 
 router.post("/delete/:uuid", async (req, res) => {
   const uuid = req.params.uuid;
+  // const account = req.account;
+
   try {
     const content = await prisma.content.findUniqueOrThrow({
       where: { uuid: uuid },
     });
+
     console.log(content);
     res.sendStatus(200);
   } catch (e) {
-    res.status(400).send({
-      success: false,
+    res.status(400).json({
       message: e.meta.driverAdapterError.cause.message,
     });
   }

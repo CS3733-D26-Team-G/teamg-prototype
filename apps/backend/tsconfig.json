@@ -5,6 +5,7 @@
     "module": "NodeNext",
     "moduleResolution": "nodenext",
     "target": "ESNext",
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "typeRoots": ["src/types"]
   }
 }

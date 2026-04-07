@@ -1,6 +1,8 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
 import { z } from "zod";
+import jwt from "jsonwebtoken";
+import { JwtPayload } from "../middlewares/auth.ts";
 
 const router = express.Router();
 const LoginSchema = z.object({
@@ -17,10 +19,28 @@ router.post("/", async (req, res) => {
         password: body.username,
       },
     });
-    res.status(200).send({ success: true, accountType: account.type });
+
+    const jwtPayload: JwtPayload = {
+      uuid: account.employeeUuid,
+    };
+    const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!, {
+      expiresIn: "1h",
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 1000 * 60 * 60,
+    });
+
+    res.status(200).json({
+      username: account.username,
+      account_type: account.type,
+    });
   } catch (e) {
     if (e.code === "P2025") {
-      res.status(401).send({ success: false });
+      res.status(401).json({ message: "Invalid credentials" });
     }
   }
 });
