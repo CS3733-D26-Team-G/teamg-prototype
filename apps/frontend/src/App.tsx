@@ -1,5 +1,4 @@
 import "./App.css";
-import Navbar from "./components/Navbar.tsx";
 import { Routes, Route } from "react-router";
 import Dashboard from "./pages/dashboard.tsx";
 import Sidebar from "./components/Sidebar.tsx";

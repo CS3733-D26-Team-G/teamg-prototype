@@ -37,20 +37,6 @@ export default function NewEmployeeForm() {
       </div>
 
       <div className="main">
-<<<<<<<< HEAD:apps/frontend/src/components/Management/NewEmployeeForm.tsx
-========
-        <ToggleButtonGroup
-          color="primary"
-          value={alignment}
-          aria-label="Platform"
-          className="toggler"
-        >
-          <ToggleButton value="New Employee">New Employee</ToggleButton>
-          <ToggleButton value="Change Employee">Manage Employee</ToggleButton>
-        </ToggleButtonGroup>
-
-        {/* New Employee Form */}
->>>>>>>> ContentManagementUI:apps/frontend/src/components/EmployeeForm_New.tsx
         <form>
           <label htmlFor="newHire">Personal Information</label>
           <TextField
@@ -113,7 +99,6 @@ export default function NewEmployeeForm() {
             label="Corporate Email Address"
             variant="outlined"
           ></TextField>
-      
         </form>
       </div>
     </section>
