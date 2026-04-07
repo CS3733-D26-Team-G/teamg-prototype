@@ -1,74 +1,112 @@
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Button from "@mui/material/Button";
 import "./HeroSection.css";
+import HanoverLogo from "../assets/HanoverLogo.png";
+import HanoverFam from "../assets/HanoverFam.png";
+import HanoverVols from "../assets/HanoverVols.png";
+import HanoverVols2 from "../assets/HanoverVols2.jpg";
+import HeroPageBackground from "../assets/HeroPageBackground.png";
 
 export default function HeroSection() {
   return (
     <div className="main-hero">
-      {/* <div className='hero-content-container'> */}
-      <div className="mission-statement">
-        <h1>Collaboration</h1>
-        <h1>Accountability</h1>
-        <h1>Respect</h1>
-        <h1>Empowerment</h1>
+      {/* Dot pattern in corners */}
+      <div className="corner-dots corner-dots--left">
+        <img
+          src={HeroPageBackground}
+          alt="BackgroundLeft"
+        />
       </div>
-      <div className="hero-image"></div>
-      {/* </div> */}
-      <div className="jills-special-bar">
-        <ButtonGroup
-          className="button-group"
-          variant="contained"
-          color="primary"
-        >
-          <Button
-            className="button"
-            sx={{
-              "fontFamily": "Inter",
-              "fontSize": "2vw",
-              "fontWeight": "bold",
-              "transition": "0.3s",
-              "&:hover": {
-                transform: "scale(1.05)",
-                color: "#1976d2",
-                boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
-              },
-            }}
+      <div className="corner-dots corner-dots--right">
+        <img
+          src={HeroPageBackground}
+          alt="BackgroundRight"
+        />
+      </div>
+
+      {/* Top bar: logo and search bar*/}
+      <div className="hero-topbar">
+        <div className="hero-logo">
+          <img
+            src={HanoverLogo}
+            alt="Hanover Logo"
+            className="hero-logo__img"
+          />
+        </div>
+
+        <div className="hero-search">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#999"
+            strokeWidth="2.5"
           >
-            Pay Bills
-          </Button>
-          <Button
-            className="button"
-            sx={{
-              "fontFamily": "Inter",
-              "fontSize": "2vw",
-              "fontWeight": "bold",
-              "transition": "0.3s",
-              "&:hover": {
-                transform: "scale(1.05)",
-                color: "#1976d2",
-                boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
-              },
-            }}
-          >
-            Make a Claim
-          </Button>
-          <Button
-            className="button"
-            sx={{
-              "fontFamily": "Inter",
-              "fontSize": "2vw",
-              "fontWeight": "bold",
-              "transition": "0.3s",
-              "&:hover": {
-                transform: "scale(1.05)",
-                color: "#1976d2",
-                boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
-              },
-            }}
-          >
-            Account
-          </Button>
-        </ButtonGroup>
+            <circle
+              cx="11"
+              cy="11"
+              r="8"
+            />
+            <line
+              x1="21"
+              y1="21"
+              x2="16.65"
+              y2="16.65"
+            />
+          </svg>
+          <input
+            type="text"
+            className="hero-search__input"
+            aria-label="Search"
+          />
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div className="hero-content">
+        {/* Left side (CARE + subtitle + login button */}
+        <div className="mission-statement">
+          <h1 className="care-C">
+            <span className="care-initial">C</span>ollaboration
+          </h1>
+          <h1 className="care-A">
+            <span className="care-initial">A</span>ccountability
+          </h1>
+          <h1 className="care-R">
+            <span className="care-initial">R</span>espect
+          </h1>
+          <h1 className="care-E">
+            <span className="care-initial">E</span>mpowerment
+          </h1>
+          <p className="hero-subtitle">
+            Welcome to Hanover Insurance's content management application.
+            Please log in to get started!
+          </p>
+        </div>
+
+        {/* Right side (Stacked photos */}
+        <div className="hero-image">
+          <div className="top-photo">
+            <img
+              src={HanoverVols}
+              alt="Hanover Volunteers Bottom"
+            />
+          </div>
+          <div className="middle-photo">
+            <img
+              src={HanoverVols2}
+              alt="Hanover Volunteers 2"
+            />
+          </div>
+          <div className="bottom-photo">
+            <img
+              src={HanoverFam}
+              alt="Hanover Family"
+            />
+          </div>
+        </div>
+        <div className="login-button">
+          <button className="hero-login-button">Log In</button>
+        </div>
       </div>
     </div>
   );
