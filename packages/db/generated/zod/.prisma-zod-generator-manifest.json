@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "generatorVersion": "unknown",
-  "generatedAt": "2026-04-07T02:24:00.929Z",
+  "generatedAt": "2026-04-07T02:25:20.582Z",
   "outputPath": "/Users/myer/WPI/CS3733 Software Engineering/teamg-prototype/packages/db/generated/zod",
   "files": [
     "schemas/enums/TransactionIsolationLevel.schema.ts",
