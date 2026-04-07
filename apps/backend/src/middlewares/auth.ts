@@ -18,8 +18,8 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    req.account = await prisma.account.findUniqueOrThrow({
-      where: { employeeUuid: decoded.uuid },
+    req.employee = await prisma.employee.findUniqueOrThrow({
+      where: { uuid: decoded.uuid },
     });
   } catch (e) {
     if (e.code === "P2025") {
