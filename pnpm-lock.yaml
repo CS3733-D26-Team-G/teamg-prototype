@@ -127,6 +127,9 @@ importers:
       react-router:
         specifier: ^7.14.0
         version: 7.14.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      zod:
+        specifier: workspace:*
+        version: link:../../packages/zod
     devDependencies:
       '@eslint/js':
         specifier: ^9.39.4
@@ -192,6 +195,8 @@ importers:
       prisma:
         specifier: ^7.6.0
         version: 7.6.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+
+  packages/zod: {}
 
 packages:
 
