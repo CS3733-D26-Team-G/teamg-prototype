@@ -11,7 +11,7 @@
   "dependencies": {
     "@prisma/client": "^7.6.0",
     "dotenv": "^17.3.1",
-    "zod-prisma-types": "^3.3.11"
+    "prisma-zod-generator": "^2.1.4"
   },
   "devDependencies": {
     "@types/node": "^24.12.0",
