@@ -30,6 +30,9 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.101.1
         version: 2.101.1
+      cors:
+        specifier: ^2.8.6
+        version: 2.8.6
       db:
         specifier: workspace:*
         version: link:../../packages/db
@@ -55,6 +58,9 @@ importers:
       '@eslint/js':
         specifier: ^9.39.4
         version: 9.39.4
+      '@types/cors':
+        specifier: ^2.8.19
+        version: 2.8.19
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
