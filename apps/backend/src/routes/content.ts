@@ -1,6 +1,7 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
 import { schema } from "db";
+import { Position } from "db/generated/prisma/enums.ts";
 
 const router = express.Router();
 
@@ -35,20 +36,31 @@ router.post("/create", async (req, res) => {
 });
 
 router.post("/delete/:uuid", async (req, res) => {
-  const uuid = req.params.uuid;
+  const contentUuid = req.params.uuid;
   // const account = req.account;
+  // const employee = await prisma.employee.findUnique({
+  //   where: { uuid: account.employeeUuid },
+  // });
 
   try {
     const content = await prisma.content.findUniqueOrThrow({
-      where: { uuid: uuid },
+      where: { uuid: contentUuid },
     });
+    // if (
+    //   employee.position !== "ADMIN" &&
+    //   employee.position !== content.for_position
+    // ) {
+    //   res.status(401).json({ message: "Unauthorized" });
+    // }
+    await prisma.content.delete({ where: content });
 
-    console.log(content);
-    res.sendStatus(200);
+    res.status(200).json(content);
   } catch (e) {
-    res.status(400).json({
-      message: e.meta.driverAdapterError.cause.message,
-    });
+    if (e.code === "P2025") {
+      res.status(400).json({
+        message: "Invalid content UUID",
+      });
+    }
   }
 });
 
