@@ -1,0 +1,8 @@
+POST /content/post HTTP/1.1
+Host: http://localhost:3000
+Content-Type: application/json
+
+{
+  "title": "example.png",
+  "url": "https://example.com/example.png"
+}

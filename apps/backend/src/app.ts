@@ -1,7 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import { prisma } from "./lib/prisma.js";
+import { readdirSync } from "node:fs";
+import { join } from "path";
 
 dotenv.config({
   path:
@@ -10,7 +11,6 @@ dotenv.config({
 });
 
 const app = express();
-
 const port = process.env.PORT;
 
 // Middleware
@@ -21,23 +21,15 @@ app.get("/", (req, res) => {
   res.sendStatus(200);
 });
 
-app.get("/employee", async (req, res) => {
-  const allEmployee = await prisma.employee.findMany();
-  console.log(allEmployee);
-  res.send(allEmployee);
-  // res.sendStatus(200)
-});
-
-app.get("/content", async (req, res) => {
-  const allContent = await prisma.content.findMany();
-  console.log(allContent);
-  res.send(allContent);
-  // res.sendStatus(200)
+const routesPath = join(process.cwd(), "src/routes");
+readdirSync(routesPath).forEach(async (file) => {
+  if (file.endsWith(".ts")) {
+    const { default: router } = await import(`./routes/${file}`);
+    app.use(`/${file.split(".")[0]}`, router);
+  }
 });
 
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
-
-export default app;
