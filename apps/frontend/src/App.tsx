@@ -8,7 +8,7 @@ import Activity from "./pages/activity.tsx";
 import Settings from "./pages/settings.tsx";
 import Profile from "./pages/profile.tsx";
 //import Navbar from "./components/Navbar.tsx";
-import ContentGrid from "./components/ContentGrid.tsx"
+import ContentGrid from "./components/Management/EmployeeManagement.tsx"
 import { type GridColDef } from '@mui/x-data-grid';
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -30,9 +30,9 @@ function App() {
       <div style={{ display: "flex", minHeight: "100vh" }}>
         <Sidebar />
         <div style={{ flexGrow: 1 }}>
-          <ContentGrid></ContentGrid>
+          
           {/*<Navbar />*/}
-          {/* <Routes>
+          <Routes>
             <Route
               path="/"
               element={<Dashboard />}
@@ -61,7 +61,7 @@ function App() {
               path="/profile"
               element={<Profile />}
             />
-          </Routes> */}
+          </Routes>
         </div>
       </div>
     </>
