@@ -33,9 +33,12 @@ export default function ContentManagement() {
 
   const handleDelete = async (title: string) => {
     try {
-      const res = await fetch(`http://localhost:3000/content/${encodeURIComponent(title)}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `http://localhost:3000/content/${encodeURIComponent(title)}`,
+        {
+          method: "DELETE",
+        },
+      );
 
       if (res.ok) {
         setRows((prev) => prev?.filter((row) => row.title !== title));
@@ -51,11 +54,14 @@ export default function ContentManagement() {
 
   const handleSave = async (updatedUser: ContentPureType) => {
     try {
-      const res = await fetch(`http://localhost:3000/content/${encodeURIComponent(updatedUser.title)}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedUser),
-      });
+      const res = await fetch(
+        `http://localhost:3000/content/${encodeURIComponent(updatedUser.title)}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedUser),
+        },
+      );
 
       if (res.ok) {
         const savedData = await res.json();
@@ -100,23 +106,22 @@ export default function ContentManagement() {
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>
-      {editingUser ? (
+      {editingUser ?
         <ContentForm
           initialData={editingUser}
           onSave={handleSave}
           onCancel={() => setEditingUser(null)}
         />
-      ) : (
-      <DataGrid
-        rows={rows}
-        getRowId={(row) => row.title}
-        columns={getColumns(handleEdit, handleDelete)}
-        pageSizeOptions={[5, 10]}
-        initialState={{
-          pagination: { paginationModel: { pageSize: 5 } },
-        }}
-      />
-      )}
+      : <DataGrid
+          rows={rows}
+          getRowId={(row) => row.title}
+          columns={getColumns(handleEdit, handleDelete)}
+          pageSizeOptions={[5, 10]}
+          initialState={{
+            pagination: { paginationModel: { pageSize: 5 } },
+          }}
+        />
+      }
     </Box>
   );
 }

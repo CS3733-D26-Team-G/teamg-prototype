@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 // import SendIcon from '@mui/icons-material/Send'
 import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import { MenuItem } from "@mui/material";
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 import CalendarInput from "../CalendarInput.tsx";
 import type { ContentPureType } from "zod/schemas";
 import "./ContentForm.css";
@@ -18,11 +18,15 @@ interface ContentFormProps {
   onCancel: () => void;
 }
 
-export default function ContentForm({ initialData, onSave, onCancel }: ContentFormProps) {
+export default function ContentForm({
+  initialData,
+  onSave,
+  onCancel,
+}: ContentFormProps) {
   const [recipient, setRecipient] = React.useState("");
 
   const [formData, setFormData] = useState<ContentPureType>({
-    uuid: initialData?.uuid || "", 
+    uuid: initialData?.uuid || "",
     for_position: initialData?.for_position || "UNDERWRITER",
 
     title: initialData?.title || "",
@@ -41,12 +45,13 @@ export default function ContentForm({ initialData, onSave, onCancel }: ContentFo
     }));
   };
 
-  const handleSelectChange = (field: keyof ContentPureType) => (event: SelectChangeEvent) => {
-    handleChange(field, event.target.value);
-  };
+  const handleSelectChange =
+    (field: keyof ContentPureType) => (event: SelectChangeEvent) => {
+      handleChange(field, event.target.value);
+    };
 
   const handleInternalSubmit = () => {
-    console.log("Button clicked! Current data:", formData); 
+    console.log("Button clicked! Current data:", formData);
     onSave(formData);
   };
 
@@ -57,7 +62,10 @@ export default function ContentForm({ initialData, onSave, onCancel }: ContentFo
       </div>
 
       <div className="main">
-        <Box component="div" className="form">
+        <Box
+          component="div"
+          className="form"
+        >
           <TextField
             id="outlined-basic"
             label="Name of Document"
@@ -131,12 +139,12 @@ export default function ContentForm({ initialData, onSave, onCancel }: ContentFo
           >
             Update Changes
           </Button>
-          <Button 
-              variant="outlined" 
-              onClick={onCancel} 
-            >
-              Cancel
-            </Button>
+          <Button
+            variant="outlined"
+            onClick={onCancel}
+          >
+            Cancel
+          </Button>
           {/* </div> */}
         </Box>
       </div>

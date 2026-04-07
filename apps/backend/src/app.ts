@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import { readdirSync } from "node:fs";
 import { join } from "path";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import { auth } from "./middlewares/auth.ts";
 
 dotenv.config({
   path:
@@ -17,7 +19,9 @@ const port = process.env.PORT;
 // Middleware
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cookieParser());
 app.use(cors());
+// app.use(auth);
 // Send HTTP 200 at root
 app.get("/", (req, res) => {
   res.sendStatus(200);
