@@ -34,4 +34,20 @@ router.post("/create", async (req, res) => {
   }
 });
 
+router.post("/delete/:uuid", async (req, res) => {
+  const uuid = req.params.uuid;
+  try {
+    const content = await prisma.content.findUniqueOrThrow({
+      where: { uuid: uuid },
+    });
+    console.log(content);
+    res.sendStatus(200);
+  } catch (e) {
+    res.status(400).send({
+      success: false,
+      message: e.meta.driverAdapterError.cause.message,
+    });
+  }
+});
+
 export default router;
