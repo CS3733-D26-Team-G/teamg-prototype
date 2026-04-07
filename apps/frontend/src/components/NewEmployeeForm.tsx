@@ -11,7 +11,7 @@ import { MenuItem } from "@mui/material";
 import CalendarInput from "./CalendarInput.tsx";
 import "./EmployeeForm.css";
 
-export default function EmployeeForm() {
+export default function NewEmployeeForm() {
   const [alignment, setAlignment] = React.useState("web");
 
   const handleChange = (newAlignment: string) => {
@@ -37,16 +37,6 @@ export default function EmployeeForm() {
       </div>
 
       <div className="main">
-        <ToggleButtonGroup
-          color="primary"
-          value={alignment}
-          onChange={handleChange}
-          aria-label="Platform"
-          className="toggler"
-        >
-          <ToggleButton value="New Employee">New Employee</ToggleButton>
-          <ToggleButton value="Change Employee">Change Employee</ToggleButton>
-        </ToggleButtonGroup>
         <form>
           <label htmlFor="newHire">Personal Information</label>
           <TextField
