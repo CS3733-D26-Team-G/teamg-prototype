@@ -1,7 +1,9 @@
+import ContentForm from '../components/Management/ContentForm'
+
 function MyForms() {
   return (
     <>
-      <h1>My Forms</h1>
+      <ContentForm></ContentForm>
     </>
   );
 }

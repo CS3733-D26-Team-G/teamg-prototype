@@ -18,7 +18,7 @@ h2 {
   font-weight: lighter;
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
   gap: 2rem;

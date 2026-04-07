@@ -3,7 +3,7 @@ import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { IconButton, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import ManageEmployeeForm from "./ManageEmployeeForm";
+import ContentForm from "./ContentForm";
 import type { ContentPureType } from "zod/schemas";
 
 export default function ContentManagement() {
@@ -31,19 +31,42 @@ export default function ContentManagement() {
     void fetchData();
   }, []);
 
-  const handleDelete = (id: string) => {
-    setRows((prev) => prev.filter((row) => row.title !== id));
+  const handleDelete = async (title: string) => {
+    try {
+      const res = await fetch(`http://localhost:3000/content/${encodeURIComponent(title)}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        setRows((prev) => prev?.filter((row) => row.title !== title));
+      }
+    } catch (error) {
+      console.error("Failed to delete:", error);
+    }
   };
 
-  const handleEdit = (row: UserRow) => {
+  const handleEdit = (row: ContentPureType) => {
     setEditingUser(row);
   };
 
-  const handleSave = (updatedUser: UserRow) => {
-    setRows((prev) =>
-      prev.map((r) => (r.title === updatedUser.title ? updatedUser : r)),
-    );
-    setEditingUser(null);
+  const handleSave = async (updatedUser: ContentPureType) => {
+    try {
+      const res = await fetch(`http://localhost:3000/content/${encodeURIComponent(updatedUser.title)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (res.ok) {
+        const savedData = await res.json();
+        setRows((prev) =>
+          prev?.map((r) => (r.title === updatedUser.title ? savedData : r)),
+        );
+        setEditingUser(null);
+      }
+    } catch (error) {
+      console.error("Failed to save:", error);
+    }
   };
 
   const getColumns = (
@@ -67,7 +90,7 @@ export default function ContentManagement() {
             <EditIcon />
           </IconButton>
 
-          <IconButton onClick={() => onDelete(params.row.id)}>
+          <IconButton onClick={() => onDelete(params.row.title)}>
             <DeleteIcon color="error" />
           </IconButton>
         </>
@@ -77,13 +100,13 @@ export default function ContentManagement() {
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>
-      {editingUser && (
-        <ManageEmployeeForm
+      {editingUser ? (
+        <ContentForm
           initialData={editingUser}
           onSave={handleSave}
           onCancel={() => setEditingUser(null)}
         />
-      )}
+      ) : (
       <DataGrid
         rows={rows}
         getRowId={(row) => row.title}
@@ -93,6 +116,7 @@ export default function ContentManagement() {
           pagination: { paginationModel: { pageSize: 5 } },
         }}
       />
+      )}
     </Box>
   );
 }
