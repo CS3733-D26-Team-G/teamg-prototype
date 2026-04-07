@@ -1,6 +1,6 @@
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
-let theme = createTheme({
+const theme = createTheme({
   palette: {
     primary: {
       dark: "#1A1E4B",
@@ -18,6 +18,7 @@ let theme = createTheme({
     },
   },
   typography: {
+    fontFamily: "Playfair Display",
     h1: {
       fontFamily: "Playfair Display",
       fontWeight: "bold",
@@ -41,7 +42,5 @@ let theme = createTheme({
     },
   },
 });
-
-theme = responsiveFontSizes(theme);
 
 export default theme;
