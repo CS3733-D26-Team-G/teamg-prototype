@@ -4,20 +4,13 @@ import { IconButton, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ManageEmployeeForm from "./ManageEmployeeForm";
-
-export interface UserRow {
-  title: string;
-  url: string;
-  content_owner: string;
-  last_modified_time: Date;
-  expiration_time: Date;
-  content_type: string;
-  status: string;
-}
+import type { ContentPureType } from "zod/schemas";
 
 export default function ContentManagement() {
-  const [rows, setRows] = useState<UserRow[]>();
-  const [editingUser, setEditingUser] = React.useState<UserRow | null>(null);
+  const [rows, setRows] = useState<ContentPureType[]>();
+  const [editingUser, setEditingUser] = React.useState<ContentPureType | null>(
+    null,
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +47,7 @@ export default function ContentManagement() {
   };
 
   const getColumns = (
-    onEdit: (row: UserRow) => void,
+    onEdit: (row: ContentPureType) => void,
     onDelete: (id: string) => void,
   ): GridColDef[] => [
     { field: "title", headerName: "title", flex: 1 },
