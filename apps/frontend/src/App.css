@@ -17,12 +17,4 @@ body {
   width: 100%;
 }
 
-.main {
-  background: linear-gradient(135deg, #9abce0 0%, #ffffff 48%);
-  height: 100vh;
-}
 
-div#root {
-  background: linear-gradient(135deg, #9abce0 0%, #ffffff 48%);
-
-}
