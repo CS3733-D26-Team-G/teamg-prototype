@@ -26,10 +26,15 @@ router.get("/business-analyst", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
+  // const employee = req.employee;
   try {
     const body = schema.ContentCreateOneSchema.parse(req.body);
-    console.log(body);
-    res.sendStatus(200);
+    // if (employee.position !== ADMIN && employee.position !== body.data.for_position) {
+    //   return res.status(401).json({ message: "Unauthorized" });
+    // }
+
+    const content = await prisma.content.create(body);
+    res.status(201).json(content);
   } catch {
     res.sendStatus(400);
   }
@@ -37,10 +42,7 @@ router.post("/create", async (req, res) => {
 
 router.post("/delete/:uuid", async (req, res) => {
   const contentUuid = req.params.uuid;
-  // const account = req.account;
-  // const employee = await prisma.employee.findUnique({
-  //   where: { uuid: account.employeeUuid },
-  // });
+  // const employee = req.employee;
 
   try {
     const content = await prisma.content.findUniqueOrThrow({
