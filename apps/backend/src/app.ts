@@ -29,6 +29,32 @@ readdirSync(routesPath).forEach(async (file) => {
   }
 });
 
+app.get("/content/underwriter", async (req, res) => {
+  try {
+    const content = await prisma.content.findMany({
+      where: { for_position: "UNDERWRITER" },
+    });
+    console.log(content);
+    res.send(content);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
+
+app.get("/content/business-analyst", async (req, res) => {
+  try {
+    const content = await prisma.content.findMany({
+      where: { for_position: "BUSINESS_ANALYST" },
+    });
+    console.log(content);
+    res.send(content);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
