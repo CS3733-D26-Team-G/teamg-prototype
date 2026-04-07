@@ -5,7 +5,7 @@
     "module": "NodeNext",
     "moduleResolution": "nodenext",
     "target": "ESNext",
-    "allowImportingTsExtensions": true,
-    "typeRoots": ["src/types"]
-  }
+    "allowImportingTsExtensions": true
+  },
+  "include": ["src/**/*.ts", "src/types/**/*.d.ts"]
 }

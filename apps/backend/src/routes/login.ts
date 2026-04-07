@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
     const account = await prisma.account.findUniqueOrThrow({
       where: {
         username: body.username,
-        password: body.username,
+        password: body.password,
       },
     });
 
