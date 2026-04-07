@@ -1,5 +1,6 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
+import { schema } from "db";
 
 const router = express.Router();
 
@@ -27,9 +28,14 @@ router.get("/business-analyst", async (req, res) => {
   );
 });
 
-router.post("/post", async (req, res) => {
-  console.log(req.body);
-  res.sendStatus(200);
+router.post("/create", async (req, res) => {
+  try {
+    const body = schema.ContentOptionalDefaultsSchema.parse(req.body);
+    console.log(body);
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(400);
+  }
 });
 
 export default router;
