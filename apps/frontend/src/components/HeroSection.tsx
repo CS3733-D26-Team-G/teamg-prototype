@@ -105,7 +105,7 @@ export default function HeroSection() {
           </div>
         </div>
         <div className="login-button">
-          <button className="hero-login-button">Login</button>
+          <button className="hero-login-button">Log In</button>
         </div>
       </div>
     </div>
