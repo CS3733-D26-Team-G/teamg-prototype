@@ -6,7 +6,7 @@
 
 .main-content-form {
   width: 50vw;
-  /*background-color: white;*/
+  background-color: white;
   margin-bottom: 200px;
 }
 
@@ -18,7 +18,7 @@ h2 {
   font-weight: lighter;
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
   gap: 2rem;

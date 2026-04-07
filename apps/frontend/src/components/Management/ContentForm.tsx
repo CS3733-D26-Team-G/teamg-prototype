@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -6,15 +7,52 @@ import Button from "@mui/material/Button";
 // import SendIcon from '@mui/icons-material/Send'
 import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import { MenuItem } from "@mui/material";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import CalendarInput from "./CalendarInput.tsx";
+import Box from "@mui/material/Box";
+import CalendarInput from "../CalendarInput.tsx";
+import type { ContentPureType } from "zod/schemas";
 import "./ContentForm.css";
 
-export default function ContentForm() {
+interface ContentFormProps {
+  initialData?: ContentPureType | null; // Optional: if present, we are editing
+  onSave: (data: ContentPureType) => void;
+  onCancel: () => void;
+}
+
+export default function ContentForm({
+  initialData,
+  onSave,
+  onCancel,
+}: ContentFormProps) {
   const [recipient, setRecipient] = React.useState("");
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setRecipient(event.target.value as string);
+  const [formData, setFormData] = useState<ContentPureType>({
+    uuid: initialData?.uuid || "",
+    for_position: initialData?.for_position || "UNDERWRITER",
+
+    title: initialData?.title || "",
+    url: initialData?.url || "",
+    content_owner: initialData?.content_owner || "",
+    last_modified_time: initialData?.last_modified_time || new Date(),
+    expiration_time: initialData?.expiration_time || new Date(),
+    content_type: initialData?.content_type || "REFERENCE",
+    status: initialData?.status || "AVAILABLE",
+  });
+
+  const handleChange = (field: keyof ContentPureType, value: any) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleSelectChange =
+    (field: keyof ContentPureType) => (event: SelectChangeEvent) => {
+      handleChange(field, event.target.value);
+    };
+
+  const handleInternalSubmit = () => {
+    console.log("Button clicked! Current data:", formData);
+    onSave(formData);
   };
 
   return (
@@ -24,20 +62,28 @@ export default function ContentForm() {
       </div>
 
       <div className="main">
-        <form>
+        <Box
+          component="div"
+          className="form"
+        >
           <TextField
             id="outlined-basic"
             label="Name of Document"
+            defaultValue={formData.title}
+            onChange={(e) => handleChange("title", e.target.value)}
             variant="outlined"
           ></TextField>
           <TextField
             id="outlined-basic"
             label="URL of Link"
+            defaultValue={formData.url}
+            onChange={(e) => handleChange("url", e.target.value)}
             variant="outlined"
           ></TextField>
           <TextField
             id="outlined-basic"
             label="Content Owner"
+            value={formData.content_owner}
             variant="outlined"
           ></TextField>
           <div className="form-row">
@@ -47,8 +93,8 @@ export default function ContentForm() {
                 labelId="recipient-label"
                 id="recipient"
                 label="Intended Recipient"
-                value={recipient}
-                onChange={handleChange}
+                defaultValue={formData.for_position}
+                onChange={handleSelectChange("for_position")}
               >
                 <MenuItem value={10}>Underwriter</MenuItem>
                 <MenuItem value={20}>Business Analyst</MenuItem>
@@ -63,8 +109,8 @@ export default function ContentForm() {
               labelId="content-type-label"
               id="content-type"
               label="Type of Content"
-              value={recipient}
-              onChange={handleChange}
+              defaultValue={formData.content_type}
+              onChange={handleSelectChange("content_type")}
             >
               <MenuItem value={10}>Reference Content</MenuItem>
               <MenuItem value={20}>Workflow Content</MenuItem>
@@ -76,8 +122,8 @@ export default function ContentForm() {
               labelId="status-label"
               id="status"
               label="Document Status"
-              value={recipient}
-              onChange={handleChange}
+              defaultValue={formData.status}
+              onChange={handleSelectChange("status")}
             >
               <MenuItem value={10}>Available</MenuItem>
               <MenuItem value={20}>In Use</MenuItem>
@@ -86,13 +132,21 @@ export default function ContentForm() {
           </FormControl>
           {/* <div className='submit-container'> */}
           <Button
+            type="submit"
             variant="contained"
             className="submit-button"
+            onClick={handleInternalSubmit}
           >
-            Submit
+            Update Changes
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={onCancel}
+          >
+            Cancel
           </Button>
           {/* </div> */}
-        </form>
+        </Box>
       </div>
     </section>
   );
