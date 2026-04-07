@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router";
 import Dashboard from "./pages/dashboard.tsx";
 import Sidebar from "./components/Sidebar.tsx";
+//import HeroSection from ".components/HeroSection.tsx"
 import MyForms from "./pages/my-forms.tsx";
 import Library from "./pages/library.tsx";
 import Activity from "./pages/activity.tsx";
