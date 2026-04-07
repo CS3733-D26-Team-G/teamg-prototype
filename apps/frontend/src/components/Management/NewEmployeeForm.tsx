@@ -8,7 +8,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
 import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import { MenuItem } from "@mui/material";
-import CalendarInput from "./CalendarInput.tsx";
+import CalendarInput from "../CalendarInput.tsx";
 import "./EmployeeForm.css";
 
 export default function NewEmployeeForm() {

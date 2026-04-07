@@ -1,7 +1,10 @@
+import ContentManagement from "../components/Management/ContentManagement";
+import ContentHeader from "../components/Management/ContentHeader";
 function Library() {
   return (
     <>
-      <h1>Library</h1>
+      {/* <ContentHeader></ContentHeader> */}
+      <ContentManagement></ContentManagement>
     </>
   );
 }
