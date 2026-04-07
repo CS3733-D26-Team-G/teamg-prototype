@@ -1,9 +1,8 @@
 import jwt from "jsonwebtoken";
-import type { Request, Response, NextFunction } from "express";
+import type { NextFunction, Request, Response } from "express";
+import { prisma } from "../lib/prisma.ts";
 
-export const auth = (req: Request, res: Response, next: NextFunction) => {
-  console.log(req);
-
+export const auth = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token;
 
   if (!token) {
@@ -12,8 +11,23 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET!);
   if (typeof decoded === "string") {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({
+      message:
+        "Unauthorized. If you see this message, please report to a system administrator.",
+    });
   }
-  req.uuid = decoded.uuid;
+
+  try {
+    req.account = await prisma.account.findUniqueOrThrow({
+      where: { employeeUuid: decoded.uuid },
+    });
+  } catch (e) {
+    if (e.code === "P2025") {
+      return res.status(401).json({
+        message:
+          "Unauthorized. If you see this message, please report to a system administrator.",
+      });
+    }
+  }
   next();
 };

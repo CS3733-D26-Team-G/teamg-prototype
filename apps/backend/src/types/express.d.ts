@@ -1,7 +1,9 @@
+import { Account } from "db/generated/prisma/client.ts";
+
 declare global {
   namespace Express {
     interface Request {
-      uuid?: string;
+      account?: Account;
     }
   }
 }

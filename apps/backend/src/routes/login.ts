@@ -2,7 +2,6 @@ import express from "express";
 import { prisma } from "../lib/prisma.ts";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
-import { JwtPayload } from "../middlewares/auth.ts";
 
 const router = express.Router();
 const LoginSchema = z.object({
@@ -20,12 +19,15 @@ router.post("/", async (req, res) => {
       },
     });
 
-    const jwtPayload: JwtPayload = {
-      uuid: account.employeeUuid,
-    };
-    const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      {
+        uuid: account.employeeUuid,
+      },
+      process.env.JWT_SECRET!,
+      {
+        expiresIn: "1h",
+      },
+    );
 
     res.cookie("token", token, {
       httpOnly: true,

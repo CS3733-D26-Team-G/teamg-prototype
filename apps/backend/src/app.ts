@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(cors());
-app.use(auth);
+// app.use(auth);
 // Send HTTP 200 at root
 app.get("/", (req, res) => {
   res.sendStatus(200);
