@@ -1,6 +1,7 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
 import { schema } from "db";
+import { Position } from "db/generated/prisma/enums.ts";
 
 const router = express.Router();
 
@@ -25,30 +26,43 @@ router.get("/business-analyst", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
+  // const employee = req.employee;
   try {
     const body = schema.ContentCreateOneSchema.parse(req.body);
-    console.log(body);
-    res.sendStatus(200);
+    // if (employee.position !== ADMIN && employee.position !== body.data.for_position) {
+    //   return res.status(401).json({ message: "Unauthorized" });
+    // }
+
+    const content = await prisma.content.create(body);
+    res.status(201).json(content);
   } catch {
     res.sendStatus(400);
   }
 });
 
 router.post("/delete/:uuid", async (req, res) => {
-  const uuid = req.params.uuid;
-  // const account = req.account;
+  const contentUuid = req.params.uuid;
+  // const employee = req.employee;
 
   try {
     const content = await prisma.content.findUniqueOrThrow({
-      where: { uuid: uuid },
+      where: { uuid: contentUuid },
     });
+    // if (
+    //   employee.position !== "ADMIN" &&
+    //   employee.position !== content.for_position
+    // ) {
+    //   res.status(401).json({ message: "Unauthorized" });
+    // }
+    await prisma.content.delete({ where: content });
 
-    console.log(content);
-    res.sendStatus(200);
+    res.status(200).json(content);
   } catch (e) {
-    res.status(400).json({
-      message: e.meta.driverAdapterError.cause.message,
-    });
+    if (e.code === "P2025") {
+      res.status(400).json({
+        message: "Invalid content UUID",
+      });
+    }
   }
 });
 
