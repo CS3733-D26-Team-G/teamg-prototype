@@ -1,9 +1,9 @@
-import ContentManagement from '../components/Management/ContentManagement'
-import ContentHeader from '../components/Management/ContentHeader'
+import ContentManagement from "../components/Management/ContentManagement";
+import ContentHeader from "../components/Management/ContentHeader";
 function Library() {
   return (
     <>
-      <ContentHeader></ContentHeader>
+      {/* <ContentHeader></ContentHeader> */}
       <ContentManagement></ContentManagement>
     </>
   );
