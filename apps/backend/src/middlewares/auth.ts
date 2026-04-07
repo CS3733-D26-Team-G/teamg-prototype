@@ -1,6 +1,12 @@
 import jwt from "jsonwebtoken";
 import type { NextFunction, Request, Response } from "express";
 import { prisma } from "../lib/prisma.ts";
+import { Position } from "db/generated/zod/schemas/index.ts";
+
+export interface Auth {
+  employeeUuid: string;
+  position: Position;
+}
 
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token;
@@ -18,9 +24,11 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    req.employee = await prisma.employee.findUniqueOrThrow({
+    const employee = await prisma.employee.findUniqueOrThrow({
+      select: { position: true },
       where: { uuid: decoded.uuid },
     });
+    req.auth = { employeeUuid: decoded.uuid, position: employee.position };
   } catch (e) {
     if (e.code === "P2025") {
       return res.status(401).json({

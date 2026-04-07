@@ -26,10 +26,10 @@ router.get("/business-analyst", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
-  // const employee = req.employee;
+  // const auth = req.auth;
   try {
     const body = schema.ContentCreateOneSchema.parse(req.body);
-    // if (employee.position !== ADMIN && employee.position !== body.data.for_position) {
+    // if (auth.position !== ADMIN && auth.position !== body.data.for_position) {
     //   return res.status(401).json({ message: "Unauthorized" });
     // }
 
@@ -42,16 +42,13 @@ router.post("/create", async (req, res) => {
 
 router.post("/delete/:uuid", async (req, res) => {
   const contentUuid = req.params.uuid;
-  // const employee = req.employee;
+  // const auth = req.auth;
 
   try {
     const content = await prisma.content.findUniqueOrThrow({
       where: { uuid: contentUuid },
     });
-    // if (
-    //   employee.position !== "ADMIN" &&
-    //   employee.position !== content.for_position
-    // ) {
+    // if (auth.position !== "ADMIN" && auth.position !== content.for_position) {
     //   res.status(401).json({ message: "Unauthorized" });
     // }
     await prisma.content.delete({ where: content });

@@ -1,9 +1,9 @@
-import { Employee } from "db/generated/prisma/client.ts";
+import { Auth } from "../middlewares/auth.ts";
 
 declare global {
   namespace Express {
     interface Request {
-      employee?: Employee;
+      auth?: Auth;
     }
   }
 }
