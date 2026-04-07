@@ -5,12 +5,24 @@ import { schema } from "db";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  res.send(await prisma.content.findMany());
+  res.status(200).send(await prisma.content.findMany());
 });
 
-router.get("/underwriter", async (req, res) => {});
+router.get("/underwriter", async (req, res) => {
+  res
+    .status(200)
+    .send(
+      await prisma.content.findMany({ where: { for_position: "UNDERWRITER" } }),
+    );
+});
 
-router.get("/business-analyst", async (req, res) => {});
+router.get("/business-analyst", async (req, res) => {
+  res.status(200).send(
+    await prisma.content.findMany({
+      where: { for_position: "BUSINESS_ANALYST" },
+    }),
+  );
+});
 
 router.post("/create", async (req, res) => {
   try {
