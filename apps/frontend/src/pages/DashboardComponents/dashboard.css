@@ -1,5 +1,6 @@
 h2 {
-    font-size: 1.8rem;
+    font-size: 1.8rem !important;
+    margin: 0 !important;
 }
 
 h1 {
@@ -50,8 +51,7 @@ div.search-container {
     width: auto;
     display: flex;
     justify-self: end;
-    padding-top: 100px;
-    padding-right: 100px;
+    padding: 50px;
     
 }
 

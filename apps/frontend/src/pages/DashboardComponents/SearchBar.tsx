@@ -1,6 +1,7 @@
 import {useState, type ChangeEvent} from "react";
 import { TextField, IconButton, formGroupClasses } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
+import InputAdornment from "@mui/material/InputAdornment";
 import './dashboard.css'
 
 interface SearchBarProps {
@@ -10,9 +11,6 @@ interface SearchBarProps {
 const SearchBar = ({ setSearchQuery }: SearchBarProps) => (
     <div className="search-container">
         <form>
-            <IconButton>
-                    <SearchIcon></SearchIcon>
-            </IconButton>
             <TextField
                 id="search-bar"
                 placeholder="search"
@@ -21,6 +19,15 @@ const SearchBar = ({ setSearchQuery }: SearchBarProps) => (
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         setSearchQuery(e.target.value);
                     }}
+                slotProps={{
+                    input: {
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
+                        ),
+                    },
+                }}
                 sx={{
                     "& .MuiOutlinedInput-notchedOutline": {
                     border: "none",

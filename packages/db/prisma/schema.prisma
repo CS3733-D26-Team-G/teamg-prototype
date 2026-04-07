@@ -6,13 +6,19 @@ generator client {
   moduleFormat           = "esm"
 }
 
+generator zod {
+  provider              = "prisma-zod-generator"
+  output                = "../../zod"
+  optionalFieldBehavior = optional
+}
+
 datasource db {
   provider = "postgresql"
 }
 
 model Employee {
   uuid            String     @id @default(uuid()) @db.Uuid
-  account         Account    @relation(fields: [accountUsername], references: [username])
+  account         Account?
   accountUsername String     @unique
   first_name      String
   last_name       String
@@ -39,8 +45,8 @@ model Content {
 }
 
 model Account {
-  employee     Employee?
-  employeeUuid String?     @unique @db.Uuid
+  employee     Employee    @relation(fields: [employeeUuid], references: [uuid])
+  employeeUuid String      @unique @db.Uuid
   username     String      @id @unique
   password     String
   type         AccountType
@@ -54,6 +60,7 @@ enum Department {
 enum Position {
   UNDERWRITER
   BUSINESS_ANALYST
+  ADMIN
 }
 
 enum ContentType {
