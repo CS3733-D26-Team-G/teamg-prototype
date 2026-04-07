@@ -2,8 +2,8 @@ import { prisma } from "../lib/prisma.js";
 
 async function generateSampleData() {
   await generateSampleContentData();
-  await generateSampleAccountData();
   await generateSampleEmployeeData();
+  // await generateSampleAccountData();
 }
 
 async function generateSampleContentData() {
@@ -141,38 +141,57 @@ async function generateSampleAccountData() {
   await prisma.account.createMany({
     data: [
       {
-        employeeUuid: "126d5933-18bb-4bcc-9d9c-49bed335a32c",
+        employeeUuid: "",
         username: "emp1",
         password: "emp1",
         type: "EMPLOYEE",
       },
       {
-        employeeUuid: "2b28a2b2-a058-4809-b06a-f7165ae826a2",
+        employeeUuid: "",
         username: "emp2",
         password: "emp2",
         type: "EMPLOYEE",
       },
       {
-        employeeUuid: "1b4ab025-3683-4ef1-896e-8fafdf2b6e55",
+        employeeUuid: "",
         username: "emp3",
         password: "emp3",
         type: "EMPLOYEE",
       },
       {
-        employeeUuid: "2c66ee14-4b37-40eb-9e0b-34cf90b32fdd",
+        employeeUuid: "",
         username: "emp4",
         password: "emp4",
         type: "EMPLOYEE",
       },
       {
-        employeeUuid: "0a0fbd43-fb17-4b8f-85d0-188224a98c7c",
+        employeeUuid: "",
         username: "emp5",
         password: "emp5",
         type: "EMPLOYEE",
       },
       {
+        employeeUuid: "",
+        username: "emp6",
+        password: "emp6",
+        type: "EMPLOYEE",
+      },
+      {
+        employeeUuid: "",
         username: "admin",
         password: "admin",
+        type: "ADMIN",
+      },
+      {
+        employeeUuid: "",
+        username: "admin2",
+        password: "admin2",
+        type: "ADMIN",
+      },
+      {
+        employeeUuid: "",
+        username: "admin3",
+        password: "admin3",
         type: "ADMIN",
       },
     ],
