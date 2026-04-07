@@ -21,10 +21,50 @@ const theme = createTheme({
     fontFamily: "Playfair Display",
     h1: {
       fontFamily: "Playfair Display",
+      fontSize: "xx-large",
       fontWeight: "bold",
+    },
+    h2: {
+      fontFamily: "Playfair Display",
+      fontSize: "x-large",
+      fontWeight: "bold",
+    },
+    h3: {
+      fontFamily: "Playfair Display",
+      fontSize: "large",
+      fontWeight: "bold",
+    },
+    h4: {
+      fontFamily: "Playfair Display",
+      fontSize: "medium",
+      fontWeight: "bold",
+    },
+    h5: {
+      fontFamily: "Playfair Display",
+      fontSize: "small",
+      fontWeight: "bold",
+    },
+    body1: {
+      fontFamily: "Playfair Display",
+      fontSize: "medium",
+      fontWeight: "regular",
+    },
+    body2: {
+      fontFamily: "Playfair Display",
+      fontSize: "small",
+      fontWeight: "regular",
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        "#root": {
+          background: "linear-gradient(135deg, #9abce0 0%, #ffffff 48%)",
+          minHeight: "100vh",
+          height: "100%",
+        },
+      },
+    },
     MuiLink: {
       styleOverrides: {
         root: {

@@ -40,7 +40,7 @@ div.MuiPaper-root {
 }
 
 div.search-container {
-    background-color: white;
+    /*background-color: white;*/
     width: auto;
     max-width: 275px;
     border-radius: 20px;;
