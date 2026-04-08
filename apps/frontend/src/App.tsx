@@ -6,7 +6,7 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 
 // Standard Pages
 import Dashboard from "./pages/dashboard.tsx";
-import MyForms from "./pages/content-form.tsx";
+import MyForms from "./pages/content-form.tsx"; // Assuming this is your "My Forms" logic
 import Library from "./pages/library.tsx";
 import Activity from "./pages/activity.tsx";
 import Settings from "./pages/settings.tsx";
@@ -59,15 +59,17 @@ function App() {
               path="/employee-management"
               element={<EmployeeManagement />}
             />
+
             <Route
               path="/content-management"
-              element={<MyForms />}
+              element={<Library />}
             />
 
             <Route
               path="/employee-form"
               element={<EmployeeFormPage />}
             />
+
             <Route
               path="/content-form"
               element={<MyForms />}

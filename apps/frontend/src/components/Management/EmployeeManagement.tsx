@@ -31,6 +31,22 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   minHeight: 128,
 }));
 
+const BLANK_EMPLOYEE: EmployeePureType = {
+  uuid: "",
+  account: null,
+  accountUsername: "",
+  first_name: "",
+  last_name: "",
+  date_of_birth: new Date(),
+  position: "UNDERWRITER", //
+  department: "OPERATION_TECHNOLOGY",
+  start_date: new Date(),
+  supervisor: "",
+  phone_number: "",
+  personal_email: "",
+  corporate_email: "",
+};
+
 export default function EmployeeManagement() {
   const [rows, setRows] = useState<EmployeePureType[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -96,24 +112,28 @@ export default function EmployeeManagement() {
 
   const handleSave = async (updatedUser: EmployeePureType) => {
     const isExisting = viewState !== "new";
+
+    // Prepare the data
+    const payload = {
+      ...updatedUser,
+      uuid: isExisting ? updatedUser.uuid : crypto.randomUUID(),
+    };
+
     const url =
       isExisting ?
-        `http://localhost:3000/employee/update/${updatedUser.uuid}`
+        `http://localhost:3000/employee/update/${payload.uuid}`
       : `http://localhost:3000/employee/create`;
 
     try {
       const res = await fetch(url, {
         method: isExisting ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedUser),
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
-        await loadEmployees(); // Refresh data from source of truth
-        setViewState(null); // Return to grid
-      } else {
-        const errorData = await res.json().catch(() => ({}));
-        console.error("Save failed:", errorData);
+        await loadEmployees();
+        setViewState(null);
       }
     } catch (error) {
       console.error("Error during handleSave:", error);
@@ -222,9 +242,9 @@ export default function EmployeeManagement() {
             columns={getColumns((row) => setViewState(row), handleDelete)}
             getRowId={(row) => row.uuid}
             loading={loading}
-            pageSizeOptions={[5, 10]}
+            pageSizeOptions={[5]}
             initialState={{
-              pagination: { paginationModel: { pageSize: 10 } },
+              pagination: { paginationModel: { pageSize: 5 } },
             }}
             sx={{ mt: 2 }}
           />

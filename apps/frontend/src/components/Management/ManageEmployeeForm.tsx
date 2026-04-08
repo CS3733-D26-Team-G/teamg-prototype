@@ -123,7 +123,7 @@ export default function ManageEmployeeForm({
               }
             >
               <MenuItem value="ADMIN">Admin</MenuItem>
-              <MenuItem value="UNDERWIRTER">Underwriter</MenuItem>
+              <MenuItem value="UNDERWRITER">Underwriter</MenuItem>
               <MenuItem value="BUSINESS_ANALYST">Business Analyst</MenuItem>
             </Select>
           </FormControl>

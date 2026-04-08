@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
 import {
   IconButton,
@@ -31,7 +31,24 @@ export default function Sidebar() {
   const [adminOpen, setAdminOpen] = useState(false);
   const [formsOpen, setFormsOpen] = useState(false);
 
-  const isAdmin = true;
+  const [isAdmin, setIsAdmin] = useState(
+    localStorage.getItem("account_type") === "ADMIN",
+  );
+
+  useEffect(() => {
+    const checkAdminStatus = () => {
+      setIsAdmin(localStorage.getItem("account_type") === "ADMIN");
+    };
+
+    window.addEventListener("storage", checkAdminStatus);
+
+    const interval = setInterval(checkAdminStatus, 1000);
+
+    return () => {
+      window.removeEventListener("storage", checkAdminStatus);
+      clearInterval(interval);
+    };
+  }, []);
 
   const handleToggle = (
     setter: React.Dispatch<React.SetStateAction<boolean>>,
@@ -87,7 +104,6 @@ export default function Sidebar() {
 
         {isAdmin ?
           <>
-            {/* 1. MANAGEMENT SHELF (The Tables) */}
             <ListItemButton
               onClick={() => handleToggle(setAdminOpen, adminOpen)}
               sx={{ px: 2 }}
@@ -130,61 +146,8 @@ export default function Sidebar() {
                 </ListItemButton>
               </List>
             </Collapse>
-
-            <ListItemButton
-              onClick={() => handleToggle(setFormsOpen, formsOpen)}
-              sx={{ px: 2 }}
-            >
-              <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
-                <AssignmentIcon color="secondary" />
-              </ListItemIcon>
-              {isOpen && <ListItemText primary="Forms" />}
-              {isOpen && (formsOpen ? <ExpandLess /> : <ExpandMore />)}
-            </ListItemButton>
-
-            <Collapse
-              in={formsOpen && isOpen}
-              timeout="auto"
-              unmountOnExit
-            >
-              <List
-                component="div"
-                disablePadding
-              >
-                <ListItemButton
-                  component={Link}
-                  to="/employee-form"
-                  sx={{ pl: 4 }}
-                >
-                  <ListItemIcon sx={{ minWidth: 0, mr: 2 }}>
-                    <PersonAddIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText primary="Employee Form" />
-                </ListItemButton>
-                <ListItemButton
-                  component={Link}
-                  to="/content-form"
-                  sx={{ pl: 4 }}
-                >
-                  <ListItemIcon sx={{ minWidth: 0, mr: 2 }}>
-                    <NoteAddIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText primary="Content Form" />
-                </ListItemButton>
-              </List>
-            </Collapse>
           </>
         : <>
-            <ListItemButton
-              component={Link}
-              to="/my-forms"
-              sx={{ px: 2 }}
-            >
-              <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
-                <ArticleIcon />
-              </ListItemIcon>
-              {isOpen && <ListItemText primary="My Forms" />}
-            </ListItemButton>
             <ListItemButton
               component={Link}
               to="/library"
