@@ -11,7 +11,10 @@ export default function DashboardRecentActivity() {
         <div className="recent-activity-tag">
           <Typography>Recent Activity</Typography>
         </div>
-        <Typography className="recent-activity-main">
+        <Typography
+          className="recent-activity-main"
+          component="div"
+        >
           <h3>Today</h3>
           <ul>
             <li>Colin edited XXXX</li>

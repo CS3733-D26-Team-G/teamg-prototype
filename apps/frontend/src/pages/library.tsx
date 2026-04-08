@@ -10,7 +10,7 @@ function Library() {
 
   return (
     <>
-      <ContentHeader onOpenCreate={() => setViewState("new")}></ContentHeader>
+      {/* <ContentHeader onOpenCreate={() => setViewState("new")}></ContentHeader> */}
       <ContentManagement
         viewState={viewState}
         setViewState={setViewState}
