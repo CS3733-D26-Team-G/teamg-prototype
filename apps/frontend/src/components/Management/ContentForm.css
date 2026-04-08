@@ -6,8 +6,7 @@
 
 /*.main-content-form {*/
 /*  width: 50vw;*/
-/*  fill-opacity: 0;*/
-/*  margin-bottom: 200px;*/
+/*  margin: 10vh 10vh 10vh 10vh;*/
 /*}*/
 
 h2 {
@@ -25,6 +24,8 @@ h2 {
   margin-top: 2rem;
   width: 35vw;
   margin-left: 5rem;
+  margin-right: 5rem;
+
 }
 
 .main-label {

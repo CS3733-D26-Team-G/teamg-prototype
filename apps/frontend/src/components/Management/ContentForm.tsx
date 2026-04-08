@@ -57,13 +57,15 @@ export default function ContentForm({
 
   return (
     <section className="main-content-form">
-      <h1>Submit a file</h1>
-      <div>
+      <div className="MuiPaper-root">
         <Box
           component="div"
           className="form"
           //sx={{overflowY: "auto" }}
         >
+          <div className="MuiPaper-root">
+            <h1>Submit a file</h1>
+          </div>
           <TextField
             id="outlined-basic"
             label="Name of Document"
