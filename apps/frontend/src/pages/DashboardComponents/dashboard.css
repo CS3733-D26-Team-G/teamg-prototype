@@ -25,8 +25,8 @@ div.MuiCardContent-root{
 }
 
 div.MuiPaper-root {
-    border: 2px solid black;
-    box-shadow: 0 10px 15px grey;
+    border: 1px solid gray;
+    box-shadow: 0 10px 15px lightgrey;
 }
 
 .recent-activity-main {
@@ -45,6 +45,7 @@ div.search-container {
     width: auto;
     max-width: 275px;
     border-radius: 20px;;
+    outline: 1px solid lightgray;
 }
 
 .dashboard-main {
@@ -52,7 +53,6 @@ div.search-container {
     display: flex;
     justify-self: end;
     padding: 50px;
-    
 }
 
 .dashboard-activity {

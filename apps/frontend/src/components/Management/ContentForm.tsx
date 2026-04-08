@@ -64,6 +64,7 @@ export default function ContentForm({
 
   return (
     <section className="main-content-form">
+      <div className="MuiPaper-root">
       <div className="header">
         {/* Dynamic Header */}
         <h2>{isEditing ? "Edit Document" : "Submit a New File"}</h2>
@@ -76,6 +77,7 @@ export default function ContentForm({
           className="form"
           onSubmit={handleInternalSubmit}
         >
+          <h1>Submit a File</h1>
           <TextField
             label="Name of Document"
             fullWidth
@@ -169,11 +171,19 @@ export default function ContentForm({
               <MenuItem value="UNAVAILABLE">Unavailable</MenuItem>
             </Select>
           </FormControl>
-
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{ mt: 3 }}
+          {/* <div className='submit-container'> */}
+          <Button
+            type="submit"
+            variant="contained"
+            onClick={handleInternalSubmit}
+          >
+            Update Changes
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={onCancel}
+            sx={{ mb: 5 }}
           >
             <Button
               type="submit"
