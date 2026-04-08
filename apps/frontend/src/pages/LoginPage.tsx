@@ -149,6 +149,7 @@ function LoginPage() {
                 if (resp.status === 401) {
                   return console.error("Invalid credentials");
                 }
+                console.log("Hi");
                 const body = await resp.json();
                 navigate("/dashboard");
                 console.log(body);
