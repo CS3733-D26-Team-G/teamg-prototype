@@ -1,7 +1,51 @@
-import EmployeeForm from "../components/Management/ManageEmployeeForm";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 
-function EmployeeFormPage() {
-  return <>{/* <EmployeeForm></EmployeeForm> */}</>;
+import { EmployeeCreateInputObjectZodSchema } from "@repo/zod";
+import ManageEmployeeForm from "../components/Management/ManageEmployeeForm";
+
+const API_BASE = "http://localhost:3000";
+
+type EmployeeFormData = z.infer<typeof EmployeeCreateInputObjectZodSchema>;
+
+export default function EmployeeFormPage() {
+  const navigate = useNavigate();
+  const [saving, setSaving] = useState(false);
+
+  const handleSave = async (formData: EmployeeFormData) => {
+    if (saving) return;
+
+    const parsed = EmployeeCreateInputObjectZodSchema.parse(formData);
+
+    try {
+      setSaving(true);
+
+      const res = await fetch(`${API_BASE}/employee/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(parsed),
+      });
+
+      if (res.ok) {
+        navigate("/employee-management");
+        return;
+      }
+
+      const errorText = await res.text().catch(() => "");
+      console.error("Create employee failed:", errorText);
+      alert("Create employee failed. Please check the required fields.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <ManageEmployeeForm
+      initialData={null}
+      onSave={handleSave}
+      onCancel={() => navigate("/employee-management")}
+    />
+  );
 }
-
-export default EmployeeFormPage;

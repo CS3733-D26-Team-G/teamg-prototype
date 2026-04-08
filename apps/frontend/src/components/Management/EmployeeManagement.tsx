@@ -1,28 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import {
-  IconButton,
+  AppBar,
   Box,
   Button,
-  AppBar,
-  Toolbar,
-  styled,
-  Typography,
   Chip,
-  CircularProgress,
+  IconButton,
+  Toolbar,
+  Typography,
+  styled,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import AddIcon from "@mui/icons-material/Add";
-import ManageEmployeeForm from "./ManageEmployeeForm";
+import { z } from "zod";
+
 import HeaderSearchBar from "./HeaderSearchBar";
+import ManageEmployeeForm from "./ManageEmployeeForm";
 import {
-  ContentInputSchema,
-  type ContentInputType,
-  EmployeeUncheckedCreateWithoutAccountInputObjectSchema
-  type EmployeePureType,
+  DepartmentSchema,
+  EmployeeCreateInputObjectZodSchema,
+  PositionSchema,
 } from "@repo/zod";
-import { uuid } from "zod";
+
+const API_BASE = "http://localhost:3000";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   flexDirection: "column",
@@ -32,41 +33,45 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   minHeight: 128,
 }));
 
-const BLANK_EMPLOYEE: EmployeePureType = {
-  uuid: "",
-  account: null,
-  first_name: "",
-  last_name: "",
-  date_of_birth: new Date(),
-  position: "UNDERWRITER", //
-  department: "OPERATION_TECHNOLOGY",
-  start_date: new Date(),
-  supervisor: "",
-  phone_number: "",
-  personal_email: "",
-  corporate_email: "",
-};
+/**
+ * The backend returns plain JSON, so date fields arrive as strings.
+ * We coerce those into real Dates on ingest so CalendarInput works.
+ */
+const EmployeeRowSchema = EmployeeCreateInputObjectZodSchema.extend({
+  uuid: z.string(),
+});
+
+type EmployeeRow = z.infer<typeof EmployeeRowSchema>;
+type EmployeeFormData = z.infer<typeof EmployeeCreateInputObjectZodSchema>;
+type Position = z.infer<typeof PositionSchema>;
+type Department = z.infer<typeof DepartmentSchema>;
 
 export default function EmployeeManagement() {
-  const [rows, setRows] = useState<EmployeePureType[]>([]);
+  const [rows, setRows] = useState<EmployeeRow[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewState, setViewState] = useState<EmployeePureType | "new" | null>(
-    null,
-  );
+  const [viewState, setViewState] = useState<EmployeeRow | "new" | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // --- Data Fetching ---
   const loadEmployees = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:3000/employee", {
+      const res = await fetch(`${API_BASE}/employee`, {
         credentials: "include",
       });
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-      const data = await res.json();
-      setRows(data);
+      const data: unknown = await res.json();
+
+      const parsed = z.array(EmployeeRowSchema).safeParse(data);
+      if (!parsed.success) {
+        console.error("Employee list failed schema validation:", parsed.error);
+        setRows([]);
+        return;
+      }
+
+      setRows(parsed.data);
     } catch (error) {
       console.error("Failed to fetch employees:", error);
+      setRows([]);
     } finally {
       setLoading(false);
     }
@@ -76,145 +81,167 @@ export default function EmployeeManagement() {
     void loadEmployees();
   }, []);
 
-  // --- Filtering Logic ---
-  const filteredRows = rows.filter((row) => {
-    if (!searchQuery.trim()) return true;
-    const searchStr = searchQuery.toLowerCase();
-    return (
-      row.first_name.toLowerCase().includes(searchStr) ||
-      row.last_name.toLowerCase().includes(searchStr) ||
-      row.position.toLowerCase().includes(searchStr)
-    );
-  });
+  const filteredRows = useMemo(() => {
+    if (!searchQuery.trim()) return rows;
 
-  // --- Handlers ---
-  const handleDelete = async (row: EmployeePureType) => {
+    const searchStr = searchQuery.toLowerCase();
+    return rows.filter((row) => {
+      return (
+        row.first_name.toLowerCase().includes(searchStr) ||
+        row.last_name.toLowerCase().includes(searchStr) ||
+        row.position.toLowerCase().includes(searchStr) ||
+        row.department.toLowerCase().includes(searchStr) ||
+        row.corporate_email.toLowerCase().includes(searchStr)
+      );
+    });
+  }, [rows, searchQuery]);
+
+  const handleDelete = async (row: EmployeeRow) => {
     if (!window.confirm(`Remove employee ${row.first_name} ${row.last_name}?`))
       return;
 
     try {
-      const res = await fetch(
-        `http://localhost:3000/employee/delete/${row.uuid}`,
-        {
-          method: "POST",
-          credentials: "include",
-        },
-      );
+      const res = await fetch(`${API_BASE}/employee/delete/${row.uuid}`, {
+        method: "POST",
+        credentials: "include",
+      });
 
       if (res.ok) {
         setRows((prev) => prev.filter((r) => r.uuid !== row.uuid));
       } else {
-        console.error("Failed to delete employee");
+        const errorText = await res.text().catch(() => "");
+        console.error("Failed to delete employee:", errorText);
+        alert(
+          "Delete failed. Check server logs (backend route may be rejecting).",
+        );
       }
     } catch (error) {
       console.error("Network error during delete:", error);
+      alert("Network error while deleting employee.");
     }
   };
 
-  const handleSave = async (updatedUser: EmployeePureType) => {
-    const isExisting = viewState !== "new";
+  const handleSave = async (formData: EmployeeFormData) => {
+    const isExisting = viewState !== null && viewState !== "new";
+    const uuid = isExisting ? (viewState as EmployeeRow).uuid : undefined;
 
-    // 1. Prepare the payload
-    // We ensure dates are stringified.
-    // NOTE: If the backend Zod is z.date(), it will ALWAYS fail
-    // unless the backend uses z.coerce.date().
-    const payload = {
-      ...updatedUser,
-      date_of_birth:
-        updatedUser.date_of_birth instanceof Date ?
-          updatedUser.date_of_birth.toISOString()
-        : updatedUser.date_of_birth,
-      start_date:
-        updatedUser.start_date instanceof Date ?
-          updatedUser.start_date.toISOString()
-        : updatedUser.start_date,
-      uuid: isExisting ? updatedUser.uuid : crypto.randomUUID(),
-    };
+    // Create expects the full EmployeeCreate shape.
+    // Update expects the same shape but WITHOUT uuid in the body (uuid is in the URL).
+    const parsedFull = EmployeeCreateInputObjectZodSchema.parse({
+      ...formData,
+      ...(uuid ? { uuid } : {}),
+    });
 
     const url =
       isExisting ?
-        `http://localhost:3000/employee/update/${payload.uuid}`
-      : `http://localhost:3000/employee/create`;
+        `${API_BASE}/employee/update/${uuid as string}`
+      : `${API_BASE}/employee/create`;
 
-    // 2. Log exactly what we are sending to compare with the Zod schema
-    console.log("Sending Payload:", JSON.stringify(payload, null, 2));
+    const body =
+      isExisting ?
+        (() => {
+          const { uuid: _omit, ...rest } = parsedFull;
+          return rest;
+        })()
+      : parsedFull;
 
     try {
       const res = await fetch(url, {
         method: isExisting ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(payload),
+        body: JSON.stringify(body),
       });
 
       if (res.ok) {
         await loadEmployees();
         setViewState(null);
       } else {
-        const errorText = await res.text();
-        console.error("Backend validation error:", errorText);
-
-        // Insight: If it still says "expected date", the backend MUST
-        // be updated to use z.coerce.date() in the Zod schema.
-        alert(
-          "Validation Error: The server expected a Date object but received a String.",
-        );
+        const errorText = await res.text().catch(() => "");
+        console.error("Save failed:", errorText);
+        alert("Save failed. Please verify required fields and try again.");
       }
     } catch (error) {
       console.error("Error during handleSave:", error);
+      alert("Network error while saving employee.");
     }
   };
 
   const getColumns = (
-    onEdit: (row: EmployeePureType) => void,
-    onDelete: (row: EmployeePureType) => void,
-  ): GridColDef[] => [
-    { field: "first_name", headerName: "First Name", flex: 1 },
-    { field: "last_name", headerName: "Last Name", flex: 1 },
-    {
-      field: "position",
-      headerName: "User Type",
-      width: 180,
-      renderCell: (params) => {
-        const role = params.value as EmployeePureType["position"];
-        const colorMap: Record<
-          EmployeePureType["position"],
-          "error" | "info" | "success"
-        > = {
-          ADMIN: "error",
-          UNDERWRITER: "info",
-          BUSINESS_ANALYST: "success",
-        };
+    onEdit: (row: EmployeeRow) => void,
+    onDelete: (row: EmployeeRow) => void,
+  ): GridColDef<EmployeeRow>[] => {
+    const colorMap: Record<Position, "error" | "info" | "success"> = {
+      ADMIN: "error",
+      UNDERWRITER: "info",
+      BUSINESS_ANALYST: "success",
+    };
 
-        return (
-          <Chip
-            label={role}
-            color={colorMap[role] || "default"}
-            size="small"
-            variant="outlined"
-          />
-        );
+    const deptLabels: Record<Department, string> = {
+      OPERATION_TECHNOLOGY: "Ops & Technology",
+      ACCOUNTING: "Accounting",
+    };
+
+    return [
+      { field: "first_name", headerName: "First Name", flex: 1, minWidth: 140 },
+      { field: "last_name", headerName: "Last Name", flex: 1, minWidth: 140 },
+      {
+        field: "position",
+        headerName: "Position",
+        width: 160,
+        renderCell: (params) => {
+          const role = params.value as Position;
+          return (
+            <Chip
+              label={role}
+              color={colorMap[role] ?? "default"}
+              size="small"
+              variant="outlined"
+            />
+          );
+        },
       },
-    },
-    {
-      field: "actions",
-      headerName: "Actions",
-      width: 120,
-      renderCell: (params) => (
-        <>
-          <IconButton onClick={() => onEdit(params.row)}>
-            <EditIcon />
-          </IconButton>
-          <IconButton onClick={() => onDelete(params.row)}>
-            <DeleteIcon color="error" />
-          </IconButton>
-        </>
-      ),
-    },
-  ];
+      {
+        field: "department",
+        headerName: "Department",
+        width: 190,
+        valueGetter: (value) =>
+          deptLabels[value as Department] ?? String(value),
+      },
+      {
+        field: "corporate_email",
+        headerName: "Corporate Email",
+        flex: 1.2,
+        minWidth: 220,
+      },
+      {
+        field: "actions",
+        headerName: "Actions",
+        width: 120,
+        sortable: false,
+        filterable: false,
+        renderCell: (params) => (
+          <>
+            <IconButton
+              onClick={() => onEdit(params.row)}
+              aria-label="Edit"
+            >
+              <EditIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => onDelete(params.row)}
+              aria-label="Delete"
+            >
+              <DeleteIcon color="error" />
+            </IconButton>
+          </>
+        ),
+      },
+    ];
+  };
 
   return (
-    <Box sx={{ height: 600, width: "100%", p: 2 }}>
+    <Box sx={{ height: 650, width: "100%", p: 2 }}>
       {viewState ?
         <ManageEmployeeForm
           initialData={viewState === "new" ? null : viewState}
@@ -267,7 +294,7 @@ export default function EmployeeManagement() {
             columns={getColumns((row) => setViewState(row), handleDelete)}
             getRowId={(row) => row.uuid}
             loading={loading}
-            pageSizeOptions={[5]}
+            pageSizeOptions={[5, 10]}
             initialState={{
               pagination: { paginationModel: { pageSize: 5 } },
             }}
