@@ -1,0 +1,5 @@
+{
+  "name": "@repo/zod",
+  "private": true,
+  "type": "module"
+}
