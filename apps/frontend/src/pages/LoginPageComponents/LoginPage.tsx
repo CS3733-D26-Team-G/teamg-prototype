@@ -56,7 +56,8 @@ function LoginPage() {
             if (resp.status === 401) {
               return console.error("Invalid credentials");
             }
-            console.log(resp.body);
+            const body = await resp.json();
+            console.log(body);
           } catch (e) {
             console.error(e);
           }
