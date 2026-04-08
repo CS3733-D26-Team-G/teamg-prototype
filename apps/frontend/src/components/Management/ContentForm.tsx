@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import CalendarInput from "../CalendarInput.tsx";
 import type { ContentPureType } from "zod/schemas";
 import "./ContentForm.css";
+import { useTheme } from "@mui/material/styles";
 
 interface ContentFormProps {
   initialData?: ContentPureType | null; // Optional: if present, we are editing
@@ -24,6 +25,7 @@ export default function ContentForm({
   onCancel,
 }: ContentFormProps) {
   const [recipient, setRecipient] = React.useState("");
+  const theme = useTheme();
 
   const [formData, setFormData] = useState<ContentPureType>({
     uuid: initialData?.uuid || "",
@@ -63,9 +65,7 @@ export default function ContentForm({
           className="form"
           //sx={{overflowY: "auto" }}
         >
-          <div className="MuiPaper-root">
-            <h1>Submit a file</h1>
-          </div>
+          <h1>Submit a File</h1>
           <TextField
             id="outlined-basic"
             label="Name of Document"
@@ -134,13 +134,13 @@ export default function ContentForm({
           <Button
             type="submit"
             variant="contained"
-            className="submit-button"
             onClick={handleInternalSubmit}
           >
             Update Changes
           </Button>
           <Button
-            variant="outlined"
+            variant="contained"
+            color="secondary"
             onClick={onCancel}
             sx={{ mb: 5 }}
           >

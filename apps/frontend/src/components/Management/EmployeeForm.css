@@ -5,6 +5,7 @@
 
 .main-content-form {
   /*width: 100%;*/
+  background-color: #C6DAF0;
   height: 100vh;
   justify-content: center;
   display: flex;
@@ -16,12 +17,13 @@ div.MuiPaper-root {
   width: contain;
   height: fit-content;
   margin: 5px;
-  border-radius: 100px;
+  border-radius: 30px;
   background-color: white;
   outline-color: lightgray
 }
 h1{
   text-align: center;
+  color: #1A1E4B;
 }
 
 /*h2 {*/
