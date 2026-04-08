@@ -65,11 +65,6 @@ export default function ContentForm({
   return (
     <section className="main-content-form">
       <div className="MuiPaper-root">
-        <div className="header">
-          {/* Dynamic Header */}
-          <h2>{isEditing ? "Edit Document" : "Submit a New File"}</h2>
-        </div>
-
         <div>
           {/* Use component="form" to handle the Enter key correctly */}
           <Box
@@ -77,7 +72,8 @@ export default function ContentForm({
             className="form"
             onSubmit={handleInternalSubmit}
           >
-            <h1>Submit a File</h1>
+            {/* Dynamic Header */}
+            <h1>{isEditing ? "Edit Document" : "Submit a New File"}</h1>
             <TextField
               label="Name of Document"
               fullWidth
@@ -120,24 +116,18 @@ export default function ContentForm({
               </Select>
             </FormControl>
 
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{ my: 2 }}
-            >
-              <CalendarInput
-                label="Last Modified Date"
-                value={formData.last_modified_time}
-                onChange={(newDate) =>
-                  handleChange("last_modified_time", newDate)
-                }
-              />
-              <CalendarInput
-                label="Link Expiration Date"
-                value={formData.expiration_time}
-                onChange={(newDate) => handleChange("expiration_time", newDate)}
-              />
-            </Stack>
+            <CalendarInput
+              label="Last Modified Date"
+              value={formData.last_modified_time}
+              onChange={(newDate) =>
+                handleChange("last_modified_time", newDate)
+              }
+            />
+            <CalendarInput
+              label="Link Expiration Date"
+              value={formData.expiration_time}
+              onChange={(newDate) => handleChange("expiration_time", newDate)}
+            />
 
             <FormControl
               fullWidth
