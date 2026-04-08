@@ -20,14 +20,10 @@ function App() {
           {/*<Navbar />*/}
           <Routes>
             <Route
-              path="/login"
+              path="/"
               element={<LoginFrThisTime />}
             />
 
-            <Route
-              path="/"
-              element={<Dashboard />}
-            />
             <Route
               path="/dashboard"
               element={<Dashboard />}

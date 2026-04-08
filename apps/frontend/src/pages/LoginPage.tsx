@@ -13,12 +13,14 @@ import {
   Typography,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -131,6 +133,7 @@ function LoginPage() {
           </Box>
 
           <Button
+            onClick={() => navigate("/dashboard")}
             variant="contained"
             fullWidth
             size="large"
