@@ -7,10 +7,12 @@ generator client {
 }
 
 generator zod {
-  provider              = "prisma-zod-generator"
-  output                = "../../zod"
-  optionalFieldBehavior = optional
-  coerceDate            = true
+  provider                        = "prisma-zod-generator"
+  output                          = "../../zod"
+  optionalFieldBehavior           = optional
+  createOptionalDefaultValueTypes = true
+  createInputTypes                = true
+  coerceDate                      = true
 }
 
 datasource db {

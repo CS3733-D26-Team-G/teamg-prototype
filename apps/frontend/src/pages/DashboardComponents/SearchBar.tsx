@@ -1,5 +1,9 @@
 import { useState, type ChangeEvent } from "react";
+<<<<<<< HEAD
 import { TextField, IconButton, formGroupClasses, Box } from "@mui/material";
+=======
+import { TextField, IconButton, formGroupClasses } from "@mui/material";
+>>>>>>> main
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import "./dashboard.css";
@@ -10,7 +14,11 @@ interface SearchBarProps {
 
 const SearchBar = ({ setSearchQuery }: SearchBarProps) => (
   <div className="search-container">
+<<<<<<< HEAD
     <Box>
+=======
+    <form>
+>>>>>>> main
       <TextField
         id="search-bar"
         placeholder="search"
@@ -40,7 +48,11 @@ const SearchBar = ({ setSearchQuery }: SearchBarProps) => (
           },
         }}
       ></TextField>
+<<<<<<< HEAD
     </Box>
+=======
+    </form>
+>>>>>>> main
   </div>
 );
 

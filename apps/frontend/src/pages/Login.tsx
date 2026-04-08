@@ -1,4 +1,4 @@
-import LoginPage from "./LoginPageComponents/LoginPage.tsx";
+import LoginPage from "./LoginPage.tsx";
 
 function LoginFrThisTime() {
   return (

@@ -31,8 +31,8 @@ router.post("/", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: false,
+      sameSite: "lax",
       maxAge: 1000 * 60 * 60,
     });
 
@@ -44,6 +44,7 @@ router.post("/", async (req, res) => {
     if (e.code === "P2025") {
       res.status(401).json({ message: "Invalid credentials" });
     }
+    console.error(e);
   }
 });
 

@@ -10,12 +10,14 @@ interface SearchBarProps {
 
 const SearchBar = ({ setSearchQuery }: SearchBarProps) => (
   <div className="search-container">
-    <form>
+    {/* Add onSubmit to prevent page reloads */}
+    <form onSubmit={(e) => e.preventDefault()}>
       <TextField
         id="search-bar"
         placeholder="search"
         variant="outlined"
         size="small"
+        fullWidth // Added fullWidth so it fills your container
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
           setSearchQuery(e.target.value);
         }}
@@ -28,20 +30,7 @@ const SearchBar = ({ setSearchQuery }: SearchBarProps) => (
             ),
           },
         }}
-        sx={
-          {
-            // "& .MuiOutlinedInput-notchedOutline": {
-            // border: "none",
-            // },
-            // "&:hover .MuiOutlinedInput-notchedOutline": {
-            // border: "none",
-            // },
-            // "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            // border: "none",
-            // },
-          }
-        }
-      ></TextField>
+      />
     </form>
   </div>
 );

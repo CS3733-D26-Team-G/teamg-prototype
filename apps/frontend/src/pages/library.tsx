@@ -1,7 +1,8 @@
 import { useState } from "react";
-import ContentManagement from "../components/Management/ContentManagement";
+// import ContentManagement from "../components/Management/ContentManagement";
 import ContentHeader from "../components/Management/ContentHeader";
 import { type ContentPureType } from "@repo/zod";
+import EmployeeManagement from "../components/Management/EmployeeManagement";
 
 function Library() {
   const [viewState, setViewState] = useState<ContentPureType | "new" | null>(
@@ -10,11 +11,12 @@ function Library() {
 
   return (
     <>
-      <ContentHeader onOpenCreate={() => setViewState("new")}></ContentHeader>
-      <ContentManagement
+      {/* <ContentHeader onOpenCreate={() => setViewState("new")}></ContentHeader> */}
+      {/* <ContentManagement
         viewState={viewState}
         setViewState={setViewState}
-      ></ContentManagement>
+      ></ContentManagement> */}
+      <EmployeeManagement></EmployeeManagement>
     </>
   );
 }
