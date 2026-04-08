@@ -1,53 +1,43 @@
 import * as React from "react";
-import { DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import Box from "@mui/material/Box";
-import Alert from "@mui/material/Alert";
+import dayjs, { Dayjs } from "dayjs";
 
-export default function CalendarInput({ label }: { label: string }) {
-  const [cleared, setCleared] = React.useState<boolean>(false);
+interface CalendarInputProps {
+  label: string;
+  value: Date; // Accepts standard JS Date from your form state
+  onChange: (date: Date) => void; // Sends back a standard JS Date
+}
 
-  React.useEffect(() => {
-    if (cleared) {
-      const timeout = setTimeout(() => {
-        setCleared(false);
-      }, 1500);
+export default function CalendarInput({
+  label,
+  value,
+  onChange,
+}: CalendarInputProps) {
+  // Convert the incoming Date to a Dayjs object for the MUI picker
+  const dateValue = dayjs(value);
 
-      return () => clearTimeout(timeout);
+  const handleDateChange = (newValue: Dayjs | null) => {
+    if (newValue) {
+      // Convert Dayjs back to standard JS Date before sending to parent
+      onChange(newValue.toDate());
     }
-    return () => {};
-  }, [cleared]);
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box
-        sx={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          justifyContent: "center",
-          position: "relative",
-        }}
-      >
-        <DemoItem label={label}>
-          <DesktopDatePicker
-            sx={{ width: 260 }}
-            slotProps={{
-              field: { clearable: true, onClear: () => setCleared(true) },
-            }}
-          />
-        </DemoItem>
-
-        {cleared && (
-          <Alert
-            sx={{ position: "absolute", bottom: 0, right: 0 }}
-            severity="success"
-          >
-            Field cleared!
-          </Alert>
-        )}
+      <Box sx={{ width: "100%", mb: 2 }}>
+        <DesktopDatePicker
+          label={label}
+          value={dateValue}
+          onChange={handleDateChange}
+          sx={{ width: "100%" }}
+          slotProps={{
+            field: { clearable: true },
+          }}
+        />
       </Box>
     </LocalizationProvider>
   );
