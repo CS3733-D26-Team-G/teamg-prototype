@@ -13,14 +13,14 @@ import {
   Typography,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -150,7 +150,7 @@ function LoginPage() {
                   return console.error("Invalid credentials");
                 }
                 const body = await resp.json();
-                //navigate("/dashboard");
+                navigate("/dashboard");
                 console.log(body);
               } catch (e) {
                 console.error(e);
