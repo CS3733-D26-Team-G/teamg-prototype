@@ -42,7 +42,7 @@ async function generateSampleContentData() {
       },
       {
         title: "prc rating wksht manual earthquake",
-        url: "https://zhwxfsahkisstuxignvi.supabase.co/storage/v1/object/sign/teamg-prototype/prc_rating_wksht_manual_earthquake.xls",
+        url: "https://zhwxfsahkisstuxignvi.supabase.co/storage/v1/object/public/teamg-prototype/prc_rating_wksht_manual_earthquake.xls",
         content_owner: "Nina Patel",
         for_position: "UNDERWRITER",
         last_modified_time: new Date("2025-01-20"),
@@ -52,7 +52,7 @@ async function generateSampleContentData() {
       },
       {
         title: "sys isonet CMCManual Instructions",
-        url: "https://zhwxfsahkisstuxignvi.supabase.co/storage/v1/object/sign/teamg-prototype/sys_isonet_CMCManual_Instructions.doc",
+        url: "https://zhwxfsahkisstuxignvi.supabase.co/storage/v1/object/public/teamg-prototype/sys_isonet_CMCManual_Instructions.doc",
         content_owner: "Owen Carter",
         for_position: "UNDERWRITER",
         last_modified_time: new Date("2025-01-25"),
@@ -169,6 +169,16 @@ async function generateSampleContentData() {
         expiration_time: new Date("2026-06-07"),
         content_type: "REFERENCE",
         status: "IN_USE",
+      },
+      {
+        title: "Renewal Instructions",
+        url: "https://example.com/renewal",
+        content_owner: "Betsy Smith",
+        for_position: "BUSINESS_ANALYST",
+        last_modified_time: new Date("2020-12-07"),
+        expiration_time: new Date("2021-06-07"),
+        content_type: "REFERENCE",
+        status: "AVAILABLE",
       },
       {
         title: "Policy Guide",
