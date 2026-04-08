@@ -7,6 +7,8 @@ import Library from "./pages/library.tsx";
 import Activity from "./pages/activity.tsx";
 import Settings from "./pages/settings.tsx";
 import Profile from "./pages/profile.tsx";
+import LoginFrThisTime from "./pages/Login.tsx";
+
 //import Navbar from "./components/Navbar.tsx";
 import ContentGrid from "./components/Management/EmployeeManagement.tsx";
 import { type GridColDef } from "@mui/x-data-grid";
@@ -31,6 +33,11 @@ function App() {
         <div style={{ flexGrow: 1 }}>
           {/*<Navbar />*/}
           <Routes>
+            <Route
+              path="/login"
+              element={<LoginFrThisTime />}
+            />
+
             <Route
               path="/"
               element={<Dashboard />}
