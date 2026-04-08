@@ -1,8 +1,8 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
-import { ContentCreateOneSchema, ContentInputSchema } from "@repo/zod";
 import { PrismaClientKnownRequestError } from "@repo/db/generated/prisma/internal/prismaNamespace.ts";
 import { ZodError } from "zod";
+import { ContentCreateInputObjectSchema, ContentInputSchema } from "@repo/zod";
 
 const router = express.Router();
 
@@ -30,11 +30,11 @@ router.post("/create", async (req, res) => {
   // const auth = req.auth;
   try {
     try {
-      const body = ContentCreateOneSchema.parse(req.body);
+      const body = ContentCreateInputObjectSchema.parse(req.body);
       // if (auth.position !== ADMIN && auth.position !== body.data.for_position) {
       //   return res.status(401).json({ message: "Unauthorized" });
       // }
-      const content = await prisma.content.create(body);
+      const content = await prisma.content.create({ data: body });
       res.status(201).json(content);
     } catch (e) {
       if (e instanceof ZodError) {
@@ -52,7 +52,9 @@ router.post("/create", async (req, res) => {
 router.put("/edit/:uuid", async (req, res) => {
   const uuid = req.params.uuid;
   try {
-    const body = ContentInputSchema.partial().parse(req.body);
+    const body = ContentInputSchema.omit({ uuid: true })
+      .partial()
+      .parse(req.body);
     try {
       await prisma.content.update({ where: { uuid: uuid }, data: body });
     } catch (e) {

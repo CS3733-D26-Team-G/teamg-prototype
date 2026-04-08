@@ -8,12 +8,12 @@ import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import { MenuItem, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import CalendarInput from "../CalendarInput.tsx";
-import type { ContentPureType } from "@repo/zod";
+import type { ContentInputType } from "@repo/zod";
 import "./ContentForm.css";
 
 interface ContentFormProps {
-  initialData?: ContentPureType | null;
-  onSave: (data: ContentPureType) => void;
+  initialData?: ContentInputType | null;
+  onSave: (data: ContentInputType) => void;
   onCancel: () => void;
 }
 
@@ -25,7 +25,7 @@ export default function ContentForm({
   // Determine mode once
   const isEditing = !!initialData;
 
-  const [formData, setFormData] = useState<ContentPureType>({
+  const [formData, setFormData] = useState<ContentInputType>({
     uuid: initialData?.uuid || "",
     for_position: initialData?.for_position || "UNDERWRITER",
     title: initialData?.title || "",
@@ -44,7 +44,7 @@ export default function ContentForm({
     status: initialData?.status || "AVAILABLE",
   });
 
-  const handleChange = (field: keyof ContentPureType, value: any) => {
+  const handleChange = (field: keyof ContentInputType, value: any) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -52,7 +52,7 @@ export default function ContentForm({
   };
 
   const handleSelectChange =
-    (field: keyof ContentPureType) => (event: SelectChangeEvent) => {
+    (field: keyof ContentInputType) => (event: SelectChangeEvent) => {
       handleChange(field, event.target.value);
     };
 
