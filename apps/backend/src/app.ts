@@ -1,17 +1,11 @@
+import "./env.ts";
 import express from "express";
 import morgan from "morgan";
-import dotenv from "dotenv";
 import { readdirSync } from "node:fs";
 import { join } from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { auth } from "./middlewares/auth.ts";
-
-dotenv.config({
-  path:
-    process.env.DOTENV_FILE ||
-    (process.env.NODE_ENV === "production" ? ".env.production" : ".env"),
-});
 
 const app = express();
 const port = process.env.PORT;
@@ -26,7 +20,7 @@ app.use(
     credentials: true,
   }),
 );
-// app.use(auth);
+app.use(auth);
 // Send HTTP 200 at root
 app.get("/", (req, res) => {
   res.sendStatus(200);

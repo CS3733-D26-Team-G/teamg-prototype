@@ -62,143 +62,124 @@
 //     onSave(formData);
 //   };
 
-//   return (
-//     <section className="main-content-form">
-//       <div className="MuiPaper-root">
-//       <div className="header">
-//         {/* Dynamic Header */}
-//         <h2>{isEditing ? "Edit Document" : "Submit a New File"}</h2>
-//       </div>
+  return (
+    <section className="main-content-form">
+      <div className="MuiPaper-root">
+        <div>
+          {/* Use component="form" to handle the Enter key correctly */}
+          <Box
+            component="form"
+            className="form"
+            onSubmit={handleInternalSubmit}
+          >
+            {/* Dynamic Header */}
+            <h1>{isEditing ? "Edit Document" : "Submit a New File"}</h1>
+            <TextField
+              label="Name of Document"
+              fullWidth
+              value={formData.title}
+              onChange={(e) => handleChange("title", e.target.value)}
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="URL of Link"
+              fullWidth
+              value={formData.url}
+              onChange={(e) => handleChange("url", e.target.value)}
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="Content Owner"
+              fullWidth
+              value={formData.content_owner}
+              onChange={(e) => handleChange("content_owner", e.target.value)}
+              variant="outlined"
+              margin="normal"
+            />
 
-//       <div className="main">
-//         {/* Use component="form" to handle the Enter key correctly */}
-//         <Box
-//           component="form"
-//           className="form"
-//           onSubmit={handleInternalSubmit}
-//         >
-//           <h1>Submit a File</h1>
-//           <TextField
-//             label="Name of Document"
-//             fullWidth
-//             value={formData.title}
-//             onChange={(e) => handleChange("title", e.target.value)}
-//             variant="outlined"
-//             margin="normal"
-//           />
-//           <TextField
-//             label="URL of Link"
-//             fullWidth
-//             value={formData.url}
-//             onChange={(e) => handleChange("url", e.target.value)}
-//             variant="outlined"
-//             margin="normal"
-//           />
-//           <TextField
-//             label="Content Owner"
-//             fullWidth
-//             value={formData.content_owner}
-//             onChange={(e) => handleChange("content_owner", e.target.value)}
-//             variant="outlined"
-//             margin="normal"
-//           />
+            <FormControl
+              fullWidth
+              margin="normal"
+            >
+              <InputLabel id="recipient-label">Intended Recipient</InputLabel>
+              <Select
+                labelId="recipient-label"
+                label="Intended Recipient"
+                value={formData.for_position}
+                onChange={handleSelectChange("for_position")}
+              >
+                <MenuItem value="UNDERWRITER">Underwriter</MenuItem>
+                <MenuItem value="BUSINESS_ANALYST">Business Analyst</MenuItem>
+                <MenuItem value="ADMIN">Admin</MenuItem>
+              </Select>
+            </FormControl>
 
-//           <FormControl
-//             fullWidth
-//             margin="normal"
-//           >
-//             <InputLabel id="recipient-label">Intended Recipient</InputLabel>
-//             <Select
-//               labelId="recipient-label"
-//               label="Intended Recipient"
-//               value={formData.for_position}
-//               onChange={handleSelectChange("for_position")}
-//             >
-//               <MenuItem value="UNDERWRITER">Underwriter</MenuItem>
-//               <MenuItem value="BUSINESS_ANALYST">Business Analyst</MenuItem>
-//               <MenuItem value="ADMIN">Admin</MenuItem>
-//             </Select>
-//           </FormControl>
+            <CalendarInput
+              label="Last Modified Date"
+              value={formData.last_modified_time}
+              onChange={(newDate) =>
+                handleChange("last_modified_time", newDate)
+              }
+            />
+            <CalendarInput
+              label="Link Expiration Date"
+              value={formData.expiration_time}
+              onChange={(newDate) => handleChange("expiration_time", newDate)}
+            />
 
-//           <Stack
-//             direction="row"
-//             spacing={2}
-//             sx={{ my: 2 }}
-//           >
-//             <CalendarInput
-//               label="Last Modified Date"
-//               value={formData.last_modified_time}
-//               onChange={(newDate) =>
-//                 handleChange("last_modified_time", newDate)
-//               }
-//             />
-//             <CalendarInput
-//               label="Link Expiration Date"
-//               value={formData.expiration_time}
-//               onChange={(newDate) => handleChange("expiration_time", newDate)}
-//             />
-//           </Stack>
+            <FormControl
+              fullWidth
+              margin="normal"
+            >
+              <InputLabel id="content-type-label">Type of Content</InputLabel>
+              <Select
+                labelId="content-type-label"
+                label="Type of Content"
+                value={formData.content_type}
+                onChange={handleSelectChange("content_type")}
+              >
+                <MenuItem value="REFERENCE">Reference Content</MenuItem>
+                <MenuItem value="WORKFLOW">Workflow Content</MenuItem>
+              </Select>
+            </FormControl>
 
-//           <FormControl
-//             fullWidth
-//             margin="normal"
-//           >
-//             <InputLabel id="content-type-label">Type of Content</InputLabel>
-//             <Select
-//               labelId="content-type-label"
-//               label="Type of Content"
-//               value={formData.content_type}
-//               onChange={handleSelectChange("content_type")}
-//             >
-//               <MenuItem value="REFERENCE">Reference Content</MenuItem>
-//               <MenuItem value="WORKFLOW">Workflow Content</MenuItem>
-//             </Select>
-//           </FormControl>
-
-//           <FormControl
-//             fullWidth
-//             margin="normal"
-//           >
-//             <InputLabel id="status-label">Document Status</InputLabel>
-//             <Select
-//               labelId="status-label"
-//               label="Document Status"
-//               value={formData.status}
-//               onChange={handleSelectChange("status")}
-//             >
-//               <MenuItem value="AVAILABLE">Available</MenuItem>
-//               <MenuItem value="IN_USE">In Use</MenuItem>
-//               <MenuItem value="UNAVAILABLE">Unavailable</MenuItem>
-//             </Select>
-//           </FormControl>
-//           {/* <div className='submit-container'> */}
-//           <Button
-//             type="submit"
-//             variant="contained"
-//             onClick={handleInternalSubmit}
-//           >
-//             Update Changes
-//           </Button>
-
-//             <Button
-//               type="submit"
-//               variant="contained"
-//               fullWidth
-//               color="primary"
-//             >
-//               {/* Dynamic Button Text */}
-//               {isEditing ? "Update Changes" : "Create Content"}
-//             </Button>
-//             <Button
-//               variant="outlined"
-//               fullWidth
-//               onClick={onCancel}
-//             >
-//               Cancel
-//             </Button>
-//           </Stack>
-//         </Box>
-//       </div>
-//     </section>
-//   );
-// }
+            <FormControl
+              fullWidth
+              margin="normal"
+            >
+              <InputLabel id="status-label">Document Status</InputLabel>
+              <Select
+                labelId="status-label"
+                label="Document Status"
+                value={formData.status}
+                onChange={handleSelectChange("status")}
+              >
+                <MenuItem value="AVAILABLE">Available</MenuItem>
+                <MenuItem value="IN_USE">In Use</MenuItem>
+                <MenuItem value="UNAVAILABLE">Unavailable</MenuItem>
+              </Select>
+            </FormControl>
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              color="primary"
+            >
+              {/* Dynamic Button Text */}
+              {isEditing ? "Update Changes" : "Create Content"}
+            </Button>
+            <Button
+              variant="outlined"
+              fullWidth
+              onClick={onCancel}
+            >
+              Cancel
+            </Button>
+          </Box>
+        </div>
+      </div>
+    </section>
+  );
+}

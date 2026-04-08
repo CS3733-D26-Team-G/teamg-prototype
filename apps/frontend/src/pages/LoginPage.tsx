@@ -133,7 +133,29 @@ function LoginPage() {
           </Box>
 
           <Button
-            onClick={() => navigate("/dashboard")}
+            onClick={async () => {
+              try {
+                const resp = await fetch("http://localhost:3000/login", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  credentials: "include",
+                  body: JSON.stringify({
+                    username: username,
+                    password: password,
+                  }),
+                });
+                if (resp.status === 401) {
+                  return console.error("Invalid credentials");
+                }
+                const body = await resp.json();
+                navigate("/dashboard");
+                console.log(body);
+              } catch (e) {
+                console.error(e);
+              }
+            }}
             variant="contained"
             fullWidth
             size="large"
