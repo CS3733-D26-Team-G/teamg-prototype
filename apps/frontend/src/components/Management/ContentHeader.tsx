@@ -1,53 +1,67 @@
-import React, { useState } from 'react';
-import { Box, IconButton } from '@mui/material'
-import Toolbar from '@mui/material/Toolbar'
-import AppBar from '@mui/material/AppBar'
-import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import HeaderSearchBar from './HeaderSearchBar'
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import MoreIcon from '@mui/icons-material/MoreVert';
-
+import React, { useState } from "react";
+import { Box, IconButton, Toolbar, AppBar, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import HeaderSearchBar from "./HeaderSearchBar";
+import SearchIcon from "@mui/icons-material/Search";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-  alignItems: 'flex-start',
-  paddingTop: theme.spacing(1),
+  flexDirection: "column",
+  alignItems: "stretch",
+  paddingTop: theme.spacing(2),
   paddingBottom: theme.spacing(2),
-  // Override media queries injected by theme.mixins.toolbar
-  '@media all': {
-    minHeight: 128,
-  },
+  minHeight: 128,
 }));
 
-export default function ContentHeader() {
-    const [searchQuery, setSearchQuery] = useState("");
-    return (
-        <Box sx={{flexGrow: 1}}>
-            <AppBar>
-                <StyledToolbar>
-                    <HeaderSearchBar setSearchQuery={setSearchQuery}></HeaderSearchBar>
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="div"
-                        sx={{ flexGrow: 1, alignSelf: 'flex-end' }}
-                    >
-                        MUI
-                    </Typography>
-                    <IconButton size="large" aria-label="search" color="inherit">
-                        <SearchIcon />
-                    </IconButton>
-                    <IconButton
-                        size="large"
-                        aria-label="display more actions"
-                        edge="end"
-                        color="inherit"
-                    >
-                        <MoreIcon />
-                    </IconButton>
-                </StyledToolbar>
-            </AppBar>
-        </Box>
-    );
+interface ContentHeaderProps {
+  onOpenCreate: () => void;
+}
+
+export default function ContentHeader({ onOpenCreate }: ContentHeaderProps) {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  return (
+    <Box sx={{ flexGrow: 1, backgroundColor: "white", zIndex: "-1" }}>
+      <AppBar position="relative">
+        <StyledToolbar>
+          <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
+            <Typography
+              variant="h4"
+              noWrap
+              component="div"
+              sx={{ paddingBottom: "2rem", paddingTop: "3rem", color: "black" }}
+            >
+              Content Management
+            </Typography>
+          </Box>
+
+          <Box sx={{ flexGrow: 1 }} />
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box sx={{ flexGrow: 1, maxWidth: "70%" }}>
+              <HeaderSearchBar setSearchQuery={setSearchQuery} />
+            </Box>
+
+            <Box>
+              <Button
+                onClick={onOpenCreate}
+                variant="outlined"
+                startIcon={<AddIcon />}
+              >
+                New Content
+              </Button>
+            </Box>
+          </Box>
+        </StyledToolbar>
+      </AppBar>
+    </Box>
+  );
 }
