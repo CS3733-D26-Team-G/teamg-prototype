@@ -149,8 +149,8 @@ function LoginPage() {
                 if (resp.status === 401) {
                   return console.error("Invalid credentials");
                 }
-                console.log("Hi");
                 const body = await resp.json();
+                localStorage.setItem("account_type", body.account_type);
                 navigate("/dashboard");
                 console.log(body);
               } catch (e) {
