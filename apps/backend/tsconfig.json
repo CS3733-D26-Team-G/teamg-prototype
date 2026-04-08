@@ -6,5 +6,6 @@
     "moduleResolution": "nodenext",
     "target": "ESNext",
     "allowImportingTsExtensions": true
-  }
+  },
+  "include": ["src/**/*.ts", "src/types/**/*.d.ts"]
 }
