@@ -1,0 +1,13 @@
+import type { Prisma } from '../../../db/generated/prisma/client.ts';
+import * as z from 'zod';
+import { ActivityWhereInputObjectSchema as ActivityWhereInputObjectSchema } from './objects/ActivityWhereInput.schema.ts';
+import { ActivityOrderByWithAggregationInputObjectSchema as ActivityOrderByWithAggregationInputObjectSchema } from './objects/ActivityOrderByWithAggregationInput.schema.ts';
+import { ActivityScalarWhereWithAggregatesInputObjectSchema as ActivityScalarWhereWithAggregatesInputObjectSchema } from './objects/ActivityScalarWhereWithAggregatesInput.schema.ts';
+import { ActivityScalarFieldEnumSchema } from './enums/ActivityScalarFieldEnum.schema.ts';
+import { ActivityCountAggregateInputObjectSchema as ActivityCountAggregateInputObjectSchema } from './objects/ActivityCountAggregateInput.schema.ts';
+import { ActivityMinAggregateInputObjectSchema as ActivityMinAggregateInputObjectSchema } from './objects/ActivityMinAggregateInput.schema.ts';
+import { ActivityMaxAggregateInputObjectSchema as ActivityMaxAggregateInputObjectSchema } from './objects/ActivityMaxAggregateInput.schema.ts';
+
+export const ActivityGroupBySchema: z.ZodType<Prisma.ActivityGroupByArgs> = z.object({ where: ActivityWhereInputObjectSchema.optional(), orderBy: z.union([ActivityOrderByWithAggregationInputObjectSchema, ActivityOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ActivityScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ActivityScalarFieldEnumSchema), _count: z.union([ z.literal(true), ActivityCountAggregateInputObjectSchema ]).optional(), _min: ActivityMinAggregateInputObjectSchema.optional(), _max: ActivityMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ActivityGroupByArgs>;
+
+export const ActivityGroupByZodSchema = z.object({ where: ActivityWhereInputObjectSchema.optional(), orderBy: z.union([ActivityOrderByWithAggregationInputObjectSchema, ActivityOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ActivityScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ActivityScalarFieldEnumSchema), _count: z.union([ z.literal(true), ActivityCountAggregateInputObjectSchema ]).optional(), _min: ActivityMinAggregateInputObjectSchema.optional(), _max: ActivityMaxAggregateInputObjectSchema.optional() }).strict();

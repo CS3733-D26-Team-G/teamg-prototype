@@ -37,3 +37,16 @@ export { AccountDeleteManyResultSchema } from './AccountDeleteManyResult.schema.
 export { AccountAggregateResultSchema } from './AccountAggregateResult.schema.ts';
 export { AccountGroupByResultSchema } from './AccountGroupByResult.schema.ts';
 export { AccountCountResultSchema } from './AccountCountResult.schema.ts';
+export { ActivityFindUniqueResultSchema } from './ActivityFindUniqueResult.schema.ts';
+export { ActivityFindFirstResultSchema } from './ActivityFindFirstResult.schema.ts';
+export { ActivityFindManyResultSchema } from './ActivityFindManyResult.schema.ts';
+export { ActivityCreateResultSchema } from './ActivityCreateResult.schema.ts';
+export { ActivityCreateManyResultSchema } from './ActivityCreateManyResult.schema.ts';
+export { ActivityUpdateResultSchema } from './ActivityUpdateResult.schema.ts';
+export { ActivityUpdateManyResultSchema } from './ActivityUpdateManyResult.schema.ts';
+export { ActivityUpsertResultSchema } from './ActivityUpsertResult.schema.ts';
+export { ActivityDeleteResultSchema } from './ActivityDeleteResult.schema.ts';
+export { ActivityDeleteManyResultSchema } from './ActivityDeleteManyResult.schema.ts';
+export { ActivityAggregateResultSchema } from './ActivityAggregateResult.schema.ts';
+export { ActivityGroupByResultSchema } from './ActivityGroupByResult.schema.ts';
+export { ActivityCountResultSchema } from './ActivityCountResult.schema.ts';

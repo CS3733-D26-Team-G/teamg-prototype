@@ -54,6 +54,15 @@ model Account {
   type         AccountType
 }
 
+model Activity {
+  uuid         String        @id @default(uuid()) @db.Uuid
+  employeeUuid String        @unique @db.Uuid
+  action       ActionType
+  resource     ResourceType?
+  resourceUuid String?       @db.Uuid
+  timestamp    DateTime      @default(now()) @db.Timestamp()
+}
+
 enum Department {
   OPERATION_TECHNOLOGY
   ACCOUNTING
@@ -79,4 +88,19 @@ enum ContentStatus {
 enum AccountType {
   ADMIN
   EMPLOYEE
+}
+
+enum ActionType {
+  LOG_IN
+  CREATE_CONTENT
+  EDIT_CONTENT
+  DELETE_CONTENT
+  CREATE_EMPLOYEE
+  EDIT_EMPLOYEE
+  DELETE_EMPLOYEE
+}
+
+enum ResourceType {
+  EMPLOYEE
+  CONTENT
 }
