@@ -50,11 +50,16 @@ router.post("/create", async (req, res) => {
 });
 
 router.put("/edit/:uuid", async (req, res) => {
+  const auth = req.auth;
   const uuid = req.params.uuid;
   try {
     const body = ContentInputSchema.omit({ uuid: true })
       .partial()
       .parse(req.body);
+    if (auth.position !== "ADMIN" && auth.position !== body.for_position) {
+      console.log("???");
+      return res.status(401).json({ message: "Unauthorized" });
+    }
     try {
       const content = await prisma.content.update({
         where: { uuid: uuid },
