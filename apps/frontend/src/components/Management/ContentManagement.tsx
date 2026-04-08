@@ -4,7 +4,7 @@ import { IconButton, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ContentForm from "./ContentForm";
-import type { ContentPureType } from "zod/schemas";
+import type { ContentPureType } from "@repo/zod/schemas";
 
 export default function ContentManagement() {
   const [rows, setRows] = useState<ContentPureType[]>();

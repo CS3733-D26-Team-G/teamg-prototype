@@ -42,7 +42,25 @@ function LoginPage() {
       <button
         className="buddyButton"
         type="button"
-        /* onClick={() => if valid login go to dashboard if not say bad user/pass */
+        onClick={async () => {
+          console.log("clicked");
+          try {
+            const resp = await fetch("http://localhost:3000/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              body: JSON.stringify({ username: username, password: password }),
+            });
+            if (resp.status === 401) {
+              return console.error("Invalid credentials");
+            }
+            console.log(resp.body);
+          } catch (e) {
+            console.error(e);
+          }
+        }}
       >
         Log In
       </button>

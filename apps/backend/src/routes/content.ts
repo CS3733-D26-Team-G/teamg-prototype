@@ -1,8 +1,7 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
-import { schema } from "db";
-import { Position } from "db/generated/prisma/enums.ts";
-import { PrismaClientKnownRequestError } from "db/generated/prisma/internal/prismaNamespace.ts";
+import schema from "@repo/zod";
+import { PrismaClientKnownRequestError } from "@repo/db/generated/prisma/internal/prismaNamespace.ts";
 import { ZodError } from "zod";
 
 const router = express.Router();
