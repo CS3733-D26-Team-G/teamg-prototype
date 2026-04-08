@@ -44,7 +44,7 @@ export default function ContentForm({
     status: initialData?.status || "AVAILABLE",
   });
 
-  const handleChange = (field: keyof ContentPureType, value: any) => {
+  const handleChange = (field: keyof ContentInputType, value: any) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -52,7 +52,7 @@ export default function ContentForm({
   };
 
   const handleSelectChange =
-    (field: keyof ContentPureType) => (event: SelectChangeEvent) => {
+    (field: keyof ContentInputType) => (event: SelectChangeEvent) => {
       handleChange(field, event.target.value);
     };
 
