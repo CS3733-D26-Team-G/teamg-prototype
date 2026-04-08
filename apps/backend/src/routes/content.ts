@@ -2,6 +2,7 @@ import express from "express";
 import { prisma } from "../lib/prisma.ts";
 import { schema } from "db";
 import { Position } from "db/generated/prisma/enums.ts";
+import { PrismaClientKnownRequestError } from "db/generated/prisma/internal/prismaNamespace.ts";
 
 const router = express.Router();
 
@@ -40,6 +41,18 @@ router.post("/create", async (req, res) => {
   }
 });
 
+router.put("/edit/:uuid", async (req, res) => {
+  const uuid = req.params.uuid;
+  try {
+    const body = schema.ContentInputSchema.partial().parse(req.body);
+    await prisma.content.update({ where: { uuid: uuid }, data: body });
+  } catch (e) {
+    if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
+      return res.status(400).json({ message: "Invalid content UUID" });
+    }
+  }
+});
+
 router.post("/delete/:uuid", async (req, res) => {
   const contentUuid = req.params.uuid;
   // const auth = req.auth;
@@ -55,7 +68,7 @@ router.post("/delete/:uuid", async (req, res) => {
 
     res.status(200).json(content);
   } catch (e) {
-    if (e.code === "P2025") {
+    if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
       res.status(400).json({
         message: "Invalid content UUID",
       });
