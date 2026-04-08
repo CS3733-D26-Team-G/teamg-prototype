@@ -12,6 +12,7 @@ router.use(async (req, res, next) => {
   if (auth.position !== "ADMIN") {
     return res.status(401).json({ message: "Unauthorized" });
   }
+  next();
 });
 
 router.get("/", async (req, res) => {
