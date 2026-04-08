@@ -97,6 +97,7 @@ export default function EmployeeManagement() {
         `http://localhost:3000/employee/delete/${row.uuid}`,
         {
           method: "POST",
+          credentials: "include",
         },
       );
 
@@ -113,9 +114,20 @@ export default function EmployeeManagement() {
   const handleSave = async (updatedUser: EmployeePureType) => {
     const isExisting = viewState !== "new";
 
-    // Prepare the data
+    // 1. Prepare the payload
+    // We ensure dates are stringified.
+    // NOTE: If the backend Zod is z.date(), it will ALWAYS fail
+    // unless the backend uses z.coerce.date().
     const payload = {
       ...updatedUser,
+      date_of_birth:
+        updatedUser.date_of_birth instanceof Date ?
+          updatedUser.date_of_birth.toISOString()
+        : updatedUser.date_of_birth,
+      start_date:
+        updatedUser.start_date instanceof Date ?
+          updatedUser.start_date.toISOString()
+        : updatedUser.start_date,
       uuid: isExisting ? updatedUser.uuid : crypto.randomUUID(),
     };
 
@@ -124,16 +136,29 @@ export default function EmployeeManagement() {
         `http://localhost:3000/employee/update/${payload.uuid}`
       : `http://localhost:3000/employee/create`;
 
+    // 2. Log exactly what we are sending to compare with the Zod schema
+    console.log("Sending Payload:", JSON.stringify(payload, null, 2));
+
     try {
       const res = await fetch(url, {
         method: isExisting ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(payload),
       });
 
       if (res.ok) {
         await loadEmployees();
         setViewState(null);
+      } else {
+        const errorText = await res.text();
+        console.error("Backend validation error:", errorText);
+
+        // Insight: If it still says "expected date", the backend MUST
+        // be updated to use z.coerce.date() in the Zod schema.
+        alert(
+          "Validation Error: The server expected a Date object but received a String.",
+        );
       }
     } catch (error) {
       console.error("Error during handleSave:", error);

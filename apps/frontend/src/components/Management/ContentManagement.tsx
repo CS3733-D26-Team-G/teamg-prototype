@@ -78,6 +78,7 @@ export default function ContentManagement({
     try {
       const res = await fetch(`http://localhost:3000/content/delete/${uuid}`, {
         method: "POST",
+        credentials: "include",
       });
 
       if (res.ok) {
@@ -93,7 +94,7 @@ export default function ContentManagement({
   };
 
   const handleSave = async (formData: ContentInputType) => {
-    const isExisting = viewState !== "new";
+    const isExisting = viewState !== "new" && viewState !== null;
     const uuid =
       isExisting ? (viewState as ContentPureType).uuid : crypto.randomUUID();
 
@@ -107,18 +108,38 @@ export default function ContentManagement({
         `http://localhost:3000/content/edit/${uuid}`
       : `http://localhost:3000/content/create`;
 
-    const res = await fetch(url, {
-      method: isExisting ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(
-        isExisting ?
-          (() => {
-            const { uuid, ...rest } = parsed;
-            return rest;
-          })()
-        : parsed,
-      ),
-    });
+    try {
+      const res = await fetch(url, {
+        method: isExisting ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // Remembered!
+        body: JSON.stringify(
+          isExisting ?
+            (() => {
+              const { uuid, ...rest } = parsed;
+              return rest;
+            })()
+          : parsed,
+        ),
+      });
+
+      if (res.ok) {
+        // 1. Refresh the list to show new/edited content
+        const refreshRes = await fetch("http://localhost:3000/content", {
+          credentials: "include",
+        });
+        const updatedData = await refreshRes.json();
+        setRows(updatedData);
+
+        // 2. Switch back to the DataGrid view
+        setViewState(null);
+      } else {
+        const errorData = await res.json().catch(() => ({}));
+        console.error("Save failed:", errorData);
+      }
+    } catch (error) {
+      console.error("Network error during save:", error);
+    }
   };
 
   const getColumns = (
