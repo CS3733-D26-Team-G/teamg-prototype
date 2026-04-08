@@ -1,66 +1,66 @@
-import * as React from "react";
-import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Button from "@mui/material/Button";
-import Select, { type SelectChangeEvent } from "@mui/material/Select";
-import { MenuItem, Stack } from "@mui/material";
-import Box from "@mui/material/Box";
-import CalendarInput from "../CalendarInput.tsx";
-import type { ContentInputType } from "@repo/zod";
-import "./ContentForm.css";
+// import * as React from "react";
+// import { useState } from "react";
+// import TextField from "@mui/material/TextField";
+// import FormControl from "@mui/material/FormControl";
+// import InputLabel from "@mui/material/InputLabel";
+// import Button from "@mui/material/Button";
+// import Select, { type SelectChangeEvent } from "@mui/material/Select";
+// import { MenuItem, Stack } from "@mui/material";
+// import Box from "@mui/material/Box";
+// import CalendarInput from "../CalendarInput.tsx";
+// import type { ContentInputType } from "@repo/zod";
+// import "./ContentForm.css";
 
-interface ContentFormProps {
-  initialData?: ContentInputType | null;
-  onSave: (data: ContentInputType) => void;
-  onCancel: () => void;
-}
+// interface ContentFormProps {
+//   initialData?: ContentInputType | null;
+//   onSave: (data: ContentInputType) => void;
+//   onCancel: () => void;
+// }
 
-export default function ContentForm({
-  initialData,
-  onSave,
-  onCancel,
-}: ContentFormProps) {
-  // Determine mode once
-  const isEditing = !!initialData;
+// export default function ContentForm({
+//   initialData,
+//   onSave,
+//   onCancel,
+// }: ContentFormProps) {
+//   // Determine mode once
+//   const isEditing = !!initialData;
 
-  const [formData, setFormData] = useState<ContentInputType>({
-    uuid: initialData?.uuid || "",
-    for_position: initialData?.for_position || "UNDERWRITER",
-    title: initialData?.title || "",
-    url: initialData?.url || "",
-    content_owner: initialData?.content_owner || "",
-    // If creating, default to today's date
-    last_modified_time:
-      initialData?.last_modified_time ?
-        new Date(initialData.last_modified_time)
-      : new Date(),
-    expiration_time:
-      initialData?.expiration_time ?
-        new Date(initialData.expiration_time)
-      : new Date(),
-    content_type: initialData?.content_type || "REFERENCE",
-    status: initialData?.status || "AVAILABLE",
-  });
+//   const [formData, setFormData] = useState<ContentInputType>({
+//     uuid: initialData?.uuid || "",
+//     for_position: initialData?.for_position || "UNDERWRITER",
+//     title: initialData?.title || "",
+//     url: initialData?.url || "",
+//     content_owner: initialData?.content_owner || "",
+//     // If creating, default to today's date
+//     last_modified_time:
+//       initialData?.last_modified_time ?
+//         new Date(initialData.last_modified_time)
+//       : new Date(),
+//     expiration_time:
+//       initialData?.expiration_time ?
+//         new Date(initialData.expiration_time)
+//       : new Date(),
+//     content_type: initialData?.content_type || "REFERENCE",
+//     status: initialData?.status || "AVAILABLE",
+//   });
 
-  const handleChange = (field: keyof ContentInputType, value: any) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
+//   const handleChange = (field: keyof ContentInputType, value: any) => {
+//     setFormData((prev) => ({
+//       ...prev,
+//       [field]: value,
+//     }));
+//   };
 
-  const handleSelectChange =
-    (field: keyof ContentInputType) => (event: SelectChangeEvent) => {
-      handleChange(field, event.target.value);
-    };
+//   const handleSelectChange =
+//     (field: keyof ContentInputType) => (event: SelectChangeEvent) => {
+//       handleChange(field, event.target.value);
+//     };
 
-  const handleInternalSubmit = (e: React.FormEvent) => {
-    // Prevent page reload if button is inside a form
-    e.preventDefault();
-    onSave(formData);
-  };
+//   const handleInternalSubmit = (e: React.FormEvent) => {
+//     // Prevent page reload if button is inside a form
+//     e.preventDefault();
+//     onSave(formData);
+//   };
 
   return (
     <section className="main-content-form">
