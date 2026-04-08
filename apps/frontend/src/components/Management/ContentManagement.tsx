@@ -9,13 +9,19 @@ import {
   Toolbar,
   styled,
 } from "@mui/material";
+import HeaderSearchBar from "./HeaderSearchBar";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import ContentForm from "./ContentForm";
-import HeaderSearchBar from "./HeaderSearchBar"; // Assuming this is your custom search input
 import type { ContentPureType } from "@repo/zod/schemas";
-import "./ContentManagement.css";
+
+interface ContentManagementProps {
+  viewState: ContentPureType | "new" | null;
+  setViewState: React.Dispatch<
+    React.SetStateAction<ContentPureType | "new" | null>
+  >;
+}
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   flexDirection: "column",
@@ -24,13 +30,6 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   paddingBottom: theme.spacing(2),
   minHeight: 128,
 }));
-
-interface ContentManagementProps {
-  viewState: ContentPureType | "new" | null;
-  setViewState: React.Dispatch<
-    React.SetStateAction<ContentPureType | "new" | null>
-  >;
-}
 
 export default function ContentManagement({
   viewState,
@@ -42,23 +41,13 @@ export default function ContentManagement({
   const fetchContent = React.useCallback(async () => {
     try {
       const res = await fetch("http://localhost:3000/content");
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      console.log("Fetched data:", data); // Debugging: check your console!
-
-      // Ensure we are setting an array
-      if (Array.isArray(data)) {
-        setRows(data);
-      } else if (data && typeof data === "object") {
-        // Sometimes backends wrap arrays in an object like { content: [] }
-        setRows(data.content || []);
-      } else {
-        setRows([]);
-      }
+      setRows(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error("Failed to fetch content:", error);
-      setRows([]); // Clear rows on error so it doesn't stay loading
+      // This catch block prevents the "Uncaught (in promise)" error
+      console.error("Fetch suppressed:", error);
+      setRows([]);
     }
   }, []);
 
@@ -107,10 +96,12 @@ export default function ContentManagement({
           ...formData,
           uuid,
           last_modified_time: new Date().toISOString(),
-          expiration_time: new Date(formData.expiration_time).toISOString(),
+          expiration_time:
+            formData.expiration_time ?
+              new Date(formData.expiration_time).toISOString()
+            : new Date().toISOString(),
         }),
       });
-
       if (res.ok) {
         setViewState(null);
         await fetchContent();

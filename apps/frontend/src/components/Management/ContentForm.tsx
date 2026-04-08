@@ -8,7 +8,7 @@ import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import { MenuItem, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import CalendarInput from "../CalendarInput.tsx";
-import type { ContentPureType } from "@repo/zod/schemas";
+import type { ContentPureType } from "@repo/zod";
 import "./ContentForm.css";
 
 interface ContentFormProps {
@@ -86,6 +86,7 @@ export default function ContentForm({
           />
           <TextField
             label="URL of Link"
+            type="url"
             fullWidth
             value={formData.url}
             onChange={(e) => handleChange("url", e.target.value)}
