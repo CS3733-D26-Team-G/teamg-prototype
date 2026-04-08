@@ -10,6 +10,9 @@ import Profile from "./pages/profile.tsx";
 //import Navbar from "./components/Navbar.tsx";
 import ContentGrid from "./components/Management/EmployeeManagement.tsx";
 import { type GridColDef } from "@mui/x-data-grid";
+import theme from "./theme.tsx";
+import { ThemeProvider } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
   { field: "firstName", headerName: "First Name", width: 150 },
@@ -25,44 +28,47 @@ function App() {
   const handleEdit = (row: any) => console.log("Editing", row);
   const handleDelete = (id: string | number) => console.log("Deleting", id);
   return (
-    <>
-      <div style={{ display: "flex", minHeight: "100vh" }}>
-        <Sidebar />
-        <div style={{ flexGrow: 1 }}>
-          {/*<Navbar />*/}
-          <Routes>
-            <Route
-              path="/"
-              element={<Dashboard />}
-            />
-            <Route
-              path="/dashboard"
-              element={<Dashboard />}
-            />
-            <Route
-              path="/my-forms"
-              element={<MyForms />}
-            />
-            <Route
-              path="/library"
-              element={<Library />}
-            />
-            <Route
-              path="/activity"
-              element={<Activity />}
-            />
-            <Route
-              path="/settings"
-              element={<Settings />}
-            />
-            <Route
-              path="/profile"
-              element={<Profile />}
-            />
-          </Routes>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <>
+        <div style={{ display: "flex", minHeight: "100vh" }}>
+          <Sidebar />
+          <div style={{ flexGrow: 1 }}>
+            {/*<Navbar />*/}
+            <Routes>
+              <Route
+                path="/"
+                element={<Dashboard />}
+              />
+              <Route
+                path="/dashboard"
+                element={<Dashboard />}
+              />
+              <Route
+                path="/my-forms"
+                element={<MyForms />}
+              />
+              <Route
+                path="/library"
+                element={<Library />}
+              />
+              <Route
+                path="/activity"
+                element={<Activity />}
+              />
+              <Route
+                path="/settings"
+                element={<Settings />}
+              />
+              <Route
+                path="/profile"
+                element={<Profile />}
+              />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </>
+      </>
+    </ThemeProvider>
   );
 }
 
