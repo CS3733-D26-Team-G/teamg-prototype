@@ -22,11 +22,11 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://localhost:5174",
     credentials: true,
   }),
 );
-// app.use(auth);
+app.use(auth);
 // Send HTTP 200 at root
 app.get("/", (req, res) => {
   res.sendStatus(200);

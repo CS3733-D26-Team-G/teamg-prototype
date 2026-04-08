@@ -27,25 +27,32 @@ router.get("/business-analyst", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
-  // const auth = req.auth;
+  const auth = req.auth;
+  console.log(auth);
   try {
+    const body = ContentCreateInputObjectSchema.parse(req.body);
+    console.log(body);
+    if (auth.position !== "ADMIN" && auth.position !== body.for_position) {
+      console.log("???");
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    console.log("about to create");
     try {
-      const body = ContentCreateInputObjectSchema.parse(req.body);
-      // if (auth.position !== ADMIN && auth.position !== body.data.for_position) {
-      //   return res.status(401).json({ message: "Unauthorized" });
-      // }
       const content = await prisma.content.create({ data: body });
+      console.log(content);
       res.status(201).json(content);
     } catch (e) {
       if (e instanceof ZodError) {
-        res.status(400).json({ message: e.issues });
+        return res.status(400).json({ message: e.issues });
       }
     }
-  } catch {
-    res.status(500).json({
-      message:
-        "Internal server error. If you see this message, please report to a system administrator ",
-    });
+  } catch (e) {
+    console.log(e);
+    if (e instanceof PrismaClientKnownRequestError)
+      return res.status(500).json({
+        message:
+          "Internal server error. If you see this message, please report to a system administrator ",
+      });
   }
 });
 
@@ -71,15 +78,15 @@ router.put("/edit/:uuid", async (req, res) => {
 
 router.post("/delete/:uuid", async (req, res) => {
   const contentUuid = req.params.uuid;
-  // const auth = req.auth;
+  const auth = req.auth;
 
   try {
     const content = await prisma.content.findUniqueOrThrow({
       where: { uuid: contentUuid },
     });
-    // if (auth.position !== "ADMIN" && auth.position !== content.for_position) {
-    //   res.status(401).json({ message: "Unauthorized" });
-    // }
+    if (auth.position !== "ADMIN" && auth.position !== content.for_position) {
+      res.status(401).json({ message: "Unauthorized" });
+    }
     await prisma.content.delete({ where: content });
 
     res.status(200).json(content);

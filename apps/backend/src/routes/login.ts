@@ -10,6 +10,7 @@ export const LoginSchema = z.object({
 });
 
 router.post("/", async (req, res) => {
+  console.log("running");
   try {
     const body = LoginSchema.parse(req.body);
     const account = await prisma.account.findUniqueOrThrow({
@@ -29,9 +30,13 @@ router.post("/", async (req, res) => {
       },
     );
 
+    console.log(token);
+    console.log(body);
+    console.log(account);
+
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "none",
       maxAge: 1000 * 60 * 60,
     });
@@ -44,6 +49,7 @@ router.post("/", async (req, res) => {
     if (e.code === "P2025") {
       res.status(401).json({ message: "Invalid credentials" });
     }
+    console.error(e);
   }
 });
 
