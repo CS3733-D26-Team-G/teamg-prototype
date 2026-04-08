@@ -4,7 +4,11 @@ import { IconButton, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ContentForm from "./ContentForm";
-import type { ContentPureType } from "@repo/zod";
+import {
+  ContentInputSchema,
+  type ContentInputType,
+  type ContentPureType,
+} from "@repo/zod";
 
 interface ContentManagementProps {
   viewState: ContentPureType | "new" | null;
@@ -30,7 +34,7 @@ export default function ContentManagement({
         console.error("Failed to fetch content:", error);
       }
     };
-    fetchData();
+    void fetchData();
   }, []);
 
   const handleDelete = async (title: string) => {
@@ -38,7 +42,7 @@ export default function ContentManagement({
       const res = await fetch(
         `http://localhost:3000/content/${encodeURIComponent(title)}`,
         {
-          method: "DELETE",
+          method: "POST",
         },
       );
 
@@ -50,44 +54,33 @@ export default function ContentManagement({
     }
   };
 
-  const handleSave = async (formData: ContentPureType) => {
+  const handleSave = async (formData: ContentInputType) => {
     const isExisting = viewState !== "new";
     const uuid =
       isExisting ? (viewState as ContentPureType).uuid : crypto.randomUUID();
 
+    const parsed = ContentInputSchema.parse({
+      ...formData,
+      uuid,
+    });
+
     const url =
       isExisting ?
         `http://localhost:3000/content/edit/${uuid}`
-      : `http://localhost:3000/content/${uuid}`;
+      : `http://localhost:3000/content/create`;
 
-    try {
-      const res = await fetch(url, {
-        method: isExisting ? "PUT" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          uuid,
-          last_modified_time: new Date(
-            formData.last_modified_time,
-          ).toISOString(),
-          expiration_time: new Date(formData.expiration_time).toISOString(),
-        }),
-      });
-
-      if (res.ok) {
-        setViewState(null);
-        const refreshRes = await fetch("http://localhost:3000/content");
-        if (refreshRes.ok) {
-          const newData = await refreshRes.json();
-          setRows(Array.isArray(newData) ? newData : []);
-        }
-      } else {
-        const errorData = await res.json();
-        console.error("Validation Error:", errorData);
-      }
-    } catch (error) {
-      console.error("Save failed:", error);
-    }
+    const res = await fetch(url, {
+      method: isExisting ? "PUT" : "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(
+        isExisting ?
+          (() => {
+            const { uuid, ...rest } = parsed;
+            return rest;
+          })()
+        : parsed,
+      ),
+    });
   };
 
   const getColumns = (
