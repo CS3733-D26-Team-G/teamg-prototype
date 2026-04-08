@@ -57,14 +57,12 @@ export default function ContentForm({
 
   return (
     <section className="main-content-form">
-      <div className="header">
-        <h2>Submit a file</h2>
-      </div>
-
-      <div className="main">
+      <h1>Submit a file</h1>
+      <div>
         <Box
           component="div"
           className="form"
+          //sx={{overflowY: "auto" }}
         >
           <TextField
             id="outlined-basic"
@@ -142,6 +140,7 @@ export default function ContentForm({
           <Button
             variant="outlined"
             onClick={onCancel}
+            sx={{ mb: 5 }}
           >
             Cancel
           </Button>

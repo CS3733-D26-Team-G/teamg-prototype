@@ -71,6 +71,15 @@ let theme = createTheme({
         underline: "hover", // Applies 'underline="hover"' to all Links by default
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          fontFamily: "Playfair Display",
+          fontSize: "smaller",
+          fontWeight: "lighter",
+        },
+      },
+    },
   },
 });
 

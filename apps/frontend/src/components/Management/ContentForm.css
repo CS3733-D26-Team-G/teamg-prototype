@@ -1,14 +1,14 @@
-.header {
-  display: flex;
-  font-size: 35px;
-  margin-left: 5rem;
-}
+/*.header {*/
+/*  display: flex;*/
+/*  font-size: 35px;*/
+/*  margin-left: 5rem;*/
+/*}*/
 
-.main-content-form {
-  width: 50vw;
-  background-color: white;
-  margin-bottom: 200px;
-}
+/*.main-content-form {*/
+/*  width: 50vw;*/
+/*  fill-opacity: 0;*/
+/*  margin-bottom: 200px;*/
+/*}*/
 
 h2 {
   margin: 0;
@@ -25,6 +25,12 @@ h2 {
   margin-top: 2rem;
   width: 35vw;
   margin-left: 5rem;
+}
+
+.main-label {
+  font-family: "Playfair Display", serif;
+  font-size: smaller;
+  font-weight: lighter;
 }
 
 .css-xrjw2f {
