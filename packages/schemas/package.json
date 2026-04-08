@@ -1,5 +1,5 @@
 {
-  "name": "@repo/zod",
+  "name": "@repo/schemas",
   "private": true,
   "type": "module"
 }

@@ -4,7 +4,7 @@ import { z } from "zod";
 import jwt from "jsonwebtoken";
 
 const router = express.Router();
-const LoginSchema = z.object({
+export const LoginSchema = z.object({
   username: z.string(),
   password: z.string(),
 });

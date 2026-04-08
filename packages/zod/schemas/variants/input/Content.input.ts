@@ -9,8 +9,8 @@ export const ContentInputSchema = z.object({
     url: z.string(),
     content_owner: z.string(),
     for_position: PositionSchema,
-    last_modified_time: z.date(),
-    expiration_time: z.date(),
+    last_modified_time: z.coerce.date(),
+    expiration_time: z.coerce.date(),
     content_type: ContentTypeSchema,
     status: ContentStatusSchema
 }).strict();
