@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as React from "react";
 import SearchBar from "./DashboardComponents/SearchBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -6,6 +7,9 @@ import IconButton from "@mui/material/IconButton";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import { Grid } from "@mui/material";
+import Switch from "@mui/material/Switch";
+import Button from "@mui/material/Button";
 
 function Profile() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,6 +19,17 @@ function Profile() {
     day: "numeric",
     month: "long",
   });
+
+  const [toggle1, setToggle1] = React.useState(true);
+  const [toggle2, setToggle2] = React.useState(true);
+
+  const handleToggle1 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setToggle1(event.target.checked);
+  };
+
+  const handleToggle2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setToggle2(event.target.checked);
+  };
 
   return (
     <Box>
@@ -85,6 +100,7 @@ function Profile() {
           mt: 2,
           borderRadius: 4,
           border: "2px solid black",
+          boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.15)",
         }}
       >
         <Stack
@@ -168,6 +184,7 @@ function Profile() {
         </Stack>
       </Box>
 
+      {/*Personal Info Card*/}
       <Box
         sx={{
           display: "flex",
@@ -178,9 +195,10 @@ function Profile() {
           mt: 2,
           borderRadius: 4,
           border: "2px solid black",
+          boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.15)",
         }}
       >
-        <Stack>
+        <Stack sx={{ width: "100%" }}>
           <Typography
             sx={{
               fontSize: 36,
@@ -192,19 +210,302 @@ function Profile() {
           >
             Personal Information
           </Typography>
-          <Stack
-            direction="row"
-            spacing={45}
-            sx={{
-              pl: 9.5,
-            }}
+          <Grid
+            container
+            sx={{ mb: 2 }}
           >
-            <Typography>First Name</Typography>
-            <Typography>Last Name</Typography>
-            <Typography>Date of Birth</Typography>
-          </Stack>
+            <Grid
+              size={4}
+              sx={{ textAlign: "center" }}
+            >
+              <Typography
+                variant="caption"
+                color="text.secondary"
+              >
+                First Name
+              </Typography>
+              <Typography fontWeight="bold">Colin</Typography>
+            </Grid>
+            <Grid
+              size={4}
+              sx={{ textAlign: "center" }}
+            >
+              <Typography
+                variant="caption"
+                color="text.secondary"
+              >
+                Last Name
+              </Typography>
+              <Typography fontWeight="bold">Truong</Typography>
+            </Grid>
+            <Grid
+              size={4}
+              sx={{ textAlign: "center" }}
+            >
+              <Typography
+                variant="caption"
+                color="text.secondary"
+              >
+                Date of Birth
+              </Typography>
+              <Typography fontWeight="bold">04/12/2006</Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid
+              size={4}
+              sx={{ textAlign: "center" }}
+            >
+              <Typography
+                variant="caption"
+                color="text.secondary"
+              >
+                Phone
+              </Typography>
+              <Typography fontWeight="bold">123-456-7890</Typography>
+            </Grid>
+            <Grid
+              size={4}
+              sx={{ textAlign: "center" }}
+            >
+              <Typography
+                variant="caption"
+                color="text.secondary"
+              >
+                Email
+              </Typography>
+              <Typography fontWeight="bold">cptruong@wpi.edu</Typography>
+            </Grid>
+            <Grid
+              size={4}
+              sx={{ textAlign: "center" }}
+            >
+              <Typography
+                variant="caption"
+                color="text.secondary"
+              >
+                User Role
+              </Typography>
+              <Typography fontWeight="bold">Business Analyst</Typography>
+            </Grid>
+          </Grid>
         </Stack>
       </Box>
+
+      <Stack direction={"row"}>
+        {/*Notifications Card*/}
+        <Box
+          sx={{
+            display: "flex",
+            width: "32%",
+            height: 215,
+            marginLeft: "4.8%",
+            backgroundColor: "#FFFBEF",
+            mt: 2,
+            borderRadius: 4,
+            border: "2px solid black",
+            boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.15)",
+          }}
+        >
+          <Stack sx={{ width: "96%" }}>
+            <Typography
+              sx={{
+                fontSize: 36,
+                fontWeight: 500,
+                pl: 1,
+                pt: 0.3,
+                pb: 0.3,
+              }}
+            >
+              Notifications
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                sx={{
+                  pl: 1,
+                  fontSize: 20,
+                }}
+              >
+                Document Expiration Alerts
+              </Typography>
+              <Switch
+                checked={toggle1}
+                onChange={handleToggle1}
+                slotProps={{ input: { "aria-label": "controlled" } }}
+              />
+            </Box>
+
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{
+                pl: 1,
+                fontSize: 14,
+                mt: -1.3,
+              }}
+            >
+              Notify me when a document I own is expiring
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mt: 1.5,
+              }}
+            >
+              <Typography
+                sx={{
+                  pl: 1,
+                  fontSize: 20,
+                }}
+              >
+                Document Change Alerts
+              </Typography>
+              <Switch
+                checked={toggle2}
+                onChange={handleToggle2}
+                slotProps={{ input: { "aria-label": "controlled" } }}
+              />
+            </Box>
+
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{
+                pl: 1,
+                fontSize: 14,
+                mt: -1.3,
+              }}
+            >
+              Notify me when a document I follow is updated
+            </Typography>
+          </Stack>
+        </Box>
+
+        {/*'My Portal' Card*/}
+        <Box
+          sx={{
+            display: "flex",
+            width: "27.9%",
+            height: 215,
+            backgroundColor: "#FFFBEF",
+            mt: 2,
+            ml: 1.5,
+            borderRadius: 4,
+            border: "2px solid black",
+            boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.15)",
+          }}
+        >
+          <Stack sx={{ width: "100%" }}>
+            <Typography
+              sx={{
+                fontSize: 36,
+                fontWeight: 500,
+                pl: 1,
+                pt: 0.3,
+                pb: 0.4,
+              }}
+            >
+              My Portal
+            </Typography>
+
+            <Typography
+              sx={{
+                pl: 1,
+                fontSize: 20,
+              }}
+            >
+              Business Analyst Portal
+            </Typography>
+
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{
+                pl: 1,
+                fontSize: 14,
+                mt: -0.8,
+              }}
+            >
+              Your role-based tools and resources
+            </Typography>
+
+            <Button
+              variant="contained"
+              sx={{ mt: 2, alignSelf: "center" }}
+            >
+              Go To Portal
+            </Button>
+          </Stack>
+        </Box>
+
+        {/*'Security Card*/}
+        <Box
+          sx={{
+            display: "flex",
+            width: "27.9%",
+            height: 215,
+            backgroundColor: "#FFFBEF",
+            mt: 2,
+            ml: 1.5,
+            borderRadius: 4,
+            border: "2px solid black",
+            boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.15)",
+          }}
+        >
+          <Stack sx={{ width: "100%" }}>
+            <Typography
+              sx={{
+                fontSize: 36,
+                fontWeight: 500,
+                pl: 1,
+                pt: 0.3,
+                pb: 0.4,
+              }}
+            >
+              Security
+            </Typography>
+
+            <Typography
+              color="text.secondary"
+              sx={{
+                pl: 1,
+                fontSize: 20,
+              }}
+            >
+              Password: ••••••••••••
+            </Typography>
+
+            <Button
+              variant="contained"
+              sx={{ mt: 2, alignSelf: "center" }}
+            >
+              Change Password
+            </Button>
+
+            <Typography
+              variant="caption"
+              color="text.primary"
+              sx={{
+                pl: 1,
+                fontSize: 14,
+                mt: 5,
+              }}
+            >
+              Last Login: Today at 8:42 AM
+            </Typography>
+          </Stack>
+        </Box>
+      </Stack>
     </Box>
   );
 }
