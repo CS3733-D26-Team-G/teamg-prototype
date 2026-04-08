@@ -10,7 +10,6 @@ export const LoginSchema = z.object({
 });
 
 router.post("/", async (req, res) => {
-  console.log("running");
   try {
     const body = LoginSchema.parse(req.body);
     const account = await prisma.account.findUniqueOrThrow({
@@ -30,14 +29,10 @@ router.post("/", async (req, res) => {
       },
     );
 
-    console.log(token);
-    console.log(body);
-    console.log(account);
-
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
-      sameSite: "none",
+      sameSite: "lax",
       maxAge: 1000 * 60 * 60,
     });
 

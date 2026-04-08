@@ -13,7 +13,6 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
     return next();
   }
   const token = req.cookies.token;
-  console.log(token);
 
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });

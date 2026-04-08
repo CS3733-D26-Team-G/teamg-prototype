@@ -134,7 +134,6 @@ function LoginPage() {
 
           <Button
             onClick={async () => {
-              console.log("clicked");
               try {
                 const resp = await fetch("http://localhost:3000/login", {
                   method: "POST",
@@ -151,6 +150,7 @@ function LoginPage() {
                   return console.error("Invalid credentials");
                 }
                 const body = await resp.json();
+                navigate("/dashboard");
                 console.log(body);
               } catch (e) {
                 console.error(e);

@@ -1,9 +1,10 @@
+import "../env.ts";
 import { prisma } from "../lib/prisma.js";
 
 async function generateSampleData() {
-  await generateSampleContentData();
-  await generateSampleEmployeeData();
-  // await generateSampleAccountData();
+  // await generateSampleContentData();
+  // await generateSampleEmployeeData();
+  await generateSampleAccountData();
 }
 
 async function generateSampleContentData() {
@@ -406,6 +407,45 @@ async function generateSampleEmployeeData() {
         corporate_email: "owen.carter@company.com",
         accountUsername: "underwriter2",
       },
+      {
+        first_name: "Maya",
+        last_name: "Thompson",
+        date_of_birth: new Date("1988-03-27"),
+        position: "ADMIN",
+        department: "OPERATION_TECHNOLOGY",
+        start_date: new Date("2019-06-03"),
+        supervisor: "Sarah Davis",
+        phone_number: "401-555-2481",
+        personal_email: "maya.thompson@gmail.com",
+        corporate_email: "maya.thompson@company.com",
+        accountUsername: "underwriter3",
+      },
+      {
+        first_name: "Ethan",
+        last_name: "Brooks",
+        date_of_birth: new Date("1993-11-05"),
+        position: "ADMIN",
+        department: "OPERATION_TECHNOLOGY",
+        start_date: new Date("2021-02-15"),
+        supervisor: "Sarah Davis",
+        phone_number: "401-555-9134",
+        personal_email: "ethan.brooks@gmail.com",
+        corporate_email: "ethan.brooks@company.com",
+        accountUsername: "underwriter4",
+      },
+      {
+        first_name: "Chloe",
+        last_name: "Bennett",
+        date_of_birth: new Date("1990-01-14"),
+        position: "ADMIN",
+        department: "OPERATION_TECHNOLOGY",
+        start_date: new Date("2018-09-24"),
+        supervisor: "Sarah Davis",
+        phone_number: "401-555-5627",
+        personal_email: "chloe.bennett@gmail.com",
+        corporate_email: "chloe.bennett@company.com",
+        accountUsername: "underwriter5",
+      },
     ],
   });
 }
@@ -414,55 +454,55 @@ async function generateSampleAccountData() {
   await prisma.account.createMany({
     data: [
       {
-        employeeUuid: "",
+        employeeUuid: "007bb83d-766d-41e1-80eb-f2c5f0e15f0b",
         username: "emp1",
         password: "emp1",
         type: "EMPLOYEE",
       },
       {
-        employeeUuid: "",
+        employeeUuid: "15dcabb9-4dc7-45f8-a010-3c3e77804914",
         username: "emp2",
         password: "emp2",
         type: "EMPLOYEE",
       },
       {
-        employeeUuid: "",
+        employeeUuid: "e5a6e638-1b71-47ae-9632-834886f50b6f",
         username: "underwriter1",
         password: "underwriter1",
         type: "EMPLOYEE",
       },
       {
-        employeeUuid: "",
+        employeeUuid: "557aab98-74d7-4613-87c7-8792290e6298",
         username: "underwriter2",
         password: "underwriter2",
         type: "EMPLOYEE",
       },
       {
-        employeeUuid: "",
+        employeeUuid: "67008116-8a33-4e57-8960-981b93d50bef",
         username: "ba1",
         password: "ba1",
         type: "EMPLOYEE",
       },
       {
-        employeeUuid: "",
+        employeeUuid: "7e4b2b7e-a88f-4869-8837-83cd61827d34",
         username: "ba2",
         password: "ba2",
         type: "EMPLOYEE",
       },
       {
-        employeeUuid: "",
+        employeeUuid: "0b674cce-3aba-4fd0-801a-1c8f518a0bd1",
         username: "admin",
         password: "admin",
         type: "ADMIN",
       },
       {
-        employeeUuid: "",
+        employeeUuid: "0da1c9d0-860a-4486-aa50-ca324fcd3d6f",
         username: "admin2",
         password: "admin2",
         type: "ADMIN",
       },
       {
-        employeeUuid: "",
+        employeeUuid: "30c1a953-3456-4245-9319-5cd28ad66ea9",
         username: "admin3",
         password: "admin3",
         type: "ADMIN",

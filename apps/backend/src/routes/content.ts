@@ -7,23 +7,16 @@ import { ContentCreateInputObjectSchema, ContentInputSchema } from "@repo/zod";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  res.status(200).json(await prisma.content.findMany());
-});
-
-router.get("/underwriter", async (req, res) => {
-  res
-    .status(200)
-    .json(
-      await prisma.content.findMany({ where: { for_position: "UNDERWRITER" } }),
+  const auth = req.auth;
+  if (auth.position === "ADMIN") {
+    res.status(200).json(await prisma.content.findMany());
+  } else {
+    res.status(200).json(
+      await prisma.content.findMany({
+        where: { for_position: auth.position },
+      }),
     );
-});
-
-router.get("/business-analyst", async (req, res) => {
-  res.status(200).json(
-    await prisma.content.findMany({
-      where: { for_position: "BUSINESS_ANALYST" },
-    }),
-  );
+  }
 });
 
 router.post("/create", async (req, res) => {
