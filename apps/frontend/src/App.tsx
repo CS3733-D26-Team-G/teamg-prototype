@@ -15,6 +15,7 @@ import { type GridColDef } from "@mui/x-data-grid";
 import theme from "./theme.tsx";
 import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
+import LoginPage from "./pages/LoginPage.tsx";
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
   { field: "firstName", headerName: "First Name", width: 150 },
@@ -40,7 +41,7 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={<Dashboard />}
+                element={<LoginPage />}
               />
               <Route
                 path="/dashboard"
