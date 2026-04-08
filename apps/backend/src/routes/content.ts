@@ -3,6 +3,7 @@ import { prisma } from "../lib/prisma.ts";
 import { schema } from "db";
 import { Position } from "db/generated/prisma/enums.ts";
 import { PrismaClientKnownRequestError } from "db/generated/prisma/internal/prismaNamespace.ts";
+import { ZodError } from "zod";
 
 const router = express.Router();
 
@@ -29,15 +30,23 @@ router.get("/business-analyst", async (req, res) => {
 router.post("/create", async (req, res) => {
   // const auth = req.auth;
   try {
-    const body = schema.ContentCreateOneSchema.parse(req.body);
-    // if (auth.position !== ADMIN && auth.position !== body.data.for_position) {
-    //   return res.status(401).json({ message: "Unauthorized" });
-    // }
-
-    const content = await prisma.content.create(body);
-    res.status(201).json(content);
+    try {
+      const body = schema.ContentCreateOneSchema.parse(req.body);
+      // if (auth.position !== ADMIN && auth.position !== body.data.for_position) {
+      //   return res.status(401).json({ message: "Unauthorized" });
+      // }
+      const content = await prisma.content.create(body);
+      res.status(201).json(content);
+    } catch (e) {
+      if (e instanceof ZodError) {
+        res.status(400).json({ message: e.issues });
+      }
+    }
   } catch {
-    res.sendStatus(400);
+    res.status(500).json({
+      message:
+        "Internal server error. If you see this message, please report to a system administrator ",
+    });
   }
 });
 
@@ -45,10 +54,16 @@ router.put("/edit/:uuid", async (req, res) => {
   const uuid = req.params.uuid;
   try {
     const body = schema.ContentInputSchema.partial().parse(req.body);
-    await prisma.content.update({ where: { uuid: uuid }, data: body });
+    try {
+      await prisma.content.update({ where: { uuid: uuid }, data: body });
+    } catch (e) {
+      if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
+        return res.status(400).json({ message: "Invalid content UUID" });
+      }
+    }
   } catch (e) {
-    if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
-      return res.status(400).json({ message: "Invalid content UUID" });
+    if (e instanceof ZodError) {
+      res.status(400).json({ message: e.issues });
     }
   }
 });
