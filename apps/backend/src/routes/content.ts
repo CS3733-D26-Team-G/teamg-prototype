@@ -56,7 +56,11 @@ router.put("/edit/:uuid", async (req, res) => {
       .partial()
       .parse(req.body);
     try {
-      await prisma.content.update({ where: { uuid: uuid }, data: body });
+      const content = await prisma.content.update({
+        where: { uuid: uuid },
+        data: body,
+      });
+      res.status(200).json(content);
     } catch (e) {
       if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
         return res.status(400).json({ message: "Invalid content UUID" });
