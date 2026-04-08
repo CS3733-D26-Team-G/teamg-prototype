@@ -11,7 +11,6 @@ import Box from "@mui/material/Box";
 import CalendarInput from "../CalendarInput.tsx";
 import type { ContentPureType } from "zod/schemas";
 import "./ContentForm.css";
-import { useTheme } from "@mui/material/styles";
 
 interface ContentFormProps {
   initialData?: ContentPureType | null; // Optional: if present, we are editing
@@ -25,7 +24,6 @@ export default function ContentForm({
   onCancel,
 }: ContentFormProps) {
   const [recipient, setRecipient] = React.useState("");
-  const theme = useTheme();
 
   const [formData, setFormData] = useState<ContentPureType>({
     uuid: initialData?.uuid || "",
