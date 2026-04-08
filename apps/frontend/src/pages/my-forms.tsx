@@ -1,11 +1,7 @@
 import ContentForm from "../components/Management/ContentForm";
 
 function MyForms() {
-  return (
-    <>
-      <ContentForm></ContentForm>
-    </>
-  );
+  return <>{/* <ContentForm></ContentForm> */}</>;
 }
 
 export default MyForms;

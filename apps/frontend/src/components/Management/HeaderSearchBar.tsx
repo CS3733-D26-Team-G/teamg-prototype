@@ -1,45 +1,38 @@
-import {useState, type ChangeEvent} from "react";
-import { TextField, IconButton, formGroupClasses } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
+import { useState, type ChangeEvent } from "react";
+import { TextField, IconButton, formGroupClasses } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
+import "./ContentHeader.css";
 
 interface SearchBarProps {
   setSearchQuery: (query: string) => void;
 }
 
 const SearchBar = ({ setSearchQuery }: SearchBarProps) => (
-    <div className="search-container">
-        <form>
-            <TextField
-                id="search-bar"
-                placeholder="search"
-                variant="outlined"
-                size="small"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        setSearchQuery(e.target.value);
-                    }}
-                slotProps={{
-                    input: {
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon />
-                            </InputAdornment>
-                        ),
-                    },
-                }}
-                sx={{
-                    "& .MuiOutlinedInput-notchedOutline": {
-                    border: "none",
-                    },
-                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                    border: "none",
-                    },
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    border: "none",
-                    },
-                }}></TextField>          
-        </form>
-    </div>
-)
+  <div className="search-container">
+    {/* Add onSubmit to prevent page reloads */}
+    <form onSubmit={(e) => e.preventDefault()}>
+      <TextField
+        id="search-bar"
+        placeholder="search"
+        variant="outlined"
+        size="small"
+        fullWidth // Added fullWidth so it fills your container
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          setSearchQuery(e.target.value);
+        }}
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          },
+        }}
+      />
+    </form>
+  </div>
+);
 
 export default SearchBar;

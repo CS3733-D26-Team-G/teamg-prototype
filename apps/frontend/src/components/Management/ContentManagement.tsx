@@ -1,90 +1,132 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-import { IconButton, Box } from "@mui/material";
+import {
+  IconButton,
+  Box,
+  Button,
+  AppBar,
+  Toolbar,
+  styled,
+  Typography,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ContentForm from "./ContentForm";
-import type { ContentPureType } from "zod/schemas";
+import AddIcon from "@mui/icons-material/Add";
+import HeaderSearchBar from "./HeaderSearchBar";
+import {
+  ContentInputSchema,
+  type ContentInputType,
+  type ContentPureType,
+} from "@repo/zod";
+import { uuid } from "zod";
 
-export default function ContentManagement() {
-  const [rows, setRows] = useState<ContentPureType[]>();
-  const [editingUser, setEditingUser] = React.useState<ContentPureType | null>(
-    null,
-  );
+interface ContentManagementProps {
+  viewState: ContentPureType | "new" | null;
+  setViewState: React.Dispatch<
+    React.SetStateAction<ContentPureType | "new" | null>
+  >;
+}
+
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+  flexDirection: "column",
+  alignItems: "stretch",
+  paddingTop: theme.spacing(2),
+  paddingBottom: theme.spacing(2),
+  minHeight: 128,
+}));
+
+export default function ContentManagement({
+  viewState,
+  setViewState,
+}: ContentManagementProps) {
+  const [rows, setRows] = useState<ContentPureType[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredRows = rows.filter((row) => {
+    if (!searchQuery.trim()) return true;
+
+    // Checks if the search string exists in Title, URL, or Owner
+    const targetFields = [row.title, row.url, row.content_owner];
+    return targetFields.some((field) =>
+      field?.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+  });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch("http://localhost:3000/content");
-
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
-        console.log(data);
         setRows(data);
       } catch (error) {
-        console.error("Failed to fetch users:", error);
+        console.error("Failed to fetch content:", error);
       }
     };
     void fetchData();
   }, []);
 
-  const handleDelete = async (title: string) => {
+  const handleDelete = async (row: ContentPureType) => {
+    if (!window.confirm(`Are you sure you want to delete "${row.title}"?`))
+      return;
+
+    const { uuid } = row;
+
     try {
-      const res = await fetch(
-        `http://localhost:3000/content/${encodeURIComponent(title)}`,
-        {
-          method: "DELETE",
-        },
-      );
+      const res = await fetch(`http://localhost:3000/content/delete/${uuid}`, {
+        method: "POST",
+      });
 
       if (res.ok) {
-        setRows((prev) => prev?.filter((row) => row.title !== title));
+        setRows((prev) => prev.filter((r) => r.uuid !== uuid));
+        console.log(`Successfully deleted: ${uuid}`);
+      } else {
+        const errorData = await res.json().catch(() => ({}));
+        console.error("Server rejected delete:", errorData);
       }
     } catch (error) {
-      console.error("Failed to delete:", error);
+      console.error("Network error during delete:", error);
     }
   };
 
-  const handleEdit = (row: ContentPureType) => {
-    setEditingUser(row);
-  };
+  const handleSave = async (formData: ContentInputType) => {
+    const isExisting = viewState !== "new";
+    const uuid =
+      isExisting ? (viewState as ContentPureType).uuid : crypto.randomUUID();
 
-  const handleSave = async (updatedUser: ContentPureType) => {
-    try {
-      const res = await fetch(
-        `http://localhost:3000/content/${encodeURIComponent(updatedUser.title)}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(updatedUser),
-        },
-      );
+    const parsed = ContentInputSchema.parse({
+      ...formData,
+      uuid,
+    });
 
-      if (res.ok) {
-        const savedData = await res.json();
-        setRows((prev) =>
-          prev?.map((r) => (r.title === updatedUser.title ? savedData : r)),
-        );
-        setEditingUser(null);
-      }
-    } catch (error) {
-      console.error("Failed to save:", error);
-    }
+    const url =
+      isExisting ?
+        `http://localhost:3000/content/edit/${uuid}`
+      : `http://localhost:3000/content/create`;
+
+    const res = await fetch(url, {
+      method: isExisting ? "PUT" : "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(
+        isExisting ?
+          (() => {
+            const { uuid, ...rest } = parsed;
+            return rest;
+          })()
+        : parsed,
+      ),
+    });
   };
 
   const getColumns = (
     onEdit: (row: ContentPureType) => void,
-    onDelete: (id: string) => void,
+    onDelete: (row: ContentPureType) => void,
   ): GridColDef[] => [
-    { field: "title", headerName: "title", flex: 1 },
-    { field: "url", headerName: "url", flex: 1 },
+    { field: "title", headerName: "Title", flex: 1 },
+    { field: "url", headerName: "URL", flex: 1 },
     { field: "content_owner", headerName: "Content Owner", flex: 1 },
-    { field: "last_modified_time", headerName: "last modified", flex: 1 },
-    { field: "expiration_date", headerName: "expires", flex: 1 },
-    { field: "content_type", headerName: "Type", width: 120 },
+    { field: "content_type", headerName: "Type", width: 130 },
     { field: "status", headerName: "Status", width: 120 },
     {
       field: "actions",
@@ -92,11 +134,10 @@ export default function ContentManagement() {
       width: 120,
       renderCell: (params) => (
         <>
-          <IconButton onClick={() => onEdit(params.row)}>
+          <IconButton onClick={() => setViewState(params.row)}>
             <EditIcon />
           </IconButton>
-
-          <IconButton onClick={() => onDelete(params.row.title)}>
+          <IconButton onClick={() => onDelete(params.row)}>
             <DeleteIcon color="error" />
           </IconButton>
         </>
@@ -106,21 +147,64 @@ export default function ContentManagement() {
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>
-      {editingUser ?
+      {viewState ?
         <ContentForm
-          initialData={editingUser}
+          initialData={viewState === "new" ? null : viewState}
           onSave={handleSave}
-          onCancel={() => setEditingUser(null)}
+          onCancel={() => setViewState(null)}
         />
-      : <DataGrid
-          rows={rows}
-          getRowId={(row) => row.title}
-          columns={getColumns(handleEdit, handleDelete)}
-          pageSizeOptions={[5, 10]}
-          initialState={{
-            pagination: { paginationModel: { pageSize: 5 } },
-          }}
-        />
+      : <Box>
+          <AppBar
+            position="static"
+            sx={{
+              backgroundColor: "white",
+              boxShadow: "none",
+              width: "100%",
+              boxSizing: "border-box",
+            }}
+          >
+            <StyledToolbar
+              sx={{ width: "100%", boxSizing: "border-box", px: 0 }}
+            >
+              <Typography
+                variant="h4"
+                sx={{ pb: 2, pt: 4, color: "black", fontWeight: "bold" }}
+              >
+                Content Management
+              </Typography>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 2,
+                  width: "100%",
+                }}
+              >
+                <Box sx={{ flexGrow: 1, maxWidth: "70%" }}>
+                  <HeaderSearchBar setSearchQuery={setSearchQuery} />
+                </Box>
+                <Button
+                  onClick={() => setViewState("new")}
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  sx={{ whiteSpace: "nowrap" }} // Prevents the button text from wrapping or stretching
+                >
+                  New Content
+                </Button>
+              </Box>
+            </StyledToolbar>
+          </AppBar>
+          <DataGrid
+            rows={filteredRows}
+            getRowId={(row) => row.uuid}
+            columns={getColumns(setViewState, handleDelete)}
+            pageSizeOptions={[5, 10]}
+            initialState={{
+              pagination: { paginationModel: { pageSize: 5 } },
+            }}
+          />
+        </Box>
       }
     </Box>
   );
