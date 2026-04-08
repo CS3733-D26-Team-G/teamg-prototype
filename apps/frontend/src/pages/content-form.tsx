@@ -1,9 +1,7 @@
-function ContentForm() {
-  return (
-    <>
-      <h1>ContentForm</h1>
-    </>
-  );
+import ContentForm from "../components/Management/ContentForm";
+
+function ContentFormPage() {
+  return <>{/* <ContentForm></ContentForm> */}</>;
 }
 
-export default ContentForm;
+export default ContentFormPage;

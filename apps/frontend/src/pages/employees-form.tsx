@@ -1,9 +1,7 @@
-function EmployeeForm() {
-  return (
-    <>
-      <h1>EmployeeForm</h1>
-    </>
-  );
+import EmployeeForm from "../components/Management/ManageEmployeeForm";
+
+function EmployeeFormPage() {
+  return <>{/* <EmployeeForm></EmployeeForm> */}</>;
 }
 
-export default EmployeeForm;
+export default EmployeeFormPage;
