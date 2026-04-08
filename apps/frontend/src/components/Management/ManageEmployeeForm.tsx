@@ -54,6 +54,7 @@ export default function ManageEmployeeForm({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave(formData);
+    EmployeeSchema;
   };
 
   return (

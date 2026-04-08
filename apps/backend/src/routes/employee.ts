@@ -3,7 +3,7 @@ import { prisma } from "../lib/prisma.ts";
 import { EmployeeCreateInputObjectSchema } from "@repo/zod";
 import { PrismaClientKnownRequestError } from "@repo/db/generated/prisma/internal/prismaNamespace.ts";
 import { ZodError } from "zod";
-import { EmployeeInputSchema } from "@repo/zod/schemas/index.ts";
+import { EmployeeInputSchema } from "@repo/zod";
 
 const router = express.Router();
 

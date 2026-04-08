@@ -340,7 +340,6 @@ async function generateSampleEmployeeData() {
         phone_number: "401-555-1234",
         personal_email: "alice.johnson@gmail.com",
         corporate_email: "alice.johnson@company.com",
-        accountUsername: "emp1",
       },
       {
         first_name: "Brian",
@@ -353,7 +352,6 @@ async function generateSampleEmployeeData() {
         phone_number: "401-555-2345",
         personal_email: "brian.lee@yahoo.com",
         corporate_email: "brian.lee@company.com",
-        accountUsername: "emp2",
       },
       {
         first_name: "Carla",
@@ -366,7 +364,6 @@ async function generateSampleEmployeeData() {
         phone_number: "401-555-3456",
         personal_email: "carla.martinez@gmail.com",
         corporate_email: "carla.martinez@company.com",
-        accountUsername: "ba1",
       },
       {
         first_name: "David",
@@ -379,7 +376,6 @@ async function generateSampleEmployeeData() {
         phone_number: "401-555-4567",
         personal_email: "david.nguyen@gmail.com",
         corporate_email: "david.nguyen@company.com",
-        accountUsername: "ba2",
       },
       {
         first_name: "Emily",
@@ -392,7 +388,6 @@ async function generateSampleEmployeeData() {
         phone_number: "401-555-5678",
         personal_email: "emily.brown@gmail.com",
         corporate_email: "emily.brown@company.com",
-        accountUsername: "underwriter1",
       },
       {
         first_name: "Owen",
@@ -405,7 +400,6 @@ async function generateSampleEmployeeData() {
         phone_number: "401-555-6790",
         personal_email: "owen.carter@gmail.com",
         corporate_email: "owen.carter@company.com",
-        accountUsername: "underwriter2",
       },
       {
         first_name: "Maya",
@@ -418,7 +412,6 @@ async function generateSampleEmployeeData() {
         phone_number: "401-555-2481",
         personal_email: "maya.thompson@gmail.com",
         corporate_email: "maya.thompson@company.com",
-        accountUsername: "underwriter3",
       },
       {
         first_name: "Ethan",
@@ -431,7 +424,6 @@ async function generateSampleEmployeeData() {
         phone_number: "401-555-9134",
         personal_email: "ethan.brooks@gmail.com",
         corporate_email: "ethan.brooks@company.com",
-        accountUsername: "underwriter4",
       },
       {
         first_name: "Chloe",
@@ -444,7 +436,6 @@ async function generateSampleEmployeeData() {
         phone_number: "401-555-5627",
         personal_email: "chloe.bennett@gmail.com",
         corporate_email: "chloe.bennett@company.com",
-        accountUsername: "underwriter5",
       },
     ],
   });

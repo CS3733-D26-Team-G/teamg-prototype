@@ -19,6 +19,7 @@ import HeaderSearchBar from "./HeaderSearchBar";
 import {
   ContentInputSchema,
   type ContentInputType,
+  EmployeeUncheckedCreateWithoutAccountInputObjectSchema
   type EmployeePureType,
 } from "@repo/zod";
 import { uuid } from "zod";
@@ -34,7 +35,6 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 const BLANK_EMPLOYEE: EmployeePureType = {
   uuid: "",
   account: null,
-  accountUsername: "",
   first_name: "",
   last_name: "",
   date_of_birth: new Date(),

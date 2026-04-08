@@ -8,7 +8,7 @@ generator client {
 
 generator zod {
   provider                        = "prisma-zod-generator"
-  output                          = "../../zod"
+  output                          = "../../zod/generated"
   optionalFieldBehavior           = optional
   createOptionalDefaultValueTypes = true
   createInputTypes                = true
@@ -22,7 +22,6 @@ datasource db {
 model Employee {
   uuid            String     @id @default(uuid()) @db.Uuid
   account         Account?
-  accountUsername String     @unique
   first_name      String
   last_name       String
   date_of_birth   DateTime   @db.Date

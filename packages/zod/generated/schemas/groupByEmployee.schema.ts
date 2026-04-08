@@ -1,0 +1,13 @@
+import type { Prisma } from '../../../db/generated/prisma/client.ts';
+import * as z from 'zod';
+import { EmployeeWhereInputObjectSchema as EmployeeWhereInputObjectSchema } from './objects/EmployeeWhereInput.schema.ts';
+import { EmployeeOrderByWithAggregationInputObjectSchema as EmployeeOrderByWithAggregationInputObjectSchema } from './objects/EmployeeOrderByWithAggregationInput.schema.ts';
+import { EmployeeScalarWhereWithAggregatesInputObjectSchema as EmployeeScalarWhereWithAggregatesInputObjectSchema } from './objects/EmployeeScalarWhereWithAggregatesInput.schema.ts';
+import { EmployeeScalarFieldEnumSchema } from './enums/EmployeeScalarFieldEnum.schema.ts';
+import { EmployeeCountAggregateInputObjectSchema as EmployeeCountAggregateInputObjectSchema } from './objects/EmployeeCountAggregateInput.schema.ts';
+import { EmployeeMinAggregateInputObjectSchema as EmployeeMinAggregateInputObjectSchema } from './objects/EmployeeMinAggregateInput.schema.ts';
+import { EmployeeMaxAggregateInputObjectSchema as EmployeeMaxAggregateInputObjectSchema } from './objects/EmployeeMaxAggregateInput.schema.ts';
+
+export const EmployeeGroupBySchema: z.ZodType<Prisma.EmployeeGroupByArgs> = z.object({ where: EmployeeWhereInputObjectSchema.optional(), orderBy: z.union([EmployeeOrderByWithAggregationInputObjectSchema, EmployeeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: EmployeeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(EmployeeScalarFieldEnumSchema), _count: z.union([ z.literal(true), EmployeeCountAggregateInputObjectSchema ]).optional(), _min: EmployeeMinAggregateInputObjectSchema.optional(), _max: EmployeeMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.EmployeeGroupByArgs>;
+
+export const EmployeeGroupByZodSchema = z.object({ where: EmployeeWhereInputObjectSchema.optional(), orderBy: z.union([EmployeeOrderByWithAggregationInputObjectSchema, EmployeeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: EmployeeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(EmployeeScalarFieldEnumSchema), _count: z.union([ z.literal(true), EmployeeCountAggregateInputObjectSchema ]).optional(), _min: EmployeeMinAggregateInputObjectSchema.optional(), _max: EmployeeMaxAggregateInputObjectSchema.optional() }).strict();
