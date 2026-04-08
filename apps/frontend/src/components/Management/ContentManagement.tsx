@@ -167,7 +167,7 @@ export default function ContentManagement({
               sx={{ width: "100%", boxSizing: "border-box", px: 0 }}
             >
               <Typography
-                variant="h4"
+                variant="h1"
                 sx={{ pb: 2, pt: 4, color: "black", fontWeight: "bold" }}
               >
                 Content Management
@@ -181,14 +181,18 @@ export default function ContentManagement({
                   width: "100%",
                 }}
               >
-                <Box sx={{ flexGrow: 1, maxWidth: "70%" }}>
+                <Box sx={{ flexGrow: 1, maxWidth: "100%" }}>
                   <HeaderSearchBar setSearchQuery={setSearchQuery} />
                 </Box>
                 <Button
                   onClick={() => setViewState("new")}
                   variant="contained"
                   startIcon={<AddIcon />}
-                  sx={{ whiteSpace: "nowrap" }} // Prevents the button text from wrapping or stretching
+                  sx={{
+                    whiteSpace: "nowrap",
+                    justifyContent: "left",
+                    alignSelf: "end",
+                  }} // Prevents the button text from wrapping or stretching
                 >
                   New Content
                 </Button>

@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/HanoverLogo.png";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -56,10 +57,11 @@ function LoginPage() {
         >
           <Box
             component="img"
-            src="./public/hanover_logo.png"
+            src={logo}
+            //src="./public/hanover_logo.png"
             alt="Hanover Logo"
             sx={{
-              width: "55%",
+              width: "20%",
               maxWidth: 260,
               height: "auto",
             }}
@@ -138,7 +140,7 @@ function LoginPage() {
             fullWidth
             size="large"
             sx={{
-              "backgroundColor": "#4a7aab",
+              "backgroundColor": "primary",
               "borderRadius": 4,
               "fontWeight": "bold",
               "fontSize": "1.1rem",
