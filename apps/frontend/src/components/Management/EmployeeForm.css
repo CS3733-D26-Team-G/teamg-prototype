@@ -17,9 +17,10 @@ div.MuiPaper-root {
   width: contain;
   height: fit-content;
   margin: 5px;
-  border-radius: 30px;
+  border-radius: 20px;
   background-color: white;
-  outline-color: lightgray
+  outline-color: lightgray;
+  padding: 20px;
 }
 h1{
   text-align: center;
