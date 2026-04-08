@@ -6,3 +6,4 @@
 export { EmployeeModelSchema } from './Employee.pure.ts';
 export { ContentModelSchema } from './Content.pure.ts';
 export { AccountModelSchema } from './Account.pure.ts';
+export { ActivityModelSchema } from './Activity.pure.ts';
