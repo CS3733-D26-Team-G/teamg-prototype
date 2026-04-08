@@ -4,3 +4,4 @@ node_modules/
 .env.production
 .idea/
 .DS_Store
+.prisma-zod-generator-manifest.json

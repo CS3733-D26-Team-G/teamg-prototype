@@ -4,6 +4,8 @@
     "lib": ["es2015"],
     "module": "NodeNext",
     "moduleResolution": "nodenext",
-    "target": "ESNext"
-  }
+    "target": "ESNext",
+    "allowImportingTsExtensions": true
+  },
+  "include": ["src/**/*.ts", "src/types/**/*.d.ts"]
 }
