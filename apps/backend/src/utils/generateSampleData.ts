@@ -11,8 +11,8 @@ async function generateSampleContentData() {
   await prisma.content.createMany({
     data: [
       {
-        title: "Claims Workflow",
-        url: "https://example.com/workflow",
+        title: "learning rating mentor ILT powerpoint",
+        url: "https://zhwxfsahkisstuxignvi.supabase.co/storage/v1/object/public/teamg-prototype/learning_rating_mentor_ILT_powerpoint.pptx",
         content_owner: "Bob Smith",
         for_position: "UNDERWRITER",
         last_modified_time: new Date("2021-06-07"),
@@ -21,8 +21,8 @@ async function generateSampleContentData() {
         status: "IN_USE",
       },
       {
-        title: "Risk Template",
-        url: "https://example.com/risk",
+        title: "learning foundations progress tracker spreadsheet",
+        url: "https://zhwxfsahkisstuxignvi.supabase.co/storage/v1/object/public/teamg-prototype/learning_foundations_progress_tracker.xlsx",
         content_owner: "Carol Lee",
         for_position: "UNDERWRITER",
         last_modified_time: new Date("2022-06-07"),
@@ -31,8 +31,8 @@ async function generateSampleContentData() {
         status: "UNAVAILABLE",
       },
       {
-        title: "Checklist",
-        url: "https://example.com/checklist",
+        title: "Prc Exp Rating GL LossEligibilityTool",
+        url: "https://zhwxfsahkisstuxignvi.supabase.co/storage/v1/object/public/teamg-prototype/prc_exp_rating_gl_LossEligibilityTool_11767.xls",
         content_owner: "David Kim",
         for_position: "UNDERWRITER",
         last_modified_time: new Date("2023-06-07"),
@@ -41,8 +41,8 @@ async function generateSampleContentData() {
         status: "AVAILABLE",
       },
       {
-        title: "State Filing Approval Matrix",
-        url: "https://example.com/state-filing-approval-matrix",
+        title: "prc rating wksht manual earthquake",
+        url: "https://zhwxfsahkisstuxignvi.supabase.co/storage/v1/object/sign/teamg-prototype/prc_rating_wksht_manual_earthquake.xls",
         content_owner: "Nina Patel",
         for_position: "UNDERWRITER",
         last_modified_time: new Date("2025-01-20"),
@@ -51,8 +51,8 @@ async function generateSampleContentData() {
         status: "AVAILABLE",
       },
       {
-        title: "RiskMeter Online Guide",
-        url: "https://example.com/riskmeter-online-guide",
+        title: "sys isonet CMCManual Instructions",
+        url: "https://zhwxfsahkisstuxignvi.supabase.co/storage/v1/object/sign/teamg-prototype/sys_isonet_CMCManual_Instructions.doc",
         content_owner: "Owen Carter",
         for_position: "UNDERWRITER",
         last_modified_time: new Date("2025-01-25"),
