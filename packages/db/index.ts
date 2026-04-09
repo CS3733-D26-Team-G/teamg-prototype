@@ -1,2 +1,4 @@
+// import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
+
 export { PrismaClient, Prisma } from "./generated/prisma/client";
-export * from "./generated/prisma/internal/prismaNamespace.ts";
+// export { PrismaClientKnownRequestError } from "./generated/prisma/client";

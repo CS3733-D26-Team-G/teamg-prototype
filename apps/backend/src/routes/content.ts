@@ -1,6 +1,7 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
-import { PrismaClientKnownRequestError } from "@repo/db";
+import { Prisma } from "@repo/db/generated/prisma/client.ts";
+
 import { ZodError } from "zod";
 import { ContentCreateInputObjectSchema } from "@repo/zod";
 import { ContentUpdateInputObjectZodSchema } from "@repo/zod";
@@ -42,7 +43,7 @@ router.post("/create", async (req, res) => {
     }
   } catch (e) {
     console.log(e);
-    if (e instanceof PrismaClientKnownRequestError)
+    if (e instanceof Prisma.PrismaClientKnownRequestError)
       return res.status(500).json({
         message:
           "Internal server error. If you see this message, please report to a system administrator ",
@@ -67,7 +68,10 @@ router.put("/edit/:uuid", async (req, res) => {
       });
       res.status(200).json(content);
     } catch (e) {
-      if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
+      if (
+        e instanceof Prisma.PrismaClientKnownRequestError &&
+        e.code === "P2025"
+      ) {
         return res.status(400).json({ message: "Invalid content UUID" });
       }
     }
@@ -94,7 +98,10 @@ router.post("/delete/:uuid", async (req, res) => {
 
     res.status(200).json(content);
   } catch (e) {
-    if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === "P2025"
+    ) {
       res.status(400).json({
         message: "Invalid content UUID",
       });

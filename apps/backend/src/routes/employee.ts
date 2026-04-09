@@ -1,9 +1,10 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
 import { EmployeeCreateInputObjectSchema } from "@repo/zod";
-import { PrismaClientKnownRequestError } from "@repo/db";
+import { Prisma } from "@repo/db/generated/prisma/client.ts";
 import { ZodError } from "zod";
 import { EmployeeUncheckedCreateWithoutAccountInputObjectZodSchema } from "@repo/zod";
+// import { PrismaClientKnownRequestError } from "@repo/db/generated/prisma/internal/prismaNamespace.ts";
 
 const router = express.Router();
 
@@ -48,7 +49,10 @@ router.put("/update/:uuid", async (req, res) => {
       });
       res.status(200).json({ message: employee });
     } catch (e) {
-      if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
+      if (
+        e instanceof Prisma.PrismaClientKnownRequestError &&
+        e.code === "P2025"
+      ) {
         return res.status(400).json({ message: "Invalid content UUID" });
       }
     }
@@ -66,7 +70,10 @@ router.post("/delete/:uuid", async (req, res) => {
     const employee = await prisma.employee.delete({ where: { uuid: uuid } });
     res.status(200).json(employee);
   } catch (e) {
-    if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === "P2025"
+    ) {
       res.status(400).json({
         message: "Invalid content UUID",
       });
