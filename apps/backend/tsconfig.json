@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
     "esModuleInterop": true,
     "lib": ["es2015"],
     "module": "NodeNext",

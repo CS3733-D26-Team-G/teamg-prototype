@@ -16,7 +16,11 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:9999",
+    origin: [
+      "http://localhost:9999",
+      "http://localhost:10000",
+      "https://teamg-prototype.onrender.com",
+    ],
     credentials: true,
   }),
 );
@@ -35,6 +39,8 @@ readdirSync(routesPath).forEach(async (file) => {
 });
 
 // Start server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+const parsedPort = Number(process.env.PORT) || 3000;
+
+app.listen(parsedPort, "0.0.0.0", () => {
+  console.log(`Server running on port ${parsedPort}`);
 });
