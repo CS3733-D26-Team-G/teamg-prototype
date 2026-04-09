@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
 import {
   IconButton,
@@ -6,6 +6,9 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Collapse,
+  Box,
+  Avatar,
 } from "@mui/material";
 import { Link } from "react-router";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -15,17 +18,52 @@ import SpeedIcon from "@mui/icons-material/Speed";
 import SettingsIcon from "@mui/icons-material/Settings";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import PeopleIcon from "@mui/icons-material/People";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
 
 export default function Sidebar() {
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = useState(true);
+  const [adminOpen, setAdminOpen] = useState(false);
+  const [formsOpen, setFormsOpen] = useState(false);
+
+  const [isAdmin, setIsAdmin] = useState(
+    localStorage.getItem("account_type") === "ADMIN",
+  );
+
+  useEffect(() => {
+    const checkAdminStatus = () => {
+      setIsAdmin(localStorage.getItem("account_type") === "ADMIN");
+    };
+
+    window.addEventListener("storage", checkAdminStatus);
+
+    const interval = setInterval(checkAdminStatus, 1000);
+
+    return () => {
+      window.removeEventListener("storage", checkAdminStatus);
+      clearInterval(interval);
+    };
+  }, []);
+
+  const handleToggle = (
+    setter: React.Dispatch<React.SetStateAction<boolean>>,
+    current: boolean,
+  ) => {
+    if (!isOpen) setIsOpen(true);
+    setter(!current);
+  };
 
   return (
     <div
       className={"Sidebar"}
       style={{
-        width: isOpen ? "200px" : "48px",
+        width: isOpen ? "240px" : "64px",
+        transition: "width 0.3s",
       }}
     >
       <Box
@@ -41,7 +79,6 @@ export default function Sidebar() {
           alt="Hanover Logo"
           style={{
             width: "140px",
-            height: "auto",
             display: isOpen ? "block" : "none",
             imageRendering: "crisp-edges",
           }}
@@ -49,90 +86,116 @@ export default function Sidebar() {
         <IconButton onClick={() => setIsOpen(!isOpen)}>
           {isOpen ?
             <KeyboardDoubleArrowLeftIcon />
-          : <KeyboardDoubleArrowRightIcon sx={{ width: 32, height: 32 }} />}
+          : <KeyboardDoubleArrowRightIcon />}
         </IconButton>
       </Box>
-      <div>
-        <List sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          {/*Dashboard Button*/}
-          <ListItemButton
-            component={Link}
-            to={"/dashboard"}
-            sx={{ px: 1 }}
-          >
-            <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
-              <DashboardIcon />
-            </ListItemIcon>
-            {isOpen && <ListItemText>Dashboard</ListItemText>}
-          </ListItemButton>
 
-          {/*My Forms Button*/}
-          <ListItemButton
-            component={Link}
-            to={"/my-forms"}
-            sx={{ px: 1 }}
-          >
-            <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
-              <ArticleIcon />
-            </ListItemIcon>
-            {isOpen && <ListItemText>My Forms</ListItemText>}
-          </ListItemButton>
-
-          {/*Library Button*/}
-          <ListItemButton
-            component={Link}
-            to={"/library"}
-            sx={{ px: 1 }}
-          >
-            <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
-              <LibraryBooksIcon />
-            </ListItemIcon>
-            {isOpen && <ListItemText>Library</ListItemText>}
-          </ListItemButton>
-
-          {/*Activity Button*/}
-          <ListItemButton
-            component={Link}
-            to={"/activity"}
-            sx={{ px: 1 }}
-          >
-            <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
-              <SpeedIcon />
-            </ListItemIcon>
-            {isOpen && <ListItemText>Activity</ListItemText>}
-          </ListItemButton>
-
-          {/*Settings Button*/}
-          <ListItemButton
-            component={Link}
-            to={"/settings"}
-            sx={{ px: 1 }}
-          >
-            <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
-              <SettingsIcon />
-            </ListItemIcon>
-            {isOpen && <ListItemText>Settings</ListItemText>}
-          </ListItemButton>
-        </List>
-      </div>
-
-      <div
-        style={{
-          marginTop: "auto",
-        }}
-      >
-        {/*Profile Button*/}
+      <List sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
         <ListItemButton
           component={Link}
-          to={"/profile"}
-          sx={{ px: 1 }}
+          to="/dashboard"
+          sx={{ px: 2 }}
         >
           <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
-            <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+            <DashboardIcon />
           </ListItemIcon>
-          {isOpen && <ListItemText>My Account</ListItemText>}
+          {isOpen && <ListItemText primary="Dashboard" />}
         </ListItemButton>
-      </div>
+
+        {isAdmin ?
+          <>
+            <ListItemButton
+              onClick={() => handleToggle(setAdminOpen, adminOpen)}
+              sx={{ px: 2 }}
+            >
+              <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
+                <AdminPanelSettingsIcon color="primary" />
+              </ListItemIcon>
+              {isOpen && <ListItemText primary="Management" />}
+              {isOpen && (adminOpen ? <ExpandLess /> : <ExpandMore />)}
+            </ListItemButton>
+
+            <Collapse
+              in={adminOpen && isOpen}
+              timeout="auto"
+              unmountOnExit
+            >
+              <List
+                component="div"
+                disablePadding
+              >
+                <ListItemButton
+                  component={Link}
+                  to="/employee-management"
+                  sx={{ pl: 4 }}
+                >
+                  <ListItemIcon sx={{ minWidth: 0, mr: 2 }}>
+                    <PeopleIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary="Employees" />
+                </ListItemButton>
+                <ListItemButton
+                  component={Link}
+                  to="/content-management"
+                  sx={{ pl: 4 }}
+                >
+                  <ListItemIcon sx={{ minWidth: 0, mr: 2 }}>
+                    <LibraryBooksIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary="Content" />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </>
+        : <>
+            <ListItemButton
+              component={Link}
+              to="/library"
+              sx={{ px: 2 }}
+            >
+              <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
+                <LibraryBooksIcon />
+              </ListItemIcon>
+              {isOpen && <ListItemText primary="Library" />}
+            </ListItemButton>
+          </>
+        }
+
+        <ListItemButton
+          component={Link}
+          to="/activity"
+          sx={{ px: 2 }}
+        >
+          <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
+            <SpeedIcon />
+          </ListItemIcon>
+          {isOpen && <ListItemText primary="Activity" />}
+        </ListItemButton>
+
+        <ListItemButton
+          component={Link}
+          to="/settings"
+          sx={{ px: 2 }}
+        >
+          <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
+            <SettingsIcon />
+          </ListItemIcon>
+          {isOpen && <ListItemText primary="Settings" />}
+        </ListItemButton>
+      </List>
+
+      <Box sx={{ mt: "auto" }}>
+        <ListItemButton
+          component={Link}
+          to="/profile"
+          sx={{ px: 2 }}
+        >
+          <ListItemIcon sx={{ minWidth: 0, mr: isOpen ? 2 : 0 }}>
+            <Avatar sx={{ width: 32, height: 32 }} />
+          </ListItemIcon>
+          {isOpen && <ListItemText primary="My Account" />}
+        </ListItemButton>
+      </Box>
     </div>
   );
 }

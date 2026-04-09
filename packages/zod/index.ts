@@ -1,3 +1,1 @@
-// import * as schemas from "./schemas"
-// export default schemas;
-export * from "./schemas";
+export * from "./generated/schemas/index.ts"

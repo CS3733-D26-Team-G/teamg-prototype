@@ -8,12 +8,12 @@ import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import { MenuItem, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import CalendarInput from "../CalendarInput.tsx";
-import type { ContentPureType } from "@repo/zod";
+import type { ContentInputType } from "@repo/zod";
 import "./ContentForm.css";
 
 interface ContentFormProps {
-  initialData?: ContentPureType | null;
-  onSave: (data: ContentPureType) => void;
+  initialData?: ContentInputType | null;
+  onSave: (data: ContentInputType) => void;
   onCancel: () => void;
 }
 
@@ -25,7 +25,7 @@ export default function ContentForm({
   // Determine mode once
   const isEditing = !!initialData;
 
-  const [formData, setFormData] = useState<ContentPureType>({
+  const [formData, setFormData] = useState<ContentInputType>({
     uuid: initialData?.uuid || "",
     for_position: initialData?.for_position || "UNDERWRITER",
     title: initialData?.title || "",
@@ -44,7 +44,7 @@ export default function ContentForm({
     status: initialData?.status || "AVAILABLE",
   });
 
-  const handleChange = (field: keyof ContentPureType, value: any) => {
+  const handleChange = (field: keyof ContentInputType, value: any) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -52,7 +52,7 @@ export default function ContentForm({
   };
 
   const handleSelectChange =
-    (field: keyof ContentPureType) => (event: SelectChangeEvent) => {
+    (field: keyof ContentInputType) => (event: SelectChangeEvent) => {
       handleChange(field, event.target.value);
     };
 
@@ -64,65 +64,58 @@ export default function ContentForm({
 
   return (
     <section className="main-content-form">
-      <div className="header">
-        {/* Dynamic Header */}
-        <h2>{isEditing ? "Edit Document" : "Submit a New File"}</h2>
-      </div>
-
-      <div className="main">
-        {/* Use component="form" to handle the Enter key correctly */}
-        <Box
-          component="form"
-          className="form"
-          onSubmit={handleInternalSubmit}
-        >
-          <TextField
-            label="Name of Document"
-            fullWidth
-            value={formData.title}
-            onChange={(e) => handleChange("title", e.target.value)}
-            variant="outlined"
-            margin="normal"
-          />
-          <TextField
-            label="URL of Link"
-            fullWidth
-            value={formData.url}
-            onChange={(e) => handleChange("url", e.target.value)}
-            variant="outlined"
-            margin="normal"
-          />
-          <TextField
-            label="Content Owner"
-            fullWidth
-            value={formData.content_owner}
-            onChange={(e) => handleChange("content_owner", e.target.value)}
-            variant="outlined"
-            margin="normal"
-          />
-
-          <FormControl
-            fullWidth
-            margin="normal"
+      <div className="MuiPaper-root">
+        <div>
+          {/* Use component="form" to handle the Enter key correctly */}
+          <Box
+            component="form"
+            className="form"
+            onSubmit={handleInternalSubmit}
           >
-            <InputLabel id="recipient-label">Intended Recipient</InputLabel>
-            <Select
-              labelId="recipient-label"
-              label="Intended Recipient"
-              value={formData.for_position}
-              onChange={handleSelectChange("for_position")}
+            {/* Dynamic Header */}
+            <h1>{isEditing ? "Edit Document" : "Submit a New File"}</h1>
+            <TextField
+              label="Name of Document"
+              fullWidth
+              value={formData.title}
+              onChange={(e) => handleChange("title", e.target.value)}
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="URL of Link"
+              fullWidth
+              value={formData.url}
+              onChange={(e) => handleChange("url", e.target.value)}
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="Content Owner"
+              fullWidth
+              value={formData.content_owner}
+              onChange={(e) => handleChange("content_owner", e.target.value)}
+              variant="outlined"
+              margin="normal"
+            />
+
+            <FormControl
+              fullWidth
+              margin="normal"
             >
-              <MenuItem value="UNDERWRITER">Underwriter</MenuItem>
-              <MenuItem value="BUSINESS_ANALYST">Business Analyst</MenuItem>
-              <MenuItem value="ADMIN">Admin</MenuItem>
-            </Select>
-          </FormControl>
+              <InputLabel id="recipient-label">Intended Recipient</InputLabel>
+              <Select
+                labelId="recipient-label"
+                label="Intended Recipient"
+                value={formData.for_position}
+                onChange={handleSelectChange("for_position")}
+              >
+                <MenuItem value="UNDERWRITER">Underwriter</MenuItem>
+                <MenuItem value="BUSINESS_ANALYST">Business Analyst</MenuItem>
+                <MenuItem value="ADMIN">Admin</MenuItem>
+              </Select>
+            </FormControl>
 
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{ my: 2 }}
-          >
             <CalendarInput
               label="Last Modified Date"
               value={formData.last_modified_time}
@@ -135,46 +128,39 @@ export default function ContentForm({
               value={formData.expiration_time}
               onChange={(newDate) => handleChange("expiration_time", newDate)}
             />
-          </Stack>
 
-          <FormControl
-            fullWidth
-            margin="normal"
-          >
-            <InputLabel id="content-type-label">Type of Content</InputLabel>
-            <Select
-              labelId="content-type-label"
-              label="Type of Content"
-              value={formData.content_type}
-              onChange={handleSelectChange("content_type")}
+            <FormControl
+              fullWidth
+              margin="normal"
             >
-              <MenuItem value="REFERENCE">Reference Content</MenuItem>
-              <MenuItem value="WORKFLOW">Workflow Content</MenuItem>
-            </Select>
-          </FormControl>
+              <InputLabel id="content-type-label">Type of Content</InputLabel>
+              <Select
+                labelId="content-type-label"
+                label="Type of Content"
+                value={formData.content_type}
+                onChange={handleSelectChange("content_type")}
+              >
+                <MenuItem value="REFERENCE">Reference Content</MenuItem>
+                <MenuItem value="WORKFLOW">Workflow Content</MenuItem>
+              </Select>
+            </FormControl>
 
-          <FormControl
-            fullWidth
-            margin="normal"
-          >
-            <InputLabel id="status-label">Document Status</InputLabel>
-            <Select
-              labelId="status-label"
-              label="Document Status"
-              value={formData.status}
-              onChange={handleSelectChange("status")}
+            <FormControl
+              fullWidth
+              margin="normal"
             >
-              <MenuItem value="AVAILABLE">Available</MenuItem>
-              <MenuItem value="IN_USE">In Use</MenuItem>
-              <MenuItem value="UNAVAILABLE">Unavailable</MenuItem>
-            </Select>
-          </FormControl>
-
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{ mt: 3 }}
-          >
+              <InputLabel id="status-label">Document Status</InputLabel>
+              <Select
+                labelId="status-label"
+                label="Document Status"
+                value={formData.status}
+                onChange={handleSelectChange("status")}
+              >
+                <MenuItem value="AVAILABLE">Available</MenuItem>
+                <MenuItem value="IN_USE">In Use</MenuItem>
+                <MenuItem value="UNAVAILABLE">Unavailable</MenuItem>
+              </Select>
+            </FormControl>
             <Button
               type="submit"
               variant="contained"
@@ -191,8 +177,8 @@ export default function ContentForm({
             >
               Cancel
             </Button>
-          </Stack>
-        </Box>
+          </Box>
+        </div>
       </div>
     </section>
   );

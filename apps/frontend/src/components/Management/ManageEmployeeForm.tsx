@@ -1,108 +1,155 @@
 import * as React from "react";
-import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select, { type SelectChangeEvent } from "@mui/material/Select";
-import { MenuItem } from "@mui/material";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
+import {
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Stack,
+  Button,
+  Box,
+  Typography,
+} from "@mui/material";
+import {
+  ContentInputSchema,
+  type ContentInputType,
+  type EmployeePureType,
+} from "@repo/zod";
+import { uuid } from "zod";
 import "./EmployeeForm.css";
 
 interface ManageEmployeeFormProps {
-  initialData: any; // Use your UserRow type here
-  onSave: (updatedData: any) => void;
+  initialData: EmployeePureType | null; // Null means "New Employee"
+  onSave: (formData: EmployeePureType) => void;
   onCancel: () => void;
 }
+
+const defaultUser: Partial<EmployeePureType> = {
+  first_name: "",
+  last_name: "",
+  position: "UNDERWRITER", // Default role
+};
 
 export default function ManageEmployeeForm({
   initialData,
   onSave,
   onCancel,
 }: ManageEmployeeFormProps) {
-  const [role, setRole] = React.useState("");
+  // 1. Initialize state with either initialData or the default blank user
+  const [formData, setFormData] = React.useState<EmployeePureType>(
+    (initialData as EmployeePureType) || { ...defaultUser, id: "" },
+  );
 
-  const handleRoleChange = (event: SelectChangeEvent) => {
-    setRole(event.target.value as string);
-  };
+  const isEditing = !!initialData;
 
-  const [formData, setFormData] = React.useState(initialData);
-
+  // 2. Sync state if the prop changes
   React.useEffect(() => {
-    setFormData(initialData);
+    if (initialData) {
+      setFormData(initialData);
+    } else {
+      setFormData({ ...defaultUser, id: "" } as EmployeePureType);
+    }
   }, [initialData]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name as string]: value });
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave(formData);
+    EmployeeSchema;
   };
 
   return (
-    <section className="main-content-form">
-      <div className="header">
-        <h2>Employee Management Form</h2>
-      </div>
+    <Box sx={{ p: 3, backgroundColor: "white", borderRadius: 2 }}>
+      <Typography
+        variant="h5"
+        sx={{ mb: 3, fontWeight: "bold" }}
+      >
+        {isEditing ? "Edit Employee" : "Add New Employee"}
+      </Typography>
 
-      <div className="main">
-        {/* New Employee Form */}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSave(formData);
-          }}
-        >
-          <label htmlFor="newHire">Personal Information</label>
-          <TextField
-            id="outlined-basic"
-            label="First Name"
-            value={formData.firstName || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, firstName: e.target.value })
-            }
-            variant="outlined"
-          ></TextField>
-          <TextField
-            id="outlined-basic"
-            label="Last Name"
-            defaultValue={formData.lastName}
-            onChange={(e) =>
-              setFormData({ ...formData, lastName: e.target.value })
-            }
-            variant="outlined"
-          ></TextField>
-          <label htmlFor="newHire">Employment Information</label>
-          <FormControl fullWidth>
-            <InputLabel id="role-label">Role</InputLabel>
+      <form onSubmit={handleSubmit}>
+        <Stack spacing={3}>
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+          >
+            Personal Information
+          </Typography>
+
+          <Stack
+            direction="row"
+            spacing={2}
+          >
+            <TextField
+              fullWidth
+              label="First Name"
+              required
+              value={formData.first_name}
+              onChange={(e) =>
+                setFormData({ ...formData, first_name: e.target.value })
+              }
+            />
+            <TextField
+              fullWidth
+              label="Last Name"
+              required
+              value={formData.last_name}
+              onChange={(e) =>
+                setFormData({ ...formData, last_name: e.target.value })
+              }
+            />
+          </Stack>
+
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+          >
+            Employment Information
+          </Typography>
+
+          <FormControl
+            fullWidth
+            required
+          >
+            <InputLabel id="role-label">Position</InputLabel>
             <Select
               labelId="role-label"
               id="role"
               label="Role"
-              value={formData.role}
+              value={formData.position || ""}
               onChange={(e) =>
-                setFormData({ ...formData, role: e.target.value })
+                setFormData({
+                  ...formData,
+                  position: e.target.value as EmployeePureType["position"],
+                })
               }
             >
-              <MenuItem value={"Admin"}>Admin</MenuItem>
-              <MenuItem value={"Underwriter"}>Underwriter</MenuItem>
-              <MenuItem value={"Business Analyst"}>Business Analyst</MenuItem>
+              <MenuItem value="ADMIN">Admin</MenuItem>
+              <MenuItem value="UNDERWRITER">Underwriter</MenuItem>
+              <MenuItem value="BUSINESS_ANALYST">Business Analyst</MenuItem>
             </Select>
-            <Stack
-              direction="row"
-              spacing={2}
-              justifyContent="flex-end"
-            >
-              <Button onClick={onCancel}>Cancel</Button>
-              <Button
-                type="submit"
-                variant="contained"
-              >
-                Save Changes
-              </Button>
-            </Stack>
           </FormControl>
-        </form>
-      </div>
-    </section>
+
+          <Stack
+            direction="row"
+            spacing={2}
+            justifyContent="flex-end"
+            sx={{ pt: 2 }}
+          >
+            <Button
+              onClick={onCancel}
+              color="inherit"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+            >
+              {isEditing ? "Save Changes" : "Create Employee"}
+            </Button>
+          </Stack>
+        </Stack>
+      </form>
+    </Box>
   );
 }
