@@ -19,7 +19,7 @@ import HeaderSearchBar from "./HeaderSearchBar";
 import {
   ContentInputSchema,
   type ContentInputType,
-  EmployeeUncheckedCreateWithoutAccountInputObjectSchema
+  EmployeeUncheckedCreateWithoutAccountInputObjectSchema,
   type EmployeePureType,
 } from "@repo/zod";
 import { uuid } from "zod";
