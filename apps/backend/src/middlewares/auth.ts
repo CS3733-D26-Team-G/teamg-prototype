@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import type { NextFunction, Request, Response } from "express";
-import { prisma } from "../lib/prisma.ts";
+import { prisma } from "../lib/prisma.js";
 import type { Position } from "@repo/zod/schemas/enums/Position.schema.ts";
 
 export interface Auth {
