@@ -1,7 +1,14 @@
 {
   "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
     "esModuleInterop": true,
-    "lib": [ "es2015" ],
-    "allowImportingTsExtensions": true
-  }
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["index.ts"],
+  "exclude": ["generated/**", "node_modules/**"]
 }

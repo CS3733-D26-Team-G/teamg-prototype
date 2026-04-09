@@ -1,33 +1,22 @@
 import { z } from "zod";
-
 export const PositionSchema = z.enum([
-  "UNDERWRITER",
-  "BUSINESS_ANALYST",
-  "ADMIN",
+    "UNDERWRITER",
+    "BUSINESS_ANALYST",
+    "ADMIN",
 ]);
-export type Position = z.infer<typeof PositionSchema>;
-
 export const DepartmentSchema = z.enum([
-  "OPERATION_TECHNOLOGY",
-  "ACCOUNTING",
+    "OPERATION_TECHNOLOGY",
+    "ACCOUNTING",
 ]);
-export type Department = z.infer<typeof DepartmentSchema>;
-
 export const ContentTypeSchema = z.enum(["REFERENCE", "WORKFLOW"]);
-export type ContentType = z.infer<typeof ContentTypeSchema>;
-
 export const ContentStatusSchema = z.enum([
-  "AVAILABLE",
-  "IN_USE",
-  "UNAVAILABLE",
+    "AVAILABLE",
+    "IN_USE",
+    "UNAVAILABLE",
 ]);
-export type ContentStatus = z.infer<typeof ContentStatusSchema>;
-
 export const AccountTypeSchema = z.enum(["ADMIN", "EMPLOYEE"]);
-export type AccountType = z.infer<typeof AccountTypeSchema>;
-
 export const EmployeeCreateInputObjectSchema = z
-  .object({
+    .object({
     uuid: z.string().uuid().optional(),
     first_name: z.string(),
     last_name: z.string(),
@@ -39,25 +28,15 @@ export const EmployeeCreateInputObjectSchema = z
     phone_number: z.string(),
     personal_email: z.string(),
     corporate_email: z.string(),
-  })
-  .strict();
-
-export const EmployeeCreateInputObjectZodSchema =
-  EmployeeCreateInputObjectSchema;
-export type EmployeeCreateInputType = z.infer<
-  typeof EmployeeCreateInputObjectSchema
->;
-
+})
+    .strict();
+export const EmployeeCreateInputObjectZodSchema = EmployeeCreateInputObjectSchema;
 export const EmployeeInputSchema = EmployeeCreateInputObjectSchema.extend({
-  uuid: z.string().uuid(),
+    uuid: z.string().uuid(),
 }).strict();
-export type EmployeeInputType = z.infer<typeof EmployeeInputSchema>;
-
 export const EmployeePureSchema = EmployeeInputSchema;
-export type EmployeePureType = z.infer<typeof EmployeePureSchema>;
-
 export const ContentCreateInputObjectSchema = z
-  .object({
+    .object({
     uuid: z.string().uuid().optional(),
     title: z.string(),
     url: z.string(),
@@ -67,16 +46,10 @@ export const ContentCreateInputObjectSchema = z
     expiration_time: z.coerce.date(),
     content_type: ContentTypeSchema,
     status: ContentStatusSchema,
-  })
-  .strict();
-
+})
+    .strict();
 export const ContentCreateInputObjectZodSchema = ContentCreateInputObjectSchema;
-export type ContentCreateInputType = z.infer<typeof ContentCreateInputObjectSchema>;
-
 export const ContentInputSchema = ContentCreateInputObjectSchema.extend({
-  uuid: z.string().uuid(),
+    uuid: z.string().uuid(),
 }).strict();
-export type ContentInputType = z.infer<typeof ContentInputSchema>;
-
 export const ContentPureSchema = ContentInputSchema;
-export type ContentPureType = z.infer<typeof ContentPureSchema>;

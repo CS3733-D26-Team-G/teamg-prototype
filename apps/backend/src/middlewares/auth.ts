@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import type { NextFunction, Request, Response } from "express";
 import { prisma } from "../lib/prisma.ts";
-import { Position } from "@repo/zod";
+import type { Position } from "@repo/zod";
 
 export interface Auth {
   employeeUuid: string;

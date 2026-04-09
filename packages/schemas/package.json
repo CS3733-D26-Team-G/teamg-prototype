@@ -1,5 +1,9 @@
 {
   "name": "@repo/schemas",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "types": "./index.ts"
 }
