@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../../db/generated/prisma/client.ts';
+import type { Prisma } from "@repo/db/client";
 import { NestedDateTimeWithAggregatesFilterObjectSchema as NestedDateTimeWithAggregatesFilterObjectSchema } from './NestedDateTimeWithAggregatesFilter.schema.ts';
 import { NestedIntFilterObjectSchema as NestedIntFilterObjectSchema } from './NestedIntFilter.schema.ts';
 import { NestedDateTimeFilterObjectSchema as NestedDateTimeFilterObjectSchema } from './NestedDateTimeFilter.schema.ts'

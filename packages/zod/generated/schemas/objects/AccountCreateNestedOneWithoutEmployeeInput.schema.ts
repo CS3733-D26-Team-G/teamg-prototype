@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../../db/generated/prisma/client.ts';
+import type { Prisma } from "@repo/db/client";
 import { AccountCreateWithoutEmployeeInputObjectSchema as AccountCreateWithoutEmployeeInputObjectSchema } from './AccountCreateWithoutEmployeeInput.schema.ts';
 import { AccountUncheckedCreateWithoutEmployeeInputObjectSchema as AccountUncheckedCreateWithoutEmployeeInputObjectSchema } from './AccountUncheckedCreateWithoutEmployeeInput.schema.ts';
 import { AccountCreateOrConnectWithoutEmployeeInputObjectSchema as AccountCreateOrConnectWithoutEmployeeInputObjectSchema } from './AccountCreateOrConnectWithoutEmployeeInput.schema.ts';

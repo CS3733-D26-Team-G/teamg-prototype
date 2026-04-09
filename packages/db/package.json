@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "db:generate": "prisma generate",
-    "db:generate-prod": "cross-env DOTENV_FILE=.env.production prisma generate",
+    "db:generate": "prisma generate && node fix-zod-prisma-imports.mjs",
+    "db:generate-prod": "cross-env DOTENV_FILE=.env.production prisma generate && node fix-zod-prisma-imports.mjs",
     "db:migrate-dev-prod": "cross-env DOTENV_FILE=.env.production prisma migrate dev",
     "db:push": "prisma db push"
   },

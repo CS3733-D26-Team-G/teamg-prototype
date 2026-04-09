@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../../db/generated/prisma/client.ts';
+import type { Prisma } from "@repo/db/client";
 import { AccountSelectObjectSchema as AccountSelectObjectSchema } from './AccountSelect.schema.ts';
 import { AccountIncludeObjectSchema as AccountIncludeObjectSchema } from './AccountInclude.schema.ts'
 

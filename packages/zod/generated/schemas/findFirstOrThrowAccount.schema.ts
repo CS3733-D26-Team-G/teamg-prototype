@@ -1,4 +1,4 @@
-import type { Prisma } from '../../../db/generated/prisma/client.ts';
+import type { Prisma } from "@repo/db/client";
 import * as z from 'zod';
 import { AccountIncludeObjectSchema as AccountIncludeObjectSchema } from './objects/AccountInclude.schema.ts';
 import { AccountOrderByWithRelationInputObjectSchema as AccountOrderByWithRelationInputObjectSchema } from './objects/AccountOrderByWithRelationInput.schema.ts';

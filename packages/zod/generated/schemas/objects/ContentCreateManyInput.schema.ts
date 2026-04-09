@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../../db/generated/prisma/client.ts';
+import type { Prisma } from "@repo/db/client";
 import { PositionSchema } from '../enums/Position.schema.ts';
 import { ContentTypeSchema } from '../enums/ContentType.schema.ts';
 import { ContentStatusSchema } from '../enums/ContentStatus.schema.ts'

@@ -1,4 +1,4 @@
-import type { Prisma } from '../../../db/generated/prisma/client.ts';
+import type { Prisma } from "@repo/db/client";
 import * as z from 'zod';
 import { EmployeeCreateManyInputObjectSchema as EmployeeCreateManyInputObjectSchema } from './objects/EmployeeCreateManyInput.schema.ts';
 

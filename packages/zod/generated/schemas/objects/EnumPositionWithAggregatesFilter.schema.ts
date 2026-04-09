@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../../db/generated/prisma/client.ts';
+import type { Prisma } from "@repo/db/client";
 import { PositionSchema } from '../enums/Position.schema.ts';
 import { NestedEnumPositionWithAggregatesFilterObjectSchema as NestedEnumPositionWithAggregatesFilterObjectSchema } from './NestedEnumPositionWithAggregatesFilter.schema.ts';
 import { NestedIntFilterObjectSchema as NestedIntFilterObjectSchema } from './NestedIntFilter.schema.ts';
