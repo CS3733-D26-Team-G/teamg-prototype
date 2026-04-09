@@ -4,6 +4,7 @@ import {
   type ContentInputType,
   type ContentPureType,
 } from "@repo/zod";
+import React from "react";
 
 interface ContentManagementProps {
   viewState: ContentPureType | "new" | null;
@@ -12,7 +13,7 @@ interface ContentManagementProps {
   >;
 }
 
-function MyForms({ viewState, setViewState }: ContentManagementProps) {
+function MyForms({ viewState }: ContentManagementProps) {
   const handleSave = async (formData: ContentInputType) => {
     const isExisting = viewState !== "new";
     const uuid =
@@ -40,6 +41,8 @@ function MyForms({ viewState, setViewState }: ContentManagementProps) {
         : parsed,
       ),
     });
+
+    console.log(res);
   };
 
   const handleCancel = () => {

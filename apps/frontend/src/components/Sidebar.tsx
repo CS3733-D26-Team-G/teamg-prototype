@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import { Link } from "react-router";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ArticleIcon from "@mui/icons-material/Article";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import SpeedIcon from "@mui/icons-material/Speed";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -22,14 +21,11 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import PeopleIcon from "@mui/icons-material/People";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const [adminOpen, setAdminOpen] = useState(false);
-  const [formsOpen, setFormsOpen] = useState(false);
+  // const [formsOpen, setFormsOpen] = useState(false);
 
   const [isAdmin, setIsAdmin] = useState(
     localStorage.getItem("account_type") === "ADMIN",

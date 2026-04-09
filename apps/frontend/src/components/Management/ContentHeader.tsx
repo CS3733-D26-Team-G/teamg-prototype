@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { Box, IconButton, Toolbar, AppBar, Typography } from "@mui/material";
+import { useState } from "react";
+import { Box, Toolbar, AppBar, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import HeaderSearchBar from "./HeaderSearchBar";
-import SearchIcon from "@mui/icons-material/Search";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -20,7 +18,7 @@ interface ContentHeaderProps {
 }
 
 export default function ContentHeader({ onOpenCreate }: ContentHeaderProps) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [_searchQuery, setSearchQuery] = useState("");
 
   return (
     <Box sx={{ flexGrow: 1, backgroundColor: "white", zIndex: "-1" }}>
