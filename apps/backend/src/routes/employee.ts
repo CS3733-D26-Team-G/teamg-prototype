@@ -3,7 +3,7 @@ import { prisma } from "../lib/prisma.ts";
 import { EmployeeCreateInputObjectSchema } from "@repo/zod/schemas/objects/EmployeeCreateInput.schema.ts";
 import { PrismaClientKnownRequestError } from "@repo/db/generated/prisma/internal/prismaNamespace.ts";
 import { ZodError } from "zod";
-import { EmployeeInputSchema } from "@repo/zod/schemas/variants/input/Employee.input.ts";
+import { EmployeeUncheckedCreateWithoutAccountInputObjectZodSchema } from "@repo/zod";
 
 const router = express.Router();
 
@@ -35,7 +35,9 @@ router.post("/create", async (req, res) => {
 router.put("/update/:uuid", async (req, res) => {
   const uuid = req.params.uuid;
   try {
-    const body = EmployeeInputSchema.omit({ uuid: true })
+    const body = EmployeeUncheckedCreateWithoutAccountInputObjectZodSchema.omit(
+      { uuid: true },
+    )
       .partial()
       .parse(req.body);
 

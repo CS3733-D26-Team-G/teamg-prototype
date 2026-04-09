@@ -19,7 +19,7 @@ import {
   ContentInputSchema,
   type ContentInputType,
 } from "@repo/zod/schemas/variants/input/Content.input.ts";
-import type { ContentPureType } from "@repo/zod/schemas/variants/pure/Content.pure.ts";
+import type { ContentPureType } from "@repo/zod";
 
 interface ContentManagementProps {
   viewState: ContentPureType | "new" | null;

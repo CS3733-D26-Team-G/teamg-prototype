@@ -8,7 +8,7 @@ import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import { MenuItem } from "@mui/material";
 import Box from "@mui/material/Box";
 import CalendarInput from "../CalendarInput.tsx";
-import type { ContentInputType } from "@repo/zod/schemas/variants/input/Content.input.ts";
+import type { ContentInputType } from "@repo/zod";
 import "./ContentForm.css";
 
 interface ContentFormProps {

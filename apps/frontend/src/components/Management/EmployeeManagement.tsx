@@ -17,9 +17,9 @@ import { z } from "zod";
 
 import HeaderSearchBar from "./HeaderSearchBar";
 import ManageEmployeeForm from "./ManageEmployeeForm";
-import { DepartmentSchema } from "@repo/zod/schemas/enums/Department.schema.ts";
-import { EmployeeCreateInputObjectZodSchema } from "@repo/zod/schemas/objects/EmployeeCreateInput.schema.ts";
-import { PositionSchema } from "@repo/zod/schemas/enums/Position.schema.ts";
+import { DepartmentSchema } from "@repo/zod";
+import { EmployeeCreateInputObjectZodSchema } from "@repo/zod";
+import { PositionSchema } from "@repo/zod";
 
 const API_BASE = "http://localhost:3000";
 
