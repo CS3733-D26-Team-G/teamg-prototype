@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./index.ts"
+    ".": "./index.ts",
+    "./schemas": "./generated/schemas/index.ts",
+    "./schemas/*": "./generated/schemas/*"
   },
   "types": "./index.ts",
   "dependencies": {
