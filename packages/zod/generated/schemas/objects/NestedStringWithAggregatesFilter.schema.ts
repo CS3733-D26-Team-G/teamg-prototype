@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import { NestedIntFilterObjectSchema as NestedIntFilterObjectSchema } from './NestedIntFilter.schema.ts';
 import { NestedStringFilterObjectSchema as NestedStringFilterObjectSchema } from './NestedStringFilter.schema.ts'
 

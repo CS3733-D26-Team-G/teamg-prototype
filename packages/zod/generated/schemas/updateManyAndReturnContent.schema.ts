@@ -1,4 +1,4 @@
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import * as z from 'zod';
 import { ContentSelectObjectSchema as ContentSelectObjectSchema } from './objects/ContentSelect.schema.ts';
 import { ContentUpdateManyMutationInputObjectSchema as ContentUpdateManyMutationInputObjectSchema } from './objects/ContentUpdateManyMutationInput.schema.ts';

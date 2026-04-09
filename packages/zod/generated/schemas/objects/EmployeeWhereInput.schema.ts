@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import { UuidFilterObjectSchema as UuidFilterObjectSchema } from './UuidFilter.schema.ts';
 import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFilter.schema.ts';
 import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema.ts';

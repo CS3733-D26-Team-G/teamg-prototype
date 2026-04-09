@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import { NestedDateTimeFilterObjectSchema as NestedDateTimeFilterObjectSchema } from './NestedDateTimeFilter.schema.ts'
 
 const makeSchema = () => z.object({

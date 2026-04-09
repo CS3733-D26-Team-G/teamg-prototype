@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import { EmployeeArgsObjectSchema as EmployeeArgsObjectSchema } from './EmployeeArgs.schema.ts'
 
 const makeSchema = () => z.object({

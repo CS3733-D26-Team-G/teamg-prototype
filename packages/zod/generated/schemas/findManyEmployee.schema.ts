@@ -1,4 +1,4 @@
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import * as z from 'zod';
 import { EmployeeIncludeObjectSchema as EmployeeIncludeObjectSchema } from './objects/EmployeeInclude.schema.ts';
 import { EmployeeOrderByWithRelationInputObjectSchema as EmployeeOrderByWithRelationInputObjectSchema } from './objects/EmployeeOrderByWithRelationInput.schema.ts';

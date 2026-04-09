@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import { SortOrderSchema } from '../enums/SortOrder.schema.ts';
 import { EmployeeOrderByWithRelationInputObjectSchema as EmployeeOrderByWithRelationInputObjectSchema } from './EmployeeOrderByWithRelationInput.schema.ts'
 

@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import { ContentStatusSchema } from '../enums/ContentStatus.schema.ts'
 
 const makeSchema = () => z.object({

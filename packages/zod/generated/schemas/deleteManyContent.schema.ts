@@ -1,4 +1,4 @@
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import * as z from 'zod';
 import { ContentWhereInputObjectSchema as ContentWhereInputObjectSchema } from './objects/ContentWhereInput.schema.ts';
 

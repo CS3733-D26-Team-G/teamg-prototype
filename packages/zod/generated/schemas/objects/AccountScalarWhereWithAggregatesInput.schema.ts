@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import { UuidWithAggregatesFilterObjectSchema as UuidWithAggregatesFilterObjectSchema } from './UuidWithAggregatesFilter.schema.ts';
 import { StringWithAggregatesFilterObjectSchema as StringWithAggregatesFilterObjectSchema } from './StringWithAggregatesFilter.schema.ts';
 import { EnumAccountTypeWithAggregatesFilterObjectSchema as EnumAccountTypeWithAggregatesFilterObjectSchema } from './EnumAccountTypeWithAggregatesFilter.schema.ts';

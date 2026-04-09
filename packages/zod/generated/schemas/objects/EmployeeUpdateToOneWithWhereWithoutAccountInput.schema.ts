@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import { EmployeeWhereInputObjectSchema as EmployeeWhereInputObjectSchema } from './EmployeeWhereInput.schema.ts';
 import { EmployeeUpdateWithoutAccountInputObjectSchema as EmployeeUpdateWithoutAccountInputObjectSchema } from './EmployeeUpdateWithoutAccountInput.schema.ts';
 import { EmployeeUncheckedUpdateWithoutAccountInputObjectSchema as EmployeeUncheckedUpdateWithoutAccountInputObjectSchema } from './EmployeeUncheckedUpdateWithoutAccountInput.schema.ts'

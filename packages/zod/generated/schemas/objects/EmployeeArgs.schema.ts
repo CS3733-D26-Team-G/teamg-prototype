@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import { EmployeeSelectObjectSchema as EmployeeSelectObjectSchema } from './EmployeeSelect.schema.ts';
 import { EmployeeIncludeObjectSchema as EmployeeIncludeObjectSchema } from './EmployeeInclude.schema.ts'
 

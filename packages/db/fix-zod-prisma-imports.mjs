@@ -14,7 +14,7 @@ async function walk(dir) {
             let content = await fs.readFile(full, "utf8");
             content = content.replaceAll(
                 /from\s+["'](\.\.\/)+db\/generated\/prisma\/client(?:\.ts)?["']/g,
-                'from "@repo/db/client"'
+                'from "@repo/db"'
             );
             await fs.writeFile(full, content);
         }

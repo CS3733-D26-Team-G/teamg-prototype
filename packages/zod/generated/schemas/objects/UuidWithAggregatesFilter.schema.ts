@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import { QueryModeSchema } from '../enums/QueryMode.schema.ts';
 import { NestedUuidWithAggregatesFilterObjectSchema as NestedUuidWithAggregatesFilterObjectSchema } from './NestedUuidWithAggregatesFilter.schema.ts';
 import { NestedIntFilterObjectSchema as NestedIntFilterObjectSchema } from './NestedIntFilter.schema.ts';

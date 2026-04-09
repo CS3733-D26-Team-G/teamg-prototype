@@ -1,4 +1,4 @@
-import type { Prisma } from "@repo/db/client";
+import type { Prisma } from "@repo/db";
 import * as z from 'zod';
 import { EmployeeUpdateManyMutationInputObjectSchema as EmployeeUpdateManyMutationInputObjectSchema } from './objects/EmployeeUpdateManyMutationInput.schema.ts';
 import { EmployeeWhereInputObjectSchema as EmployeeWhereInputObjectSchema } from './objects/EmployeeWhereInput.schema.ts';
