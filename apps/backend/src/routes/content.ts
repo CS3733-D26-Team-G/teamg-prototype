@@ -3,7 +3,7 @@ import { prisma } from "../lib/prisma.ts";
 import { PrismaClientKnownRequestError } from "@repo/db/generated/prisma/internal/prismaNamespace.ts";
 import { ZodError } from "zod";
 import { ContentCreateInputObjectSchema } from "@repo/zod/schemas/objects/ContentCreateInput.schema.ts";
-import { ContentInputSchema } from "@repo/zod/schemas/variants/input/Content.input.ts";
+import { ContentUpdateInputObjectZodSchema } from "@repo/zod";
 
 const router = express.Router();
 
@@ -54,11 +54,10 @@ router.put("/edit/:uuid", async (req, res) => {
   const auth = req.auth;
   const uuid = req.params.uuid;
   try {
-    const body = ContentInputSchema.omit({ uuid: true })
+    const body = ContentUpdateInputObjectZodSchema.omit({ uuid: true })
       .partial()
       .parse(req.body);
     if (auth.position !== "ADMIN" && auth.position !== body.for_position) {
-      console.log("???");
       return res.status(401).json({ message: "Unauthorized" });
     }
     try {
@@ -74,6 +73,7 @@ router.put("/edit/:uuid", async (req, res) => {
     }
   } catch (e) {
     if (e instanceof ZodError) {
+      console.log(e);
       res.status(400).json({ message: e.issues });
     }
   }
