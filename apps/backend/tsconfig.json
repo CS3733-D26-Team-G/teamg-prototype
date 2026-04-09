@@ -2,12 +2,12 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
+    "noEmit": false,
     "esModuleInterop": true,
     "lib": ["es2015"],
     "module": "NodeNext",
     "moduleResolution": "nodenext",
     "target": "ESNext",
-    "allowImportingTsExtensions": true
   },
   "include": ["src/**/*.ts", "src/types/**/*.d.ts"]
 }

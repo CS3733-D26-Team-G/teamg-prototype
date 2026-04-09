@@ -1,11 +1,11 @@
-import "./env.ts";
+import "./env.js";
 import express from "express";
 import morgan from "morgan";
 import { readdirSync } from "node:fs";
 import { join } from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { auth } from "./middlewares/auth.ts";
+import { auth } from "./middlewares/auth.js";
 
 const app = express();
 const port = process.env.PORT;
@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 
 const routesPath = join(process.cwd(), "src/routes");
 readdirSync(routesPath).forEach(async (file) => {
-  if (file.endsWith(".ts")) {
+  if (file.endsWith(".ts") || file.endsWith(".js")) {
     const { default: router } = await import(`./routes/${file}`);
     app.use(`/${file.split(".")[0]}`, router);
   }
