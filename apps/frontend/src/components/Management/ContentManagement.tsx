@@ -17,8 +17,8 @@ import HeaderSearchBar from "./HeaderSearchBar";
 import {
   ContentInputSchema,
   type ContentInputType,
-  type ContentPureType,
-} from "@repo/zod";
+} from "@repo/zod/schemas/variants/input/Content.input.ts";
+import type { ContentPureType } from "@repo/zod/schemas/variants/pure/Content.pure.ts";
 
 interface ContentManagementProps {
   viewState: ContentPureType | "new" | null;

@@ -2,8 +2,8 @@ import ContentForm from "../components/Management/ContentForm";
 import {
   ContentInputSchema,
   type ContentInputType,
-  type ContentPureType,
-} from "@repo/zod";
+} from "@repo/zod/schemas/variants/input/Content.input.ts";
+import type { ContentPureType } from "@repo/zod/schemas/variants/pure/Content.pure.ts";
 import React from "react";
 
 interface ContentManagementProps {

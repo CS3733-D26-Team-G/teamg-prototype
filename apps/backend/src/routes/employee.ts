@@ -1,9 +1,9 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
-import { EmployeeCreateInputObjectSchema } from "@repo/zod";
+import { EmployeeCreateInputObjectSchema } from "@repo/zod/schemas/objects/EmployeeCreateInput.schema.ts";
 import { PrismaClientKnownRequestError } from "@repo/db/generated/prisma/internal/prismaNamespace.ts";
 import { ZodError } from "zod";
-import { EmployeeInputSchema } from "@repo/zod";
+import { EmployeeInputSchema } from "@repo/zod/schemas/variants/input/Employee.input.ts";
 
 const router = express.Router();
 
