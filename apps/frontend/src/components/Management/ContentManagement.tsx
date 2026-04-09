@@ -19,7 +19,6 @@ import {
   type ContentInputType,
   type ContentPureType,
 } from "@repo/zod";
-import { uuid } from "zod";
 
 interface ContentManagementProps {
   viewState: ContentPureType | "new" | null;
@@ -143,7 +142,7 @@ export default function ContentManagement({
   };
 
   const getColumns = (
-    onEdit: (row: ContentPureType) => void,
+    _onEdit: (row: ContentPureType) => void,
     onDelete: (row: ContentPureType) => void,
   ): GridColDef[] => [
     { field: "title", headerName: "Title", flex: 1 },
