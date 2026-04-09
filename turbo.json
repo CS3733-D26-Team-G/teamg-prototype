@@ -32,7 +32,7 @@
       "persistent": true
     },
     "build": {
-      "dependsOn": ["^db:generate"],
+      "dependsOn": ["^db:generate-prod"],
       "outputs": ["dist/**", ".vite/**"]
     },
     "start": {

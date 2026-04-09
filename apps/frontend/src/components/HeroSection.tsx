@@ -1,9 +1,6 @@
 import "./HeroSection.css";
 import HanoverLogo from "../assets/HanoverLogo.png";
-import HanoverFam from "../assets/HanoverFam.png";
 import HanoverVols from "../assets/HanoverVols.png";
-import HanoverVols2 from "../assets/HanoverVols2.jpg";
-import HeroPageBackground from "../assets/HeroPageBackground.png";
 import { useNavigate } from "react-router";
 
 export default function HeroSection() {
