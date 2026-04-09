@@ -26,6 +26,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div style={{ display: "flex", minHeight: "100vh" }}>
+        {/* Only show Sidebar if we aren't on the Hero page */}
         {!isHeroPage && <Sidebar />}
 
         <div style={{ flexGrow: 1 }}>

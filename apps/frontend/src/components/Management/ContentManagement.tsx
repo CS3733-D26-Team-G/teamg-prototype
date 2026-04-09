@@ -8,7 +8,6 @@ import {
   Toolbar,
   styled,
   Typography,
-  Link,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -147,25 +146,7 @@ export default function ContentManagement({
     onDelete: (row: ContentPureType) => void,
   ): GridColDef[] => [
     { field: "title", headerName: "Title", flex: 1 },
-    {
-      field: "url",
-      headerName: "URL",
-      flex: 1,
-      renderCell: (params) => (
-        <Link
-          href={params.value}
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            display: "block",
-          }}
-        >
-          {params.value}
-        </Link>
-      ),
-    },
+    { field: "url", headerName: "URL", flex: 1 },
     { field: "content_owner", headerName: "Content Owner", flex: 1 },
     { field: "content_type", headerName: "Type", width: 130 },
     { field: "status", headerName: "Status", width: 120 },
