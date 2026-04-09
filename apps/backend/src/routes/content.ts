@@ -1,6 +1,6 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
-import { Prisma } from "@repo/db/generated/prisma/client.ts";
+import { Prisma } from "@repo/db";
 
 import { ZodError } from "zod";
 import { ContentCreateInputObjectSchema } from "@repo/zod";
