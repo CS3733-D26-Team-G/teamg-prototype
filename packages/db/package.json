@@ -2,6 +2,11 @@
   "name": "@repo/db",
   "private": true,
   "type": "module",
+  "main": "./dist/app.js",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./dis/app.js"
+  },
   "scripts": {
     "db:generate": "cross-env DOTENV_FILE=.env prisma generate",
     "db:generate-prod": "cross-env DOTENV_FILE=.env.production prisma generate",
