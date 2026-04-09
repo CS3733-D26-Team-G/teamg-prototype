@@ -6,4 +6,4 @@ echo "=== DB INDEX ==="
 cat packages/db/index.ts
 echo "=== ZOD STUFF ==="
 find packages/zod/generated/schemas -maxdepth 3 -type f | sort
-turbo run build
+pnpm run build
