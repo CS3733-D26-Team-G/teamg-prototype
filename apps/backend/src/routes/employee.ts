@@ -1,9 +1,9 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
-import { EmployeeCreateInputObjectSchema } from "@repo/zod";
+import { EmployeeCreateInputObjectSchema } from "@repo/zod/schemas/objects/EmployeeCreateInput.schema.ts";
 import { PrismaClientKnownRequestError } from "@repo/db/generated/prisma/internal/prismaNamespace.ts";
 import { ZodError } from "zod";
-import { EmployeeInputSchema } from "@repo/zod";
+import { EmployeeInputSchema } from "@repo/zod/schemas/variants/input/Employee.input.ts";
 
 const router = express.Router();
 
@@ -22,8 +22,9 @@ router.get("/", async (req, res) => {
 router.post("/create", async (req, res) => {
   try {
     const body = EmployeeCreateInputObjectSchema.parse(req.body);
-    const employee = await prisma.employee.create({ data: body });
     console.log(body);
+    const employee = await prisma.employee.create({ data: body });
+    console.log("created empoyee");
     res.status(200).send(employee);
   } catch (e) {
     console.error(e);
@@ -60,7 +61,7 @@ router.post("/delete/:uuid", async (req, res) => {
   const uuid = req.params.uuid;
 
   try {
-    const employee = await prisma.content.delete({ where: { uuid: uuid } });
+    const employee = await prisma.employee.delete({ where: { uuid: uuid } });
     res.status(200).json(employee);
   } catch (e) {
     if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {

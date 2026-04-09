@@ -1,1 +1,1 @@
-export * from "./generated/schemas/index.ts"
+export * from "./generated/schemas/index.ts";

@@ -5,10 +5,10 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
 import Select, { type SelectChangeEvent } from "@mui/material/Select";
-import { MenuItem, Stack } from "@mui/material";
+import { MenuItem } from "@mui/material";
 import Box from "@mui/material/Box";
 import CalendarInput from "../CalendarInput.tsx";
-import type { ContentInputType } from "@repo/zod";
+import type { ContentInputType } from "@repo/zod/schemas/variants/input/Content.input.ts";
 import "./ContentForm.css";
 
 interface ContentFormProps {

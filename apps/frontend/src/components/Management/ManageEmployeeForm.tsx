@@ -1,141 +1,306 @@
 import * as React from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
-  TextField,
+  Box,
+  Button,
   FormControl,
   InputLabel,
-  Select,
   MenuItem,
+  Select,
   Stack,
-  Button,
-  Box,
+  TextField,
   Typography,
 } from "@mui/material";
-import {
-  ContentInputSchema,
-  type ContentInputType,
-  type EmployeePureType,
-} from "@repo/zod";
-import { uuid } from "zod";
+import { z } from "zod";
+
+import CalendarInput from "../CalendarInput.tsx";
 import "./EmployeeForm.css";
+import { DepartmentSchema } from "@repo/zod/schemas/enums/Department.schema.ts";
+import { EmployeeCreateInputObjectZodSchema } from "@repo/zod/schemas/objects/EmployeeCreateInput.schema.ts";
+import { PositionSchema } from "@repo/zod/schemas/enums/Position.schema.ts";
+
+const EmployeeRowSchema = EmployeeCreateInputObjectZodSchema.extend({
+  uuid: z.string(),
+});
+
+type EmployeeRow = z.infer<typeof EmployeeRowSchema>;
+type EmployeeFormData = z.infer<typeof EmployeeCreateInputObjectZodSchema>;
+type Position = z.infer<typeof PositionSchema>;
+type Department = z.infer<typeof DepartmentSchema>;
 
 interface ManageEmployeeFormProps {
-  initialData: EmployeePureType | null; // Null means "New Employee"
-  onSave: (formData: EmployeePureType) => void;
+  initialData: EmployeeRow | null; // null => creating a new employee
+  onSave: (formData: EmployeeFormData) => void;
   onCancel: () => void;
 }
 
-const defaultUser: Partial<EmployeePureType> = {
-  first_name: "",
-  last_name: "",
-  position: "UNDERWRITER", // Default role
-};
+function coerceToDate(value: unknown): Date {
+  if (value instanceof Date) return value;
+  if (typeof value === "string" || typeof value === "number") {
+    const d = new Date(value);
+    if (!Number.isNaN(d.getTime())) return d;
+  }
+  return new Date();
+}
+
+function buildDefaultFormData(
+  seed?: Partial<EmployeeFormData>,
+): EmployeeFormData {
+  return {
+    first_name: seed?.first_name ?? "",
+    last_name: seed?.last_name ?? "",
+    date_of_birth: coerceToDate(seed?.date_of_birth),
+    position: (seed?.position ?? "UNDERWRITER") as Position,
+    department: (seed?.department ?? "OPERATION_TECHNOLOGY") as Department,
+    start_date: coerceToDate(seed?.start_date),
+    supervisor: seed?.supervisor ?? "",
+    phone_number: seed?.phone_number ?? "",
+    personal_email: seed?.personal_email ?? "",
+    corporate_email: seed?.corporate_email ?? "",
+  };
+}
 
 export default function ManageEmployeeForm({
   initialData,
   onSave,
   onCancel,
 }: ManageEmployeeFormProps) {
-  // 1. Initialize state with either initialData or the default blank user
-  const [formData, setFormData] = React.useState<EmployeePureType>(
-    (initialData as EmployeePureType) || { ...defaultUser, id: "" },
-  );
-
   const isEditing = !!initialData;
 
-  // 2. Sync state if the prop changes
-  React.useEffect(() => {
-    if (initialData) {
-      setFormData(initialData);
-    } else {
-      setFormData({ ...defaultUser, id: "" } as EmployeePureType);
-    }
+  const [formData, setFormData] = useState<EmployeeFormData>(() =>
+    buildDefaultFormData(initialData ?? undefined),
+  );
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setSubmitError(null);
+    setFormData(buildDefaultFormData(initialData ?? undefined));
   }, [initialData]);
+
+  const positionOptions = useMemo(
+    () => PositionSchema.options as Position[],
+    [],
+  );
+  const departmentOptions = useMemo(
+    () => DepartmentSchema.options as Department[],
+    [],
+  );
+
+  const positionLabel: Record<Position, string> = {
+    ADMIN: "Admin",
+    UNDERWRITER: "Underwriter",
+    BUSINESS_ANALYST: "Business Analyst",
+  };
+
+  const departmentLabel: Record<Department, string> = {
+    OPERATION_TECHNOLOGY: "Operations & Technology",
+    ACCOUNTING: "Accounting",
+  };
+
+  const handleChange = <K extends keyof EmployeeFormData>(
+    field: K,
+    value: EmployeeFormData[K],
+  ) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(formData);
-    EmployeeSchema;
+    setSubmitError(null);
+
+    const parsed = EmployeeCreateInputObjectZodSchema.safeParse(formData);
+    if (!parsed.success) {
+      const firstIssue = parsed.error.issues[0];
+      setSubmitError(firstIssue?.message ?? "Invalid form data.");
+      return;
+    }
+
+    onSave(parsed.data);
   };
 
   return (
-    <Box sx={{ p: 3, backgroundColor: "white", borderRadius: 2 }}>
-      <Typography
-        variant="h5"
-        sx={{ mb: 3, fontWeight: "bold" }}
-      >
-        {isEditing ? "Edit Employee" : "Add New Employee"}
-      </Typography>
+    <section className="main-content-form">
+      <div className="MuiPaper-root">
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              textAlign: "center",
+              color: "#1A1E4B",
+              fontWeight: "bold",
+              mb: 3,
+            }}
+          >
+            {isEditing ? "Edit Employee" : "Add New Employee"}
+          </Typography>
 
-      <form onSubmit={handleSubmit}>
-        <Stack spacing={3}>
           <Typography
             variant="subtitle2"
             color="text.secondary"
+            sx={{ mb: 1 }}
           >
             Personal Information
           </Typography>
 
           <Stack
-            direction="row"
+            direction={{ xs: "column", sm: "row" }}
             spacing={2}
           >
             <TextField
-              fullWidth
               label="First Name"
+              fullWidth
               required
               value={formData.first_name}
-              onChange={(e) =>
-                setFormData({ ...formData, first_name: e.target.value })
-              }
+              onChange={(e) => handleChange("first_name", e.target.value)}
+              margin="normal"
             />
             <TextField
-              fullWidth
               label="Last Name"
+              fullWidth
               required
               value={formData.last_name}
-              onChange={(e) =>
-                setFormData({ ...formData, last_name: e.target.value })
-              }
+              onChange={(e) => handleChange("last_name", e.target.value)}
+              margin="normal"
             />
           </Stack>
+
+          <CalendarInput
+            label="Date of Birth"
+            value={formData.date_of_birth}
+            onChange={(d) => handleChange("date_of_birth", d)}
+          />
 
           <Typography
             variant="subtitle2"
             color="text.secondary"
+            sx={{ mt: 2 }}
           >
             Employment Information
           </Typography>
 
-          <FormControl
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={2}
+          >
+            <FormControl
+              fullWidth
+              required
+              margin="normal"
+            >
+              <InputLabel id="position-label">Position</InputLabel>
+              <Select
+                labelId="position-label"
+                label="Position"
+                value={formData.position}
+                onChange={(e) =>
+                  handleChange("position", e.target.value as Position)
+                }
+              >
+                {positionOptions.map((p) => (
+                  <MenuItem
+                    key={p}
+                    value={p}
+                  >
+                    {positionLabel[p]}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl
+              fullWidth
+              required
+              margin="normal"
+            >
+              <InputLabel id="department-label">Department</InputLabel>
+              <Select
+                labelId="department-label"
+                label="Department"
+                value={formData.department}
+                onChange={(e) =>
+                  handleChange("department", e.target.value as Department)
+                }
+              >
+                {departmentOptions.map((d) => (
+                  <MenuItem
+                    key={d}
+                    value={d}
+                  >
+                    {departmentLabel[d]}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Stack>
+
+          <CalendarInput
+            label="Start Date"
+            value={formData.start_date}
+            onChange={(d) => handleChange("start_date", d)}
+          />
+
+          <TextField
+            label="Supervisor"
             fullWidth
             required
+            value={formData.supervisor}
+            onChange={(e) => handleChange("supervisor", e.target.value)}
+            margin="normal"
+          />
+
+          <TextField
+            label="Phone Number"
+            fullWidth
+            required
+            value={formData.phone_number}
+            onChange={(e) => handleChange("phone_number", e.target.value)}
+            margin="normal"
+          />
+
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={2}
           >
-            <InputLabel id="role-label">Position</InputLabel>
-            <Select
-              labelId="role-label"
-              id="role"
-              label="Role"
-              value={formData.position || ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  position: e.target.value as EmployeePureType["position"],
-                })
-              }
+            <TextField
+              label="Personal Email"
+              type="email"
+              fullWidth
+              required
+              value={formData.personal_email}
+              onChange={(e) => handleChange("personal_email", e.target.value)}
+              margin="normal"
+            />
+            <TextField
+              label="Corporate Email"
+              type="email"
+              fullWidth
+              required
+              value={formData.corporate_email}
+              onChange={(e) => handleChange("corporate_email", e.target.value)}
+              margin="normal"
+            />
+          </Stack>
+
+          {submitError ?
+            <Typography
+              color="error"
+              sx={{ mt: 1 }}
             >
-              <MenuItem value="ADMIN">Admin</MenuItem>
-              <MenuItem value="UNDERWRITER">Underwriter</MenuItem>
-              <MenuItem value="BUSINESS_ANALYST">Business Analyst</MenuItem>
-            </Select>
-          </FormControl>
+              {submitError}
+            </Typography>
+          : null}
 
           <Stack
             direction="row"
             spacing={2}
-            justifyContent="flex-end"
-            sx={{ pt: 2 }}
+            sx={{ pt: 3 }}
           >
             <Button
+              variant="outlined"
+              fullWidth
               onClick={onCancel}
               color="inherit"
             >
@@ -144,12 +309,13 @@ export default function ManageEmployeeForm({
             <Button
               type="submit"
               variant="contained"
+              fullWidth
             >
               {isEditing ? "Save Changes" : "Create Employee"}
             </Button>
           </Stack>
-        </Stack>
-      </form>
-    </Box>
+        </Box>
+      </div>
+    </section>
   );
 }

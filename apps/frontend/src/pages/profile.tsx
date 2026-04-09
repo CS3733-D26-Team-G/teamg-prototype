@@ -12,7 +12,7 @@ import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 
 function Profile() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [_searchQuery, setSearchQuery] = useState("");
   const today = new Date();
   const formattedDate = today.toLocaleDateString("en-US", {
     weekday: "long",

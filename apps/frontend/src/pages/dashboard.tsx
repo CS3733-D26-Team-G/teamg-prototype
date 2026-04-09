@@ -4,7 +4,7 @@ import SearchBar from "./DashboardComponents/SearchBar";
 import "./DashboardComponents/dashboard.css";
 
 export default function Dashboard() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [_searchQuery, setSearchQuery] = useState("");
 
   return (
     <div className="dashboard-main">

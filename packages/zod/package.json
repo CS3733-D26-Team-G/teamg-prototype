@@ -1,5 +1,14 @@
 {
   "name": "@repo/zod",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./schemas": "./generated/schemas/index.ts",
+    "./schemas/*": "./generated/schemas/*"
+  },
+  "types": "./index.ts",
+  "dependencies": {
+    "zod": "^4.3.6"
+  }
 }

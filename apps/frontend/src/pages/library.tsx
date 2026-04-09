@@ -1,8 +1,6 @@
 import { useState } from "react";
 import ContentManagement from "../components/Management/ContentManagement";
-import ContentHeader from "../components/Management/ContentHeader";
-import { type ContentPureType } from "@repo/zod";
-import EmployeeManagement from "../components/Management/EmployeeManagement";
+import { type ContentPureType } from "@repo/zod/schemas/variants/pure/Content.pure.ts";
 
 function Library() {
   const [viewState, setViewState] = useState<ContentPureType | "new" | null>(

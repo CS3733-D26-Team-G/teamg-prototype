@@ -17,9 +17,8 @@ import HeaderSearchBar from "./HeaderSearchBar";
 import {
   ContentInputSchema,
   type ContentInputType,
-  type ContentPureType,
-} from "@repo/zod";
-import { uuid } from "zod";
+} from "@repo/zod/schemas/variants/input/Content.input.ts";
+import type { ContentPureType } from "@repo/zod/schemas/variants/pure/Content.pure.ts";
 
 interface ContentManagementProps {
   viewState: ContentPureType | "new" | null;
@@ -143,7 +142,7 @@ export default function ContentManagement({
   };
 
   const getColumns = (
-    onEdit: (row: ContentPureType) => void,
+    _onEdit: (row: ContentPureType) => void,
     onDelete: (row: ContentPureType) => void,
   ): GridColDef[] => [
     { field: "title", headerName: "Title", flex: 1 },
