@@ -4,29 +4,40 @@ import Sidebar from "./components/Sidebar.tsx";
 import theme from "./theme.tsx";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 
-// Standard Pages
+import Hero from "./pages/hero.tsx";
 import Dashboard from "./pages/dashboard.tsx";
-import MyForms from "./pages/content-form.tsx"; // Assuming this is your "My Forms" logic
+import MyForms from "./pages/content-form.tsx";
 import Library from "./pages/library.tsx";
 import Activity from "./pages/activity.tsx";
 import Settings from "./pages/settings.tsx";
 import Profile from "./pages/profile.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 
-// Admin Management Pages
 import EmployeeManagement from "./pages/employee-management.tsx";
 import EmployeeFormPage from "./pages/employees-form.tsx";
 
+import { useLocation } from "react-router";
+
 function App() {
+  const location = useLocation();
+  const isHeroPage = location.pathname === "/";
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div style={{ display: "flex", minHeight: "100vh" }}>
-        <Sidebar />
+        {/* Only show Sidebar if we aren't on the Hero page */}
+        {!isHeroPage && <Sidebar />}
+
         <div style={{ flexGrow: 1 }}>
           <Routes>
             <Route
               path="/"
+              element={<Hero />}
+            />
+
+            <Route
+              path="/login"
               element={<LoginPage />}
             />
 

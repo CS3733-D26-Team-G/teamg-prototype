@@ -4,12 +4,19 @@ import HanoverFam from "../assets/HanoverFam.png";
 import HanoverVols from "../assets/HanoverVols.png";
 import HanoverVols2 from "../assets/HanoverVols2.jpg";
 import HeroPageBackground from "../assets/HeroPageBackground.png";
+import { useNavigate } from "react-router";
 
 export default function HeroSection() {
+  const navigate = useNavigate(); // 2. Initialize the navigate function
+
+  const handleLoginClick = () => {
+    navigate("/login"); // 3. Define where to go (matches your route path)
+  };
+
   return (
     <div className="main-hero">
       {/* Dot pattern in corners */}
-      <div className="corner-dots corner-dots--left">
+      {/* <div className="corner-dots corner-dots--left">
         <img
           src={HeroPageBackground}
           alt="BackgroundLeft"
@@ -20,7 +27,7 @@ export default function HeroSection() {
           src={HeroPageBackground}
           alt="BackgroundRight"
         />
-      </div>
+      </div> */}
 
       {/* Top bar: logo and search bar*/}
       <div className="hero-topbar">
@@ -91,21 +98,14 @@ export default function HeroSection() {
               alt="Hanover Volunteers Bottom"
             />
           </div>
-          <div className="middle-photo">
-            <img
-              src={HanoverVols2}
-              alt="Hanover Volunteers 2"
-            />
-          </div>
-          <div className="bottom-photo">
-            <img
-              src={HanoverFam}
-              alt="Hanover Family"
-            />
-          </div>
         </div>
         <div className="login-button">
-          <button className="hero-login-button">Log In</button>
+          <button
+            className="hero-login-button"
+            onClick={handleLoginClick}
+          >
+            Log In
+          </button>
         </div>
       </div>
     </div>
