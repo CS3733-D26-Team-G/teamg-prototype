@@ -1,7 +1,7 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
-import { EmployeeCreateInputObjectSchema } from "@repo/zod/schemas/objects/EmployeeCreateInput.schema.ts";
-import { PrismaClientKnownRequestError } from "@repo/db/generated/prisma/internal/prismaNamespace.ts";
+import { EmployeeCreateInputObjectSchema } from "@repo/zod";
+import { PrismaClientKnownRequestError } from "@repo/db";
 import { ZodError } from "zod";
 import { EmployeeUncheckedCreateWithoutAccountInputObjectZodSchema } from "@repo/zod";
 

@@ -1,8 +1,8 @@
 import express from "express";
 import { prisma } from "../lib/prisma.ts";
-import { PrismaClientKnownRequestError } from "@repo/db/generated/prisma/internal/prismaNamespace.ts";
+import { PrismaClientKnownRequestError } from "@repo/db";
 import { ZodError } from "zod";
-import { ContentCreateInputObjectSchema } from "@repo/zod/schemas/objects/ContentCreateInput.schema.ts";
+import { ContentCreateInputObjectSchema } from "@repo/zod";
 import { ContentUpdateInputObjectZodSchema } from "@repo/zod";
 
 const router = express.Router();
