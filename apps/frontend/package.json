@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:prod": "vite",
+    "dev": "vite --port 6000",
+    "dev:prod": "vite --port 6000",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
