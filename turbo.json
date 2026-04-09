@@ -8,7 +8,9 @@
       "outputs": [
         "node_modules/.prisma/**",
         "node_modules/@prisma/client/**",
-        "../zod/generated/schemas/**"
+        "../zod/generated/schemas/**",
+        "packages/db/generated/prisma/**",
+        "packages/zod/generated/**"
       ]
     },
     "db:generate-prod": {
