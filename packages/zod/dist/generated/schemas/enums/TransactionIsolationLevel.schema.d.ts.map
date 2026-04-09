@@ -1,0 +1,1 @@
+{"version":3,"file":"TransactionIsolationLevel.schema.d.ts","sourceRoot":"","sources":["../../../../generated/schemas/enums/TransactionIsolationLevel.schema.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,CAAC,MAAM,KAAK,CAAC;AAEzB,eAAO,MAAM,+BAA+B;;;;;EAAiF,CAAA;AAE7H,MAAM,MAAM,yBAAyB,GAAG,CAAC,CAAC,KAAK,CAAC,OAAO,+BAA+B,CAAC,CAAC"}

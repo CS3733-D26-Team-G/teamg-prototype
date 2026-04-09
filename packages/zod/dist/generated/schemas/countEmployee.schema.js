@@ -1,0 +1,8 @@
+import * as z from 'zod';
+import { EmployeeOrderByWithRelationInputObjectSchema as EmployeeOrderByWithRelationInputObjectSchema } from "./objects/EmployeeOrderByWithRelationInput.schema.js";
+import { EmployeeWhereInputObjectSchema as EmployeeWhereInputObjectSchema } from "./objects/EmployeeWhereInput.schema.js";
+import { EmployeeWhereUniqueInputObjectSchema as EmployeeWhereUniqueInputObjectSchema } from "./objects/EmployeeWhereUniqueInput.schema.js";
+import { EmployeeCountAggregateInputObjectSchema as EmployeeCountAggregateInputObjectSchema } from "./objects/EmployeeCountAggregateInput.schema.js";
+export const EmployeeCountSchema = z.object({ orderBy: z.union([EmployeeOrderByWithRelationInputObjectSchema, EmployeeOrderByWithRelationInputObjectSchema.array()]).optional(), where: EmployeeWhereInputObjectSchema.optional(), cursor: EmployeeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([z.literal(true), EmployeeCountAggregateInputObjectSchema]).optional() }).strict();
+export const EmployeeCountZodSchema = z.object({ orderBy: z.union([EmployeeOrderByWithRelationInputObjectSchema, EmployeeOrderByWithRelationInputObjectSchema.array()]).optional(), where: EmployeeWhereInputObjectSchema.optional(), cursor: EmployeeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([z.literal(true), EmployeeCountAggregateInputObjectSchema]).optional() }).strict();
+//# sourceMappingURL=countEmployee.schema.js.map

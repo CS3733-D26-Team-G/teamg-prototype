@@ -1,0 +1,37 @@
+import * as z from 'zod';
+export declare const ContentGroupByResultSchema: z.ZodArray<z.ZodObject<{
+    uuid: z.ZodString;
+    title: z.ZodString;
+    url: z.ZodString;
+    content_owner: z.ZodString;
+    last_modified_time: z.ZodDate;
+    expiration_time: z.ZodDate;
+    _count: z.ZodOptional<z.ZodObject<{
+        uuid: z.ZodNumber;
+        title: z.ZodNumber;
+        url: z.ZodNumber;
+        content_owner: z.ZodNumber;
+        for_position: z.ZodNumber;
+        last_modified_time: z.ZodNumber;
+        expiration_time: z.ZodNumber;
+        content_type: z.ZodNumber;
+        status: z.ZodNumber;
+    }, z.core.$strip>>;
+    _min: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        uuid: z.ZodNullable<z.ZodString>;
+        title: z.ZodNullable<z.ZodString>;
+        url: z.ZodNullable<z.ZodString>;
+        content_owner: z.ZodNullable<z.ZodString>;
+        last_modified_time: z.ZodNullable<z.ZodDate>;
+        expiration_time: z.ZodNullable<z.ZodDate>;
+    }, z.core.$strip>>>;
+    _max: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        uuid: z.ZodNullable<z.ZodString>;
+        title: z.ZodNullable<z.ZodString>;
+        url: z.ZodNullable<z.ZodString>;
+        content_owner: z.ZodNullable<z.ZodString>;
+        last_modified_time: z.ZodNullable<z.ZodDate>;
+        expiration_time: z.ZodNullable<z.ZodDate>;
+    }, z.core.$strip>>>;
+}, z.core.$strip>>;
+//# sourceMappingURL=ContentGroupByResult.schema.d.ts.map

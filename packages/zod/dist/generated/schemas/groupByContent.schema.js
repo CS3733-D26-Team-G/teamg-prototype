@@ -1,0 +1,11 @@
+import * as z from 'zod';
+import { ContentWhereInputObjectSchema as ContentWhereInputObjectSchema } from "./objects/ContentWhereInput.schema.js";
+import { ContentOrderByWithAggregationInputObjectSchema as ContentOrderByWithAggregationInputObjectSchema } from "./objects/ContentOrderByWithAggregationInput.schema.js";
+import { ContentScalarWhereWithAggregatesInputObjectSchema as ContentScalarWhereWithAggregatesInputObjectSchema } from "./objects/ContentScalarWhereWithAggregatesInput.schema.js";
+import { ContentScalarFieldEnumSchema } from "./enums/ContentScalarFieldEnum.schema.js";
+import { ContentCountAggregateInputObjectSchema as ContentCountAggregateInputObjectSchema } from "./objects/ContentCountAggregateInput.schema.js";
+import { ContentMinAggregateInputObjectSchema as ContentMinAggregateInputObjectSchema } from "./objects/ContentMinAggregateInput.schema.js";
+import { ContentMaxAggregateInputObjectSchema as ContentMaxAggregateInputObjectSchema } from "./objects/ContentMaxAggregateInput.schema.js";
+export const ContentGroupBySchema = z.object({ where: ContentWhereInputObjectSchema.optional(), orderBy: z.union([ContentOrderByWithAggregationInputObjectSchema, ContentOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ContentScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ContentScalarFieldEnumSchema), _count: z.union([z.literal(true), ContentCountAggregateInputObjectSchema]).optional(), _min: ContentMinAggregateInputObjectSchema.optional(), _max: ContentMaxAggregateInputObjectSchema.optional() }).strict();
+export const ContentGroupByZodSchema = z.object({ where: ContentWhereInputObjectSchema.optional(), orderBy: z.union([ContentOrderByWithAggregationInputObjectSchema, ContentOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ContentScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ContentScalarFieldEnumSchema), _count: z.union([z.literal(true), ContentCountAggregateInputObjectSchema]).optional(), _min: ContentMinAggregateInputObjectSchema.optional(), _max: ContentMaxAggregateInputObjectSchema.optional() }).strict();
+//# sourceMappingURL=groupByContent.schema.js.map

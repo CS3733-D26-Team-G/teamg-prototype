@@ -1,0 +1,49 @@
+import * as z from 'zod';
+export declare const EmployeeGroupByResultSchema: z.ZodArray<z.ZodObject<{
+    uuid: z.ZodString;
+    first_name: z.ZodString;
+    last_name: z.ZodString;
+    date_of_birth: z.ZodDate;
+    start_date: z.ZodDate;
+    supervisor: z.ZodString;
+    phone_number: z.ZodString;
+    personal_email: z.ZodString;
+    corporate_email: z.ZodString;
+    _count: z.ZodOptional<z.ZodObject<{
+        uuid: z.ZodNumber;
+        account: z.ZodNumber;
+        first_name: z.ZodNumber;
+        last_name: z.ZodNumber;
+        date_of_birth: z.ZodNumber;
+        position: z.ZodNumber;
+        department: z.ZodNumber;
+        start_date: z.ZodNumber;
+        supervisor: z.ZodNumber;
+        phone_number: z.ZodNumber;
+        personal_email: z.ZodNumber;
+        corporate_email: z.ZodNumber;
+    }, z.core.$strip>>;
+    _min: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        uuid: z.ZodNullable<z.ZodString>;
+        first_name: z.ZodNullable<z.ZodString>;
+        last_name: z.ZodNullable<z.ZodString>;
+        date_of_birth: z.ZodNullable<z.ZodDate>;
+        start_date: z.ZodNullable<z.ZodDate>;
+        supervisor: z.ZodNullable<z.ZodString>;
+        phone_number: z.ZodNullable<z.ZodString>;
+        personal_email: z.ZodNullable<z.ZodString>;
+        corporate_email: z.ZodNullable<z.ZodString>;
+    }, z.core.$strip>>>;
+    _max: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+        uuid: z.ZodNullable<z.ZodString>;
+        first_name: z.ZodNullable<z.ZodString>;
+        last_name: z.ZodNullable<z.ZodString>;
+        date_of_birth: z.ZodNullable<z.ZodDate>;
+        start_date: z.ZodNullable<z.ZodDate>;
+        supervisor: z.ZodNullable<z.ZodString>;
+        phone_number: z.ZodNullable<z.ZodString>;
+        personal_email: z.ZodNullable<z.ZodString>;
+        corporate_email: z.ZodNullable<z.ZodString>;
+    }, z.core.$strip>>>;
+}, z.core.$strip>>;
+//# sourceMappingURL=EmployeeGroupByResult.schema.d.ts.map

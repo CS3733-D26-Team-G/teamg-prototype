@@ -1,0 +1,8 @@
+import * as z from 'zod';
+import { ContentOrderByWithRelationInputObjectSchema as ContentOrderByWithRelationInputObjectSchema } from "./objects/ContentOrderByWithRelationInput.schema.js";
+import { ContentWhereInputObjectSchema as ContentWhereInputObjectSchema } from "./objects/ContentWhereInput.schema.js";
+import { ContentWhereUniqueInputObjectSchema as ContentWhereUniqueInputObjectSchema } from "./objects/ContentWhereUniqueInput.schema.js";
+import { ContentCountAggregateInputObjectSchema as ContentCountAggregateInputObjectSchema } from "./objects/ContentCountAggregateInput.schema.js";
+export const ContentCountSchema = z.object({ orderBy: z.union([ContentOrderByWithRelationInputObjectSchema, ContentOrderByWithRelationInputObjectSchema.array()]).optional(), where: ContentWhereInputObjectSchema.optional(), cursor: ContentWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([z.literal(true), ContentCountAggregateInputObjectSchema]).optional() }).strict();
+export const ContentCountZodSchema = z.object({ orderBy: z.union([ContentOrderByWithRelationInputObjectSchema, ContentOrderByWithRelationInputObjectSchema.array()]).optional(), where: ContentWhereInputObjectSchema.optional(), cursor: ContentWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([z.literal(true), ContentCountAggregateInputObjectSchema]).optional() }).strict();
+//# sourceMappingURL=countContent.schema.js.map

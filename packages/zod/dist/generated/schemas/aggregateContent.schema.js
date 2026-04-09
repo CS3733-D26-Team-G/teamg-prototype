@@ -1,0 +1,10 @@
+import * as z from 'zod';
+import { ContentOrderByWithRelationInputObjectSchema as ContentOrderByWithRelationInputObjectSchema } from "./objects/ContentOrderByWithRelationInput.schema.js";
+import { ContentWhereInputObjectSchema as ContentWhereInputObjectSchema } from "./objects/ContentWhereInput.schema.js";
+import { ContentWhereUniqueInputObjectSchema as ContentWhereUniqueInputObjectSchema } from "./objects/ContentWhereUniqueInput.schema.js";
+import { ContentCountAggregateInputObjectSchema as ContentCountAggregateInputObjectSchema } from "./objects/ContentCountAggregateInput.schema.js";
+import { ContentMinAggregateInputObjectSchema as ContentMinAggregateInputObjectSchema } from "./objects/ContentMinAggregateInput.schema.js";
+import { ContentMaxAggregateInputObjectSchema as ContentMaxAggregateInputObjectSchema } from "./objects/ContentMaxAggregateInput.schema.js";
+export const ContentAggregateSchema = z.object({ orderBy: z.union([ContentOrderByWithRelationInputObjectSchema, ContentOrderByWithRelationInputObjectSchema.array()]).optional(), where: ContentWhereInputObjectSchema.optional(), cursor: ContentWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([z.literal(true), ContentCountAggregateInputObjectSchema]).optional(), _min: ContentMinAggregateInputObjectSchema.optional(), _max: ContentMaxAggregateInputObjectSchema.optional() }).strict();
+export const ContentAggregateZodSchema = z.object({ orderBy: z.union([ContentOrderByWithRelationInputObjectSchema, ContentOrderByWithRelationInputObjectSchema.array()]).optional(), where: ContentWhereInputObjectSchema.optional(), cursor: ContentWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([z.literal(true), ContentCountAggregateInputObjectSchema]).optional(), _min: ContentMinAggregateInputObjectSchema.optional(), _max: ContentMaxAggregateInputObjectSchema.optional() }).strict();
+//# sourceMappingURL=aggregateContent.schema.js.map

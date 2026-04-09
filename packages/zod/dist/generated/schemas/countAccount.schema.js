@@ -1,0 +1,8 @@
+import * as z from 'zod';
+import { AccountOrderByWithRelationInputObjectSchema as AccountOrderByWithRelationInputObjectSchema } from "./objects/AccountOrderByWithRelationInput.schema.js";
+import { AccountWhereInputObjectSchema as AccountWhereInputObjectSchema } from "./objects/AccountWhereInput.schema.js";
+import { AccountWhereUniqueInputObjectSchema as AccountWhereUniqueInputObjectSchema } from "./objects/AccountWhereUniqueInput.schema.js";
+import { AccountCountAggregateInputObjectSchema as AccountCountAggregateInputObjectSchema } from "./objects/AccountCountAggregateInput.schema.js";
+export const AccountCountSchema = z.object({ orderBy: z.union([AccountOrderByWithRelationInputObjectSchema, AccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: AccountWhereInputObjectSchema.optional(), cursor: AccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([z.literal(true), AccountCountAggregateInputObjectSchema]).optional() }).strict();
+export const AccountCountZodSchema = z.object({ orderBy: z.union([AccountOrderByWithRelationInputObjectSchema, AccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: AccountWhereInputObjectSchema.optional(), cursor: AccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([z.literal(true), AccountCountAggregateInputObjectSchema]).optional() }).strict();
+//# sourceMappingURL=countAccount.schema.js.map

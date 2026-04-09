@@ -1,0 +1,10 @@
+import * as z from 'zod';
+import { EmployeeOrderByWithRelationInputObjectSchema as EmployeeOrderByWithRelationInputObjectSchema } from "./objects/EmployeeOrderByWithRelationInput.schema.js";
+import { EmployeeWhereInputObjectSchema as EmployeeWhereInputObjectSchema } from "./objects/EmployeeWhereInput.schema.js";
+import { EmployeeWhereUniqueInputObjectSchema as EmployeeWhereUniqueInputObjectSchema } from "./objects/EmployeeWhereUniqueInput.schema.js";
+import { EmployeeCountAggregateInputObjectSchema as EmployeeCountAggregateInputObjectSchema } from "./objects/EmployeeCountAggregateInput.schema.js";
+import { EmployeeMinAggregateInputObjectSchema as EmployeeMinAggregateInputObjectSchema } from "./objects/EmployeeMinAggregateInput.schema.js";
+import { EmployeeMaxAggregateInputObjectSchema as EmployeeMaxAggregateInputObjectSchema } from "./objects/EmployeeMaxAggregateInput.schema.js";
+export const EmployeeAggregateSchema = z.object({ orderBy: z.union([EmployeeOrderByWithRelationInputObjectSchema, EmployeeOrderByWithRelationInputObjectSchema.array()]).optional(), where: EmployeeWhereInputObjectSchema.optional(), cursor: EmployeeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([z.literal(true), EmployeeCountAggregateInputObjectSchema]).optional(), _min: EmployeeMinAggregateInputObjectSchema.optional(), _max: EmployeeMaxAggregateInputObjectSchema.optional() }).strict();
+export const EmployeeAggregateZodSchema = z.object({ orderBy: z.union([EmployeeOrderByWithRelationInputObjectSchema, EmployeeOrderByWithRelationInputObjectSchema.array()]).optional(), where: EmployeeWhereInputObjectSchema.optional(), cursor: EmployeeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([z.literal(true), EmployeeCountAggregateInputObjectSchema]).optional(), _min: EmployeeMinAggregateInputObjectSchema.optional(), _max: EmployeeMaxAggregateInputObjectSchema.optional() }).strict();
+//# sourceMappingURL=aggregateEmployee.schema.js.map

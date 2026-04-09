@@ -1,0 +1,11 @@
+import * as z from 'zod';
+import { EmployeeWhereInputObjectSchema as EmployeeWhereInputObjectSchema } from "./objects/EmployeeWhereInput.schema.js";
+import { EmployeeOrderByWithAggregationInputObjectSchema as EmployeeOrderByWithAggregationInputObjectSchema } from "./objects/EmployeeOrderByWithAggregationInput.schema.js";
+import { EmployeeScalarWhereWithAggregatesInputObjectSchema as EmployeeScalarWhereWithAggregatesInputObjectSchema } from "./objects/EmployeeScalarWhereWithAggregatesInput.schema.js";
+import { EmployeeScalarFieldEnumSchema } from "./enums/EmployeeScalarFieldEnum.schema.js";
+import { EmployeeCountAggregateInputObjectSchema as EmployeeCountAggregateInputObjectSchema } from "./objects/EmployeeCountAggregateInput.schema.js";
+import { EmployeeMinAggregateInputObjectSchema as EmployeeMinAggregateInputObjectSchema } from "./objects/EmployeeMinAggregateInput.schema.js";
+import { EmployeeMaxAggregateInputObjectSchema as EmployeeMaxAggregateInputObjectSchema } from "./objects/EmployeeMaxAggregateInput.schema.js";
+export const EmployeeGroupBySchema = z.object({ where: EmployeeWhereInputObjectSchema.optional(), orderBy: z.union([EmployeeOrderByWithAggregationInputObjectSchema, EmployeeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: EmployeeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(EmployeeScalarFieldEnumSchema), _count: z.union([z.literal(true), EmployeeCountAggregateInputObjectSchema]).optional(), _min: EmployeeMinAggregateInputObjectSchema.optional(), _max: EmployeeMaxAggregateInputObjectSchema.optional() }).strict();
+export const EmployeeGroupByZodSchema = z.object({ where: EmployeeWhereInputObjectSchema.optional(), orderBy: z.union([EmployeeOrderByWithAggregationInputObjectSchema, EmployeeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: EmployeeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(EmployeeScalarFieldEnumSchema), _count: z.union([z.literal(true), EmployeeCountAggregateInputObjectSchema]).optional(), _min: EmployeeMinAggregateInputObjectSchema.optional(), _max: EmployeeMaxAggregateInputObjectSchema.optional() }).strict();
+//# sourceMappingURL=groupByEmployee.schema.js.map

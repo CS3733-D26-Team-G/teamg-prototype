@@ -1,0 +1,10 @@
+import * as z from 'zod';
+import { AccountOrderByWithRelationInputObjectSchema as AccountOrderByWithRelationInputObjectSchema } from "./objects/AccountOrderByWithRelationInput.schema.js";
+import { AccountWhereInputObjectSchema as AccountWhereInputObjectSchema } from "./objects/AccountWhereInput.schema.js";
+import { AccountWhereUniqueInputObjectSchema as AccountWhereUniqueInputObjectSchema } from "./objects/AccountWhereUniqueInput.schema.js";
+import { AccountCountAggregateInputObjectSchema as AccountCountAggregateInputObjectSchema } from "./objects/AccountCountAggregateInput.schema.js";
+import { AccountMinAggregateInputObjectSchema as AccountMinAggregateInputObjectSchema } from "./objects/AccountMinAggregateInput.schema.js";
+import { AccountMaxAggregateInputObjectSchema as AccountMaxAggregateInputObjectSchema } from "./objects/AccountMaxAggregateInput.schema.js";
+export const AccountAggregateSchema = z.object({ orderBy: z.union([AccountOrderByWithRelationInputObjectSchema, AccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: AccountWhereInputObjectSchema.optional(), cursor: AccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([z.literal(true), AccountCountAggregateInputObjectSchema]).optional(), _min: AccountMinAggregateInputObjectSchema.optional(), _max: AccountMaxAggregateInputObjectSchema.optional() }).strict();
+export const AccountAggregateZodSchema = z.object({ orderBy: z.union([AccountOrderByWithRelationInputObjectSchema, AccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: AccountWhereInputObjectSchema.optional(), cursor: AccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([z.literal(true), AccountCountAggregateInputObjectSchema]).optional(), _min: AccountMinAggregateInputObjectSchema.optional(), _max: AccountMaxAggregateInputObjectSchema.optional() }).strict();
+//# sourceMappingURL=aggregateAccount.schema.js.map

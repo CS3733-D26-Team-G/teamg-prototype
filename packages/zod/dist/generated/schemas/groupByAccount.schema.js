@@ -1,0 +1,11 @@
+import * as z from 'zod';
+import { AccountWhereInputObjectSchema as AccountWhereInputObjectSchema } from "./objects/AccountWhereInput.schema.js";
+import { AccountOrderByWithAggregationInputObjectSchema as AccountOrderByWithAggregationInputObjectSchema } from "./objects/AccountOrderByWithAggregationInput.schema.js";
+import { AccountScalarWhereWithAggregatesInputObjectSchema as AccountScalarWhereWithAggregatesInputObjectSchema } from "./objects/AccountScalarWhereWithAggregatesInput.schema.js";
+import { AccountScalarFieldEnumSchema } from "./enums/AccountScalarFieldEnum.schema.js";
+import { AccountCountAggregateInputObjectSchema as AccountCountAggregateInputObjectSchema } from "./objects/AccountCountAggregateInput.schema.js";
+import { AccountMinAggregateInputObjectSchema as AccountMinAggregateInputObjectSchema } from "./objects/AccountMinAggregateInput.schema.js";
+import { AccountMaxAggregateInputObjectSchema as AccountMaxAggregateInputObjectSchema } from "./objects/AccountMaxAggregateInput.schema.js";
+export const AccountGroupBySchema = z.object({ where: AccountWhereInputObjectSchema.optional(), orderBy: z.union([AccountOrderByWithAggregationInputObjectSchema, AccountOrderByWithAggregationInputObjectSchema.array()]).optional(), having: AccountScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(AccountScalarFieldEnumSchema), _count: z.union([z.literal(true), AccountCountAggregateInputObjectSchema]).optional(), _min: AccountMinAggregateInputObjectSchema.optional(), _max: AccountMaxAggregateInputObjectSchema.optional() }).strict();
+export const AccountGroupByZodSchema = z.object({ where: AccountWhereInputObjectSchema.optional(), orderBy: z.union([AccountOrderByWithAggregationInputObjectSchema, AccountOrderByWithAggregationInputObjectSchema.array()]).optional(), having: AccountScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(AccountScalarFieldEnumSchema), _count: z.union([z.literal(true), AccountCountAggregateInputObjectSchema]).optional(), _min: AccountMinAggregateInputObjectSchema.optional(), _max: AccountMaxAggregateInputObjectSchema.optional() }).strict();
+//# sourceMappingURL=groupByAccount.schema.js.map
