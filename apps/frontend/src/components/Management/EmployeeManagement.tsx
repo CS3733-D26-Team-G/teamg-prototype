@@ -76,7 +76,6 @@ export default function EmployeeManagement() {
     void loadEmployees();
   }, []);
 
-  // --- Filtering Logic ---
   const filteredRows = rows.filter((row) => {
     if (!searchQuery.trim()) return true;
     const searchStr = searchQuery.toLowerCase();
@@ -87,7 +86,6 @@ export default function EmployeeManagement() {
     );
   });
 
-  // --- Handlers ---
   const handleDelete = async (row: EmployeePureType) => {
     if (!window.confirm(`Remove employee ${row.first_name} ${row.last_name}?`))
       return;
@@ -114,10 +112,6 @@ export default function EmployeeManagement() {
   const handleSave = async (updatedUser: EmployeePureType) => {
     const isExisting = viewState !== "new";
 
-    // 1. Prepare the payload
-    // We ensure dates are stringified.
-    // NOTE: If the backend Zod is z.date(), it will ALWAYS fail
-    // unless the backend uses z.coerce.date().
     const payload = {
       ...updatedUser,
       date_of_birth:
@@ -136,7 +130,6 @@ export default function EmployeeManagement() {
         `http://localhost:3000/employee/update/${payload.uuid}`
       : `http://localhost:3000/employee/create`;
 
-    // 2. Log exactly what we are sending to compare with the Zod schema
     console.log("Sending Payload:", JSON.stringify(payload, null, 2));
 
     try {
