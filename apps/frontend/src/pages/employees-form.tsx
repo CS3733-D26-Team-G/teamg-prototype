@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
-import { EmployeeCreateInputObjectZodSchema } from "@repo/zod/schemas/objects/EmployeeCreateInput.schema.ts";
-import ManageEmployeeForm from "../components/Management/ManageEmployeeForm";
+import { EmployeeCreateInputObjectZodSchema } from "@repo/zod";
+import ManageEmployeeForm from "../components/Management/ManageEmployeeForm.tsx";
 
 const API_BASE = "http://localhost:3000";
 
