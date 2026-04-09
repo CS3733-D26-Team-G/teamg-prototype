@@ -7,7 +7,9 @@
     "esModuleInterop": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   },
   "include": ["index.ts"],
   "exclude": ["generated/**", "node_modules/**"]
