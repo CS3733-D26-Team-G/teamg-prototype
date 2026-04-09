@@ -8,6 +8,7 @@ import Activity from "./pages/activity.tsx";
 import Settings from "./pages/settings.tsx";
 import Profile from "./pages/profile.tsx";
 import LoginFrThisTime from "./pages/Login.tsx";
+import Hero from "./pages/hero.tsx";
 
 //import Navbar from "./components/Navbar.tsx";
 import ContentGrid from "./components/Management/EmployeeManagement.tsx";
@@ -35,7 +36,7 @@ function App() {
           <Routes>
             <Route
               path="/login"
-              element={<LoginFrThisTime />}
+              element={<Hero />}
             />
 
             <Route

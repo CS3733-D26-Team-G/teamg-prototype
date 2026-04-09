@@ -9,8 +9,8 @@ import Button from "@mui/material/Button";
 import "./EmployeeForm.css";
 
 interface ManageEmployeeFormProps {
-  // initialData: any; // Use your UserRow type here
-  // onSave: (updatedData: any) => void;
+  initialData: any; // Use your UserRow type here
+  onSave: (updatedData: any) => void;
   onCancel: () => void;
 }
 
