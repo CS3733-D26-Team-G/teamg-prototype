@@ -20,8 +20,7 @@ import ManageEmployeeForm from "./ManageEmployeeForm";
 import { DepartmentSchema } from "@repo/zod";
 import { EmployeeCreateInputObjectZodSchema } from "@repo/zod";
 import { PositionSchema } from "@repo/zod";
-
-const API_BASE = "http://localhost:3000";
+import { API_ENDPOINTS } from "../../config";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   flexDirection: "column",
@@ -31,10 +30,6 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   minHeight: 128,
 }));
 
-/**
- * The backend returns plain JSON, so date fields arrive as strings.
- * We coerce those into real Dates on ingest so CalendarInput works.
- */
 const EmployeeRowSchema = EmployeeCreateInputObjectZodSchema.extend({
   uuid: z.string(),
 });
@@ -53,7 +48,7 @@ export default function EmployeeManagement() {
   const loadEmployees = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${API_BASE}/employee`, {
+      const res = await fetch(API_ENDPOINTS.EMPLOYEE, {
         credentials: "include",
       });
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -99,10 +94,13 @@ export default function EmployeeManagement() {
       return;
 
     try {
-      const res = await fetch(`${API_BASE}/employee/delete/${row.uuid}`, {
-        method: "POST",
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${API_ENDPOINTS.EMPLOYEE_DELETE(row.uuid)}/employee/delete/${row.uuid}`,
+        {
+          method: "POST",
+          credentials: "include",
+        },
+      );
 
       if (res.ok) {
         setRows((prev) => prev.filter((r) => r.uuid !== row.uuid));
@@ -123,8 +121,6 @@ export default function EmployeeManagement() {
     const isExisting = viewState !== null && viewState !== "new";
     const uuid = isExisting ? (viewState as EmployeeRow).uuid : undefined;
 
-    // Create expects the full EmployeeCreate shape.
-    // Update expects the same shape but WITHOUT uuid in the body (uuid is in the URL).
     const parsedFull = EmployeeCreateInputObjectZodSchema.parse({
       ...formData,
       ...(uuid ? { uuid } : {}),
@@ -132,8 +128,8 @@ export default function EmployeeManagement() {
 
     const url =
       isExisting ?
-        `${API_BASE}/employee/update/${uuid as string}`
-      : `${API_BASE}/employee/create`;
+        API_ENDPOINTS.EMPLOYEE_UPDATE(uuid as string)
+      : API_ENDPOINTS.EMPLOYEE_CREATE;
 
     const body =
       isExisting ?

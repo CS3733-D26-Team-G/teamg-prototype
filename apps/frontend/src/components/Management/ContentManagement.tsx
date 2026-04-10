@@ -20,6 +20,7 @@ import {
   type ContentInputType,
 } from "@repo/zod/schemas/variants/input/Content.input.ts";
 import type { ContentPureType } from "@repo/zod";
+import { API_ENDPOINTS } from "../../config";
 
 interface ContentManagementProps {
   viewState: ContentPureType | "new" | null;
@@ -56,7 +57,7 @@ export default function ContentManagement({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3000/content", {
+        const res = await fetch(API_ENDPOINTS.CONTENT, {
           credentials: "include",
         });
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -76,7 +77,7 @@ export default function ContentManagement({
     const { uuid } = row;
 
     try {
-      const res = await fetch(`http://localhost:3000/content/delete/${uuid}`, {
+      const res = await fetch(API_ENDPOINTS.CONTENT_DELETE(row.uuid), {
         method: "POST",
         credentials: "include",
       });
@@ -105,8 +106,8 @@ export default function ContentManagement({
 
     const url =
       isExisting ?
-        `http://localhost:3000/content/edit/${uuid}`
-      : `http://localhost:3000/content/create`;
+        API_ENDPOINTS.CONTENT_EDIT(uuid)
+      : API_ENDPOINTS.CONTENT_CREATE;
 
     try {
       const res = await fetch(url, {
