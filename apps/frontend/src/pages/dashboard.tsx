@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DashboardRecentActivity from "./DashboardComponents/DashboardRecentActivity";
 import SearchBar from "./DashboardComponents/SearchBar";
-import "./DashboardComponents/dashboard.css";
+//import "./DashboardComponents/dashboard.css";
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");

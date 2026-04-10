@@ -16,7 +16,7 @@ import {
   type EmployeePureType,
 } from "@repo/zod";
 import { uuid } from "zod";
-import "./EmployeeForm.css";
+//import "./EmployeeForm.css";
 
 interface ManageEmployeeFormProps {
   initialData: EmployeePureType | null; // Null means "New Employee"

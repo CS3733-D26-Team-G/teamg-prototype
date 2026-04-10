@@ -1,4 +1,4 @@
-import ContentForm from "../components/Management/ContentForm";
+//import ContentForm from "../components/Management/ContentForm";
 
 function ContentFormPage() {
   return <>{/* <ContentForm></ContentForm> */}</>;

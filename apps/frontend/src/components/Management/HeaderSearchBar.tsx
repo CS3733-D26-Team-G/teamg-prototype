@@ -2,7 +2,7 @@ import { useState, type ChangeEvent } from "react";
 import { TextField, IconButton, formGroupClasses } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
-import "./ContentHeader.css";
+//import "./ContentHeader.css";
 
 interface SearchBarProps {
   setSearchQuery: (query: string) => void;
