@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { Heart } from "lucide-react";
 import ContentForm from "./ContentForm";
 import AddIcon from "@mui/icons-material/Add";
 import HeaderSearchBar from "./HeaderSearchBar";
@@ -45,7 +46,6 @@ export default function ContentManagement({
   const filteredRows = rows.filter((row) => {
     if (!searchQuery.trim()) return true;
 
-    // Checks if the search string exists in Title, URL, or Owner
     const targetFields = [row.title, row.url, row.content_owner];
     return targetFields.some((field) =>
       field?.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -92,6 +92,25 @@ export default function ContentManagement({
     }
   };
 
+  const toggleFavorite = async (formData: ContentInputType) => {
+    try {
+      const res = await fetch("http://localhost:3000/content/favorite", {
+        method: "PATCH",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (res.ok) {
+        const updatedRow = await res.json();
+        setRows((prevRows) =>
+          prevRows.map((r) => (r.uuid === updatedRow.uuid ? updatedRow : r)),
+        );
+      }
+    } catch (error) {
+      console.error("Failed to toggle favorite:", error);
+    }
+  };
+
   const handleSave = async (formData: ContentInputType) => {
     const isExisting = viewState !== "new" && viewState !== null;
     const uuid =
@@ -111,7 +130,7 @@ export default function ContentManagement({
       const res = await fetch(url, {
         method: isExisting ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include", // Remembered!
+        credentials: "include",
         body: JSON.stringify(
           isExisting ?
             (() => {
@@ -123,14 +142,12 @@ export default function ContentManagement({
       });
 
       if (res.ok) {
-        // 1. Refresh the list to show new/edited content
         const refreshRes = await fetch("http://localhost:3000/content", {
           credentials: "include",
         });
         const updatedData = await refreshRes.json();
         setRows(updatedData);
 
-        // 2. Switch back to the DataGrid view
         setViewState(null);
       } else {
         const errorData = await res.json().catch(() => ({}));
@@ -145,6 +162,22 @@ export default function ContentManagement({
     _onEdit: (row: ContentPureType) => void,
     onDelete: (row: ContentPureType) => void,
   ): GridColDef[] => [
+    {
+      field: "favorite",
+      headerName: "Favorite",
+      width: 60,
+      renderCell: (params) => (
+        <>
+          <IconButton onClick={() => toggleFavorite(params.row)}>
+            <Heart
+              size={20}
+              fill={params.row.id_favorite ? "ff4d4f" : "none"}
+              color={params.row.isfavorite ? "ff4d4f" : "#e50000"}
+            ></Heart>
+          </IconButton>
+        </>
+      ),
+    },
     { field: "title", headerName: "Title", flex: 1 },
     { field: "url", headerName: "URL", flex: 1 },
     { field: "content_owner", headerName: "Content Owner", flex: 1 },
