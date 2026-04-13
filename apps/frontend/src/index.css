@@ -110,7 +110,11 @@ code {
   background: var(--code-bg);
 } */
 
-body {
-  overflow: hidden;
-  margin: 0;
-}
+/*body {*/
+/*  overflow: hidden;*/
+/*  margin: 0;*/
+/*}*/
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
